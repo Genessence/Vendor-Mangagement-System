@@ -9,21 +9,11 @@ const CompanyUserLogin = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    // Check if user is already logged in
-    const user = localStorage.getItem('vendorHubUser');
-    if (user) {
-      const userData = JSON.parse(user);
-      const loginTime = new Date(userData.loginTime);
-      const currentTime = new Date();
-      const timeDiff = (currentTime - loginTime) / (1000 * 60); // minutes
-      
-      // Auto-logout after 30 minutes if not "remember me"
-      if (!userData.rememberMe && timeDiff > 30) {
-        localStorage.removeItem('vendorHubUser');
-      } else {
-        // Redirect to dashboard if still valid session
-        navigate('/dashboard-overview');
-      }
+    // Check if user is already logged in with JWT token
+    const accessToken = localStorage.getItem('access_token');
+    if (accessToken) {
+      // Redirect to dashboard if token exists
+      navigate('/dashboard-overview');
     }
   }, [navigate]);
 

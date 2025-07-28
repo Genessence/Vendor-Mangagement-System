@@ -28,10 +28,20 @@ class UserLogin(BaseModel):
     password: str
 
 
+class UserInfo(BaseModel):
+    id: int
+    email: str
+    username: str
+    full_name: str
+    role: Optional[str] = None
+    is_active: bool
+
+
 class Token(BaseModel):
     access_token: str
     token_type: str
     expires_in: int
+    user: UserInfo
 
 
 class UserResponse(UserBase):

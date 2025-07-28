@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useAuth } from '../../../contexts/AuthContext';
 import Button from '../../../components/ui/Button';
 import Input from '../../../components/ui/Input';
 import { Checkbox } from '../../../components/ui/Checkbox';
@@ -7,6 +8,7 @@ import Icon from '../../../components/AppIcon';
 
 const LoginForm = () => {
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -16,21 +18,12 @@ const LoginForm = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
-  // Mock credentials for different user roles
-  const mockCredentials = [
-    { email: 'admin@amberenterprises.com', password: 'Admin@123', role: 'Admin' },
-    { email: 'approver@amberenterprises.com', password: 'Approver@123', role: 'Approver' },
-    { email: 'viewer@amberenterprises.com', password: 'Viewer@123', role: 'Viewer' }
-  ];
-
   const handleInputChange = (e) => {
     const { name, value, type, checked } = e.target;
     setFormData(prev => ({
       ...prev,
       [name]: type === 'checkbox' ? checked : value
     }));
-    
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors(prev => ({ ...prev, [name]: '' }));
     }
@@ -38,55 +31,42 @@ const LoginForm = () => {
 
   const validateForm = () => {
     const newErrors = {};
-    
     if (!formData.email) {
       newErrors.email = 'Email address is required';
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
       newErrors.email = 'Please enter a valid email address';
     }
-    
     if (!formData.password) {
       newErrors.password = 'Password is required';
     } else if (formData.password.length < 6) {
       newErrors.password = 'Password must be at least 6 characters';
     }
-    
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    
     if (!validateForm()) return;
-    
     setIsLoading(true);
     
-    // Simulate API call delay
-    setTimeout(() => {
-      const user = mockCredentials.find(
-        cred => cred.email === formData.email && cred.password === formData.password
-      );
-      
-      if (user) {
-        // Store user session
-        localStorage.setItem('vendorHubUser', JSON.stringify({
-          email: user.email,
-          role: user.role,
-          loginTime: new Date().toISOString(),
-          rememberMe: formData.rememberMe
-        }));
-        
-        // Navigate to dashboard
-        navigate('/dashboard-overview');
+    const result = await login(formData.email, formData.password);
+    
+    if (result.success) {
+      // Optionally, store rememberMe flag
+      if (formData.rememberMe) {
+        localStorage.setItem('rememberMe', 'true');
       } else {
-        setErrors({
-          general: `Invalid credentials. Please use valid email and password.\nDemo credentials:\n• Admin: admin@amberenterprises.com / Admin@123\n• Approver: approver@amberenterprises.com / Approver@123\n• Viewer: viewer@amberenterprises.com / Viewer@123`
-        });
+        localStorage.removeItem('rememberMe');
       }
-      
-      setIsLoading(false);
-    }, 1500);
+      // Redirect to dashboard
+      navigate('/dashboard-overview');
+    } else {
+      setErrors({
+        general: result.error || 'Invalid credentials or server error. Please try again.'
+      });
+    }
+    setIsLoading(false);
   };
 
   const handleForgotPassword = () => {
@@ -94,8 +74,6 @@ const LoginForm = () => {
       setErrors({ email: 'Please enter your email address first' });
       return;
     }
-    
-    // Simulate admin notification
     alert(`Password reset request sent to admin for: ${formData.email}\n\nAdmin will contact you within 24 hours with new credentials.`);
   };
 
@@ -104,58 +82,38 @@ const LoginForm = () => {
   };
 
   return (
-    <div className="w-full max-w-md mx-auto">
-      <form onSubmit={handleSubmit} className="space-y-6">
-        {/* General Error Message */}
+    <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md mx-auto">
+      <form onSubmit={handleSubmit}>
+        <div className="mb-6 flex flex-col items-center">
+          <Icon name="User" size={40} className="mb-2 text-primary" />
+          <h2 className="text-2xl font-bold mb-1">Sign in to VendorHub</h2>
+          <p className="text-text-secondary text-sm">Enter your credentials to access your account.</p>
+        </div>
         {errors.general && (
-          <div className="bg-error/10 border border-error/20 rounded-lg p-4">
-            <div className="flex items-start space-x-3">
-              <Icon name="AlertCircle" size={20} className="text-error mt-0.5 flex-shrink-0" />
-              <div className="text-sm text-error whitespace-pre-line">
-                {errors.general}
-              </div>
-            </div>
-          </div>
+          <div className="mb-4 text-red-600 text-sm whitespace-pre-line">{errors.general}</div>
         )}
-
-        {/* Email Field */}
-        <div>
-          <Input
-            label="Email Address"
-            type="email"
-            name="email"
-            placeholder="Enter your work email"
-            value={formData.email}
-            onChange={handleInputChange}
-            error={errors.email}
-            required
-            disabled={isLoading}
-          />
-        </div>
-
-        {/* Password Field */}
-        <div className="relative">
-          <Input
-            label="Password"
-            type={showPassword ? "text" : "password"}
-            name="password"
-            placeholder="Enter your password"
-            value={formData.password}
-            onChange={handleInputChange}
-            error={errors.password}
-            required
-            disabled={isLoading}
-          />
-          <button
-            type="button"
-            onClick={() => setShowPassword(!showPassword)}
-            className="absolute right-3 top-9 text-text-secondary hover:text-foreground transition-micro"
-            disabled={isLoading}
-          >
-            <Icon name={showPassword ? "EyeOff" : "Eye"} size={18} />
-          </button>
-        </div>
-
+        <Input
+          label="Email Address"
+          name="email"
+          type="email"
+          value={formData.email}
+          onChange={handleInputChange}
+          error={errors.email}
+          autoComplete="username"
+          disabled={isLoading}
+        />
+        <Input
+          label="Password"
+          name="password"
+          type={showPassword ? 'text' : 'password'}
+          value={formData.password}
+          onChange={handleInputChange}
+          error={errors.password}
+          autoComplete="current-password"
+          disabled={isLoading}
+          iconName={showPassword ? 'EyeOff' : 'Eye'}
+          onIconClick={() => setShowPassword(prev => !prev)}
+        />
         {/* Remember Me & Forgot Password */}
         <div className="flex items-center justify-between">
           <Checkbox
@@ -165,7 +123,6 @@ const LoginForm = () => {
             onChange={handleInputChange}
             disabled={isLoading}
           />
-          
           <button
             type="button"
             onClick={handleForgotPassword}
@@ -175,7 +132,6 @@ const LoginForm = () => {
             Forgot password?
           </button>
         </div>
-
         {/* Sign In Button */}
         <Button
           type="submit"
@@ -188,7 +144,6 @@ const LoginForm = () => {
         >
           {isLoading ? 'Signing In...' : 'Sign In'}
         </Button>
-
         {/* Admin Contact Info */}
         <div className="text-center pt-4 border-t border-border">
           <p className="text-sm text-text-secondary mb-3">

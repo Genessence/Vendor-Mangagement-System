@@ -1,19 +1,15 @@
 import React, { useState } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { useAuth } from '../../contexts/AuthContext';
 import Icon from '../AppIcon';
 import Button from './Button';
 
 const Header = () => {
   const location = useLocation();
+  const navigate = useNavigate();
+  const { user, logout } = useAuth();
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
-
-  // Mock user data - in real app this would come from auth context
-  const user = {
-    name: 'Sarah Johnson',
-    role: 'Procurement Manager',
-    email: 'sarah.johnson@company.com'
-  };
 
   const navigationItems = [
     { label: 'Dashboard', path: '/dashboard-overview', icon: 'LayoutDashboard' },
@@ -26,8 +22,9 @@ const Header = () => {
   };
 
   const handleLogout = () => {
-    // Handle logout logic
-    console.log('Logging out...');
+    logout();
+    navigate('/company-user-login');
+    setIsUserMenuOpen(false);
   };
 
   return (
@@ -75,8 +72,8 @@ const Header = () => {
                 <Icon name="User" size={16} color="white" />
               </div>
               <div className="hidden lg:block text-left">
-                <div className="text-sm font-medium text-foreground">{user.name}</div>
-                <div className="text-xs text-text-secondary">{user.role}</div>
+                <div className="text-sm font-medium text-foreground">{user?.name || 'User'}</div>
+                <div className="text-xs text-text-secondary">{user?.role || 'Loading...'}</div>
               </div>
               <Icon name="ChevronDown" size={16} className="text-text-secondary" />
             </Button>
@@ -85,9 +82,9 @@ const Header = () => {
             {isUserMenuOpen && (
               <div className="absolute right-0 mt-2 w-64 bg-popover border border-border rounded-lg shadow-medium z-150">
                 <div className="p-4 border-b border-border">
-                  <div className="text-sm font-medium text-popover-foreground">{user.name}</div>
-                  <div className="text-xs text-text-secondary">{user.email}</div>
-                  <div className="text-xs text-accent font-medium mt-1">{user.role}</div>
+                  <div className="text-sm font-medium text-popover-foreground">{user?.name || 'User'}</div>
+                  <div className="text-xs text-text-secondary">{user?.email || 'Loading...'}</div>
+                  <div className="text-xs text-accent font-medium mt-1">{user?.role || 'Loading...'}</div>
                 </div>
                 <div className="p-2">
                   <button

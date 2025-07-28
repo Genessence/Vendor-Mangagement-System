@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  # PostgreSQL Database
+  postgres:
+    image: postgres:15-alpine
+    container_name: vendorhub_postgres
+    environment:
+      POSTGRES_DB: vendorhub
+      POSTGRES_USER: vendorhub_user
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+    restart: unless-stopped
+    networks:
+      - vendorhub_network
+
+  # FastAPI Backend
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    container_name: vendorhub_backend
+    environment:
+      - DATABASE_URL=postgresql://vendorhub_user:${POSTGRES_PASSWORD}@postgres:5432/vendorhub
+      - SECRET_KEY=${SECRET_KEY}
+      - ALGORITHM=HS256
+      - ACCESS_TOKEN_EXPIRE_MINUTES=30
+      - DEBUG=False
+      - ALLOWED_HOSTS=localhost,127.0.0.1,${DOMAIN}
+      - CORS_ORIGINS=https://${DOMAIN},http://localhost:3000
+    ports:
+      - "8000:8000"
+    depends_on:
+      - postgres
+    restart: unless-stopped
+    networks:
+      - vendorhub_network
+    volumes:
+      - ./backend/uploads:/app/uploads
+
+  # Nginx Reverse Proxy
+  nginx:
+    image: nginx:alpine
+    container_name: vendorhub_nginx
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+      - ./nginx/ssl:/etc/nginx/ssl
+      - ./vendorhub/dist:/usr/share/nginx/html
+    depends_on:
+      - backend
+    restart: unless-stopped
+    networks:
+      - vendorhub_network
+
+volumes:
+  postgres_data:
+
+networks:
+  vendorhub_network:
+    driver: bridge 

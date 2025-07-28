@@ -58,7 +58,11 @@
   "scripts": {
     "start": "vite",
     "build": "vite build --sourcemap",
-    "serve": "vite preview"
+    "build:prod": "vite build --mode production",
+    "serve": "vite preview",
+    "preview": "vite preview --port 4173",
+    "lint": "eslint src --ext .js,.jsx,.ts,.tsx",
+    "lint:fix": "eslint src --ext .js,.jsx,.ts,.tsx --fix"
   },
   "eslintConfig": {
     "extends": [
