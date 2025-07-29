@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Amber Compliance System - Services Portal</title>
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 20px;
+      }
+
+      .container {
+        background: white;
+        border-radius: 20px;
+        box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+        padding: 60px 40px;
+        text-align: center;
+        max-width: 800px;
+        width: 100%;
+      }
+
+      .logo {
+        margin-bottom: 40px;
+      }
+
+      .logo h1 {
+        color: #333;
+        font-size: 2.5rem;
+        font-weight: 700;
+        margin-bottom: 10px;
+      }
+
+      .logo p {
+        color: #666;
+        font-size: 1.1rem;
+        font-weight: 300;
+      }
+
+      .services-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+        margin-top: 50px;
+      }
+
+      .service-card {
+        background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        border-radius: 15px;
+        padding: 40px 30px;
+        text-align: center;
+        transition: all 0.3s ease;
+        cursor: pointer;
+        border: 2px solid transparent;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .service-card:hover {
+        transform: translateY(-10px);
+        box-shadow: 0 15px 30px rgba(0, 0, 0, 0.2);
+        border-color: #667eea;
+      }
+
+      .service-card.msme {
+        background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+      }
+
+      .service-card.vendor {
+        background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+      }
+
+      .service-icon {
+        width: 80px;
+        height: 80px;
+        margin: 0 auto 20px;
+        background: white;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 2rem;
+        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+      }
+
+      .service-card.msme .service-icon {
+        color: #ff6b35;
+      }
+
+      .service-card.vendor .service-icon {
+        color: #4ecdc4;
+      }
+
+      .service-title {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #333;
+        margin-bottom: 15px;
+      }
+
+      .service-description {
+        color: #666;
+        line-height: 1.6;
+        margin-bottom: 25px;
+      }
+
+      .service-button {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        border: none;
+        padding: 12px 30px;
+        border-radius: 25px;
+        font-size: 1rem;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.3s ease;
+        text-decoration: none;
+        display: inline-block;
+      }
+
+      .service-button:hover {
+        transform: scale(1.05);
+        box-shadow: 0 10px 20px rgba(102, 126, 234, 0.3);
+      }
+
+      .service-card.msme .service-button {
+        background: linear-gradient(135deg, #ff6b35 0%, #f7931e 100%);
+      }
+
+      .service-card.vendor .service-button {
+        background: linear-gradient(135deg, #4ecdc4 0%, #44a08d 100%);
+      }
+
+      .footer {
+        margin-top: 50px;
+        padding-top: 30px;
+        border-top: 1px solid #eee;
+        color: #999;
+        font-size: 0.9rem;
+      }
+
+      .status-indicator {
+        display: inline-block;
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        margin-right: 8px;
+      }
+
+      .status-online {
+        background: #4caf50;
+        animation: pulse 2s infinite;
+      }
+
+      @keyframes pulse {
+        0% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.5;
+        }
+        100% {
+          opacity: 1;
+        }
+      }
+
+      @media (max-width: 768px) {
+        .container {
+          padding: 40px 20px;
+        }
+
+        .logo h1 {
+          font-size: 2rem;
+        }
+
+        .services-grid {
+          grid-template-columns: 1fr;
+          gap: 20px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="logo">
+        <h1>Amber Compliance System</h1>
+        <p>Comprehensive Business Solutions Portal</p>
+      </div>
+
+      <div class="services-grid">
+        <div
+          class="service-card msme"
+          onclick="window.location.href='https://msme.ambercompliancesystem.com'"
+        >
+          <div class="service-icon">🏢</div>
+          <h3 class="service-title">MSME Services</h3>
+          <p class="service-description">
+            Access our comprehensive MSME compliance and registration services.
+            Streamline your business registration and compliance processes.
+          </p>
+          <a
+            href="https://msme.ambercompliancesystem.com"
+            class="service-button"
+          >
+            <span class="status-indicator status-online"></span>
+            Access MSME Portal
+          </a>
+        </div>
+
+        <div
+          class="service-card vendor"
+          onclick="window.location.href='https://vendor.ambercompliancesystem.com'"
+        >
+          <div class="service-icon">👥</div>
+          <h3 class="service-title">Vendor Management</h3>
+          <p class="service-description">
+            Manage your vendor relationships, approvals, and compliance
+            tracking. Streamline vendor onboarding and lifecycle management.
+          </p>
+          <a
+            href="https://vendor.ambercompliancesystem.com"
+            class="service-button"
+          >
+            <span class="status-indicator status-online"></span>
+            Access Vendor Portal
+          </a>
+        </div>
+      </div>
+
+      <div class="footer">
+        <p>&copy; 2024 Amber Compliance System. All rights reserved.</p>
+        <p>For support, contact: support@ambercompliancesystem.com</p>
+      </div>
+    </div>
+
+    <script>
+      // Add loading animation and status checks
+      document.addEventListener("DOMContentLoaded", function () {
+        // Check service availability
+        checkServiceStatus();
+      });
+
+      function checkServiceStatus() {
+        // Check MSME service status
+        fetch("https://msme.ambercompliancesystem.com/health", {
+          mode: "no-cors",
+        })
+          .then(() => {
+            console.log("MSME service is online");
+          })
+          .catch(() => {
+            console.log("MSME service is offline");
+          });
+
+        // Check Vendor service status
+        fetch("https://vendor.ambercompliancesystem.com/health", {
+          mode: "no-cors",
+        })
+          .then(() => {
+            console.log("Vendor service is online");
+          })
+          .catch(() => {
+            console.log("Vendor service is offline");
+          });
+      }
+    </script>
+  </body>
+</html>

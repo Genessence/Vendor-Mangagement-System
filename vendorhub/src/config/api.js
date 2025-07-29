@@ -5,9 +5,8 @@ const API_CONFIG = {
     timeout: 10000,
   },
   production: {
-    // For single domain: https://yourdomain.com/api/v1
-    // For separate domains: https://api.yourdomain.com/api/v1
-    baseURL: process.env.VITE_API_BASE_URL || 'https://yourdomain.com/api/v1',
+    // For Amber Compliance System: https://vendor.ambercompliancesystem.com/api/v1
+    baseURL: process.env.VITE_API_BASE_URL || 'https://vendor.ambercompliancesystem.com/api/v1',
     timeout: 15000,
   }
 };

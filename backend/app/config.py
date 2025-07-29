@@ -23,11 +23,11 @@ class Settings(BaseSettings):
         "http://127.0.0.1:4173",
         "http://localhost:8080",
         "http://127.0.0.1:8080",
-        # Production - Update these with your actual domains
-        "https://yourdomain.com",
-        "https://www.yourdomain.com",
-        "https://app.yourdomain.com",
-        "https://api.yourdomain.com"
+        # Production - Amber Compliance System domains
+        "https://ambercompliancesystem.com",
+        "https://www.ambercompliancesystem.com",
+        "https://vendor.ambercompliancesystem.com",
+        "https://msme.ambercompliancesystem.com"
     ]
     
     # Email
