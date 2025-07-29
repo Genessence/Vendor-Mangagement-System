@@ -5,7 +5,9 @@ const API_CONFIG = {
     timeout: 10000,
   },
   production: {
-    baseURL: process.env.VITE_API_BASE_URL || 'https://your-backend-domain.com/api/v1',
+    // For single domain: https://yourdomain.com/api/v1
+    // For separate domains: https://api.yourdomain.com/api/v1
+    baseURL: process.env.VITE_API_BASE_URL || 'https://yourdomain.com/api/v1',
     timeout: 15000,
   }
 };

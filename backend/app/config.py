@@ -15,7 +15,20 @@ class Settings(BaseSettings):
     # Application
     debug: bool = True
     allowed_hosts: List[str] = ["localhost", "127.0.0.1"]
-    cors_origins: List[str] = ["http://localhost:3000", "http://localhost:5173"]
+    cors_origins: List[str] = [
+        # Development
+        "http://localhost:3000", 
+        "http://localhost:5173", 
+        "http://localhost:4173", 
+        "http://127.0.0.1:4173",
+        "http://localhost:8080",
+        "http://127.0.0.1:8080",
+        # Production - Update these with your actual domains
+        "https://yourdomain.com",
+        "https://www.yourdomain.com",
+        "https://app.yourdomain.com",
+        "https://api.yourdomain.com"
+    ]
     
     # Email
     smtp_host: str = "smtp.gmail.com"
