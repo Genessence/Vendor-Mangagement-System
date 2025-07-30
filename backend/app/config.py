@@ -27,7 +27,10 @@ class Settings(BaseSettings):
         "https://ambercompliancesystem.com",
         "https://www.ambercompliancesystem.com",
         "https://vendor.ambercompliancesystem.com",
-        "https://msme.ambercompliancesystem.com"
+        "https://msme.ambercompliancesystem.com",
+        # Add any additional development URLs
+        "http://localhost:*",
+        "http://127.0.0.1:*"
     ]
     
     # Email

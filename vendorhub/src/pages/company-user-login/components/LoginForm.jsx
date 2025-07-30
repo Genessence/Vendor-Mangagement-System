@@ -47,12 +47,21 @@ const LoginForm = () => {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!validateForm()) return;
+    console.log('Form submitted!', formData);
+    
+    if (!validateForm()) {
+      console.log('Form validation failed');
+      return;
+    }
+    
+    console.log('Form validation passed, attempting login...');
     setIsLoading(true);
     
     const result = await login(formData.email, formData.password);
+    console.log('Login result:', result);
     
     if (result.success) {
+      console.log('Login successful, redirecting...');
       // Optionally, store rememberMe flag
       if (formData.rememberMe) {
         localStorage.setItem('rememberMe', 'true');
@@ -62,6 +71,7 @@ const LoginForm = () => {
       // Redirect to dashboard
       navigate('/dashboard-overview');
     } else {
+      console.log('Login failed:', result.error);
       setErrors({
         general: result.error || 'Invalid credentials or server error. Please try again.'
       });

@@ -45,11 +45,24 @@ export const AuthProvider = ({ children }) => {
   }, [token]);
 
   const login = async (email, password) => {
+    console.log('AuthContext login called with:', { email, password });
+    console.log('API_BASE_URL:', API_BASE_URL);
+    
     try {
-      const response = await axios.post(`${API_BASE_URL}/auth/login`, {
-        email,
-        password
+      // Create form data
+      const formData = new FormData();
+      formData.append('email', email);
+      formData.append('password', password);
+      
+      console.log('Sending request to:', `${API_BASE_URL}/auth/login`);
+      
+      const response = await axios.post(`${API_BASE_URL}/auth/login`, formData, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded',
+        },
       });
+      
+      console.log('Response received:', response.data);
       
       const { access_token, user: userData } = response.data;
       
@@ -60,6 +73,7 @@ export const AuthProvider = ({ children }) => {
       return { success: true };
     } catch (error) {
       console.error('Login failed:', error);
+      console.error('Error response:', error.response);
       return { 
         success: false, 
         error: error.response?.data?.detail || 'Login failed' 

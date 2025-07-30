@@ -1,5 +1,5 @@
-from datetime import timedelta
-from fastapi import APIRouter, Depends, HTTPException, status
+from datetime import timedelta, datetime
+from fastapi import APIRouter, Depends, HTTPException, status, Form
 from fastapi.security import OAuth2PasswordRequestForm
 from sqlalchemy.orm import Session
 from ..database import get_db
@@ -16,11 +16,12 @@ router = APIRouter(prefix="/auth", tags=["authentication"])
 
 @router.post("/login", response_model=Token)
 async def login(
-    form_data: OAuth2PasswordRequestForm = Depends(),
+    email: str = Form(...),
+    password: str = Form(...),
     db: Session = Depends(get_db)
 ):
     """Login endpoint for user authentication"""
-    user = authenticate_user(db, form_data.username, form_data.password)
+    user = authenticate_user(db, email, password)
     if not user:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
@@ -39,8 +40,8 @@ async def login(
         data={"sub": str(user.id)}, expires_delta=access_token_expires
     )
     
-    # Update last login
-    user.last_login = timedelta()
+    # Update last login with current timestamp
+    user.last_login = datetime.now()
     db.commit()
     
     return {
