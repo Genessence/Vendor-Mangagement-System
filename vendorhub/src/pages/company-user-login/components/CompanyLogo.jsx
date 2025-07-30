@@ -6,9 +6,7 @@ const CompanyLogo = () => {
     <div className="text-center mb-8">
       {/* Company Logo */}
       <div className="flex justify-center mb-4">
-        <div className="w-16 h-16 bg-primary rounded-2xl flex items-center justify-center shadow-medium">
-          <Icon name="Building2" size={32} color="white" />
-        </div>
+        <img src="/assets/images/amber_logo.png" alt="Amber Logo" className="h-20 w-auto" style={{maxWidth: '120px'}} />
       </div>
       
       {/* Company Name & System Title */}

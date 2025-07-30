@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
 
 const VendorHeader = ({ vendor, onEdit, onStatusChange, userRole }) => {
+  const [showExportDropdown, setShowExportDropdown] = useState(false);
+
   const getStatusColor = (status) => {
     switch (status.toLowerCase()) {
       case 'active':
@@ -15,6 +17,134 @@ const VendorHeader = ({ vendor, onEdit, onStatusChange, userRole }) => {
         return 'bg-destructive text-destructive-foreground';
       default:
         return 'bg-secondary text-secondary-foreground';
+    }
+  };
+
+  // Export functionality
+  const handleExportData = async (format) => {
+    try {
+      setShowExportDropdown(false);
+      
+      let endpoint = '';
+      let filename = '';
+      
+      if (format === 'pdf') {
+        endpoint = `http://localhost:8000/api/v1/vendors/${vendor.id}/export/pdf`;
+        filename = `vendor_${vendor.vendorCode}_export_${new Date().toISOString().split('T')[0]}.pdf`;
+      } else if (format === 'excel') {
+        endpoint = `http://localhost:8000/api/v1/vendors/${vendor.id}/export/excel`;
+        filename = `vendor_${vendor.vendorCode}_export_${new Date().toISOString().split('T')[0]}.xlsx`;
+      }
+
+      // Call backend API to generate file
+      const response = await fetch(endpoint, {
+        method: 'GET',
+        headers: {
+          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+          'Content-Type': 'application/json',
+        },
+      });
+
+      if (!response.ok) {
+        throw new Error(`Export failed: ${response.status} ${response.statusText}`);
+      }
+
+      // Get the file blob
+      const fileBlob = await response.blob();
+      
+      // Create download link
+      const url = URL.createObjectURL(fileBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      
+      // Get filename from response headers or use default
+      const contentDisposition = response.headers.get('Content-Disposition');
+      if (contentDisposition) {
+        const filenameMatch = contentDisposition.match(/filename="(.+)"/);
+        if (filenameMatch) {
+          filename = filenameMatch[1];
+        }
+      }
+      
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      URL.revokeObjectURL(url);
+
+      // Show success message (you can replace this with a toast notification)
+      console.log(`${format.toUpperCase()} export completed successfully`);
+      
+    } catch (error) {
+      console.error('Export failed:', error);
+      
+      // Fallback to JSON export if backend export fails
+      try {
+        console.log('Falling back to JSON export...');
+        const exportData = {
+          vendorInfo: {
+            id: vendor.id,
+            vendorCode: vendor.vendorCode,
+            companyName: vendor.companyName,
+            legalName: vendor.legalName,
+            status: vendor.status,
+            email: vendor.email,
+            phone: vendor.phone,
+            alternativePhone: vendor.alternativePhone,
+            city: vendor.city,
+            state: vendor.state,
+            country: vendor.country,
+            postalCode: vendor.postalCode,
+            registrationDate: vendor.registrationDate,
+            category: vendor.category,
+            businessType: vendor.businessType,
+            industry: vendor.industry,
+            subIndustry: vendor.subIndustry,
+            yearEstablished: vendor.yearEstablished,
+            panNumber: vendor.panNumber,
+            gstNumber: vendor.gstNumber,
+            cinNumber: vendor.cinNumber,
+            msmeNumber: vendor.msmeNumber,
+            natureOfAssessee: vendor.natureOfAssessee,
+            registeredAddress: vendor.registeredAddress,
+            supplyAddress: vendor.supplyAddress,
+            employeeCount: vendor.employeeCount,
+            annualRevenue: vendor.annualRevenue,
+            businessVertical: vendor.businessVertical,
+            supplierCategory: vendor.supplierCategory,
+            supplierType: vendor.supplierType,
+            currencyCode: vendor.currencyCode,
+            msmeStatus: vendor.msmeStatus,
+            contactPerson: vendor.contactPerson,
+            designation: vendor.designation,
+            website: vendor.website,
+            linkedin: vendor.linkedin,
+            creditRating: vendor.creditRating,
+            paymentTerms: vendor.paymentTerms,
+            deliveryTerms: vendor.deliveryTerms,
+            qualityRating: vendor.qualityRating
+          },
+          exportDate: new Date().toISOString(),
+          exportedBy: userRole
+        };
+
+        // Create and download JSON file
+        const dataStr = JSON.stringify(exportData, null, 2);
+        const dataBlob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `${vendor.vendorCode}_${vendor.companyName.replace(/[^a-zA-Z0-9]/g, '_')}_export_${new Date().toISOString().split('T')[0]}.json`;
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        URL.revokeObjectURL(url);
+        
+        console.log('JSON export completed successfully');
+      } catch (jsonError) {
+        console.error('JSON export also failed:', jsonError);
+        // Show error message (you can replace this with a toast notification)
+      }
     }
   };
 
@@ -94,16 +224,50 @@ const VendorHeader = ({ vendor, onEdit, onStatusChange, userRole }) => {
               </Button>
             </>
           )}
-          <Button
-            variant="ghost"
-            iconName="Download"
-            iconPosition="left"
-            className="w-full sm:w-auto"
-          >
-            Export Data
-          </Button>
+          
+          {/* Export Dropdown */}
+          <div className="relative">
+            <Button
+              variant="ghost"
+              iconName="Download"
+              iconPosition="left"
+              onClick={() => setShowExportDropdown(!showExportDropdown)}
+              className="w-full sm:w-auto"
+            >
+              Export Data
+            </Button>
+            
+            {showExportDropdown && (
+              <div className="absolute right-0 mt-2 w-48 bg-surface border border-border rounded-lg shadow-lg z-10">
+                <div className="py-1">
+                  <button
+                    onClick={() => handleExportData('pdf')}
+                    className="w-full px-4 py-2 text-left text-sm text-foreground hover:bg-accent hover:text-accent-foreground flex items-center space-x-2"
+                  >
+                    <Icon name="FileText" size={16} />
+                    <span>Export as PDF</span>
+                  </button>
+                  <button
+                    onClick={() => handleExportData('excel')}
+                    className="w-full px-4 py-2 text-left text-sm text-foreground hover:bg-accent hover:text-accent-foreground flex items-center space-x-2"
+                  >
+                    <Icon name="FileSpreadsheet" size={16} />
+                    <span>Export as Excel</span>
+                  </button>
+                </div>
+              </div>
+            )}
+          </div>
         </div>
       </div>
+      
+      {/* Click outside to close dropdown */}
+      {showExportDropdown && (
+        <div 
+          className="fixed inset-0 z-0" 
+          onClick={() => setShowExportDropdown(false)}
+        />
+      )}
     </div>
   );
 };

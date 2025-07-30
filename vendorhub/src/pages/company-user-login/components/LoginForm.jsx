@@ -83,9 +83,11 @@ const LoginForm = () => {
 
   return (
     <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-md mx-auto">
+      <div className="flex flex-col items-center mb-6">
+        <img src="/assets/images/amber_logo.png" alt="Amber Logo" className="h-14 w-auto mb-2" style={{maxWidth: '120px'}} />
+      </div>
       <form onSubmit={handleSubmit}>
         <div className="mb-6 flex flex-col items-center">
-          <Icon name="User" size={40} className="mb-2 text-primary" />
           <h2 className="text-2xl font-bold mb-1">Sign in to VendorHub</h2>
           <p className="text-text-secondary text-sm">Enter your credentials to access your account.</p>
         </div>

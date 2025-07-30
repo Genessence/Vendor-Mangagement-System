@@ -33,9 +33,7 @@ const Header = () => {
         {/* Logo */}
         <div className="flex items-center">
           <Link to="/dashboard-overview" className="flex items-center space-x-3">
-            <div className="w-8 h-8 bg-primary rounded-lg flex items-center justify-center">
-              <Icon name="Building2" size={20} color="white" />
-            </div>
+            <img src="/assets/images/amber_logo.png" alt="Amber Logo" className="h-8 w-auto mr-2" style={{maxWidth: '120px'}} />
             <span className="text-xl font-semibold text-foreground">VendorHub</span>
           </Link>
         </div>
