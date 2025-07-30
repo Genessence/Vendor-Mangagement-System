@@ -28,10 +28,6 @@ class Settings(BaseSettings):
         "https://www.ambercompliancesystem.com",
         "https://vendor.ambercompliancesystem.com",
         "https://msme.ambercompliancesystem.com",
-        # Render deployment domains
-        "https://*.onrender.com",
-        "https://vendor-management-system.onrender.com",
-        "https://vendor-hub.onrender.com",
         # Add any additional development URLs
         "http://localhost:*",
         "http://127.0.0.1:*"
