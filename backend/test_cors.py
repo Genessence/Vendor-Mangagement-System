@@ -2,6 +2,7 @@
 """
 Test script to verify CORS configuration
 """
+
 import requests
 import json
 
@@ -29,17 +30,17 @@ def test_cors():
         print(f"Preflight test failed: {e}")
         print()
     
-    # Test actual POST request
+    # Test actual POST request with form data
     print("Testing actual POST request...")
     try:
         response = requests.post(
             f"{backend_url}/api/v1/auth/login",
             headers={
                 "Origin": "http://localhost:4173",
-                "Content-Type": "application/json"
+                "Content-Type": "application/x-www-form-urlencoded"
             },
-            json={
-                "username": "admin@company.com",
+            data={
+                "email": "admin@example.com",
                 "password": "admin123"
             }
         )
@@ -47,10 +48,14 @@ def test_cors():
         print(f"Access-Control-Allow-Origin: {response.headers.get('Access-Control-Allow-Origin')}")
         if response.status_code == 200:
             print("✅ CORS is working correctly!")
+            print(f"Response: {response.json()}")
         else:
             print(f"Response: {response.text}")
     except Exception as e:
         print(f"POST test failed: {e}")
 
 if __name__ == "__main__":
-    test_cors() 
+    print("🚀 Testing CORS Configuration")
+    print("=" * 50)
+    test_cors()
+    print("=" * 50) 
