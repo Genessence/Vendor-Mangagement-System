@@ -6,7 +6,7 @@ const API_CONFIG = {
   },
   production: {
     // For Amber Compliance System: https://vendor.ambercompliancesystem.com/api/v1
-    baseURL: process.env.VITE_API_BASE_URL || 'https://vendor.ambercompliancesystem.com/api/v1',
+    baseURL: 'http://localhost:8000/api/v1' || 'https://vendor.ambercompliancesystem.com/api/v1',
     timeout: 15000,
   }
 };

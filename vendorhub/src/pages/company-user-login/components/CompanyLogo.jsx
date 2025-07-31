@@ -1,12 +1,13 @@
 import React from 'react';
 import Icon from '../../../components/AppIcon';
+import logo from "../../../../assets/images/amber-logo.png";
 
 const CompanyLogo = () => {
   return (
     <div className="text-center mb-8">
       {/* Company Logo */}
       <div className="flex justify-center mb-4">
-        <img src="/assets/images/amber_logo.png" alt="Amber Logo" className="h-20 w-auto" style={{maxWidth: '120px'}} />
+        <img src={logo} alt="Amber Logo" className="h-20 w-auto" style={{maxWidth: '180px'}} />
       </div>
       
       {/* Company Name & System Title */}
