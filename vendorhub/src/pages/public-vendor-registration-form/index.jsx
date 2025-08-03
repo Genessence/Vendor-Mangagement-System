@@ -12,6 +12,7 @@ import { validateStep, canProceedToNextStep } from './components/FormValidation'
 import Button from '../../components/ui/Button';
 import Icon from '../../components/AppIcon';
 import { API_BASE_URL } from '../../config/api';
+import { formatPhoneNumber } from '../../utils/phoneCodes';
 
 const PublicVendorRegistrationForm = () => {
   const navigate = useNavigate();
@@ -133,6 +134,11 @@ const PublicVendorRegistrationForm = () => {
         // Clear state fields when country changes (as states are country-specific)
         newFormData.registeredState = '';
         newFormData.supplyState = '';
+      }
+      
+      // Auto-format phone number when country origin changes
+      if (updates.countryOrigin && updates.countryOrigin !== prev.countryOrigin) {
+        newFormData.phoneNumber = formatPhoneNumber(updates.countryOrigin, newFormData.phoneNumber);
       }
       
       return newFormData;

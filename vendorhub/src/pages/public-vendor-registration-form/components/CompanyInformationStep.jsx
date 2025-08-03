@@ -2,6 +2,7 @@ import React, { useState, useMemo } from 'react';
 import Input from '../../../components/ui/Input';
 import Select from '../../../components/ui/Select';
 import { countries, filterCountries, getCountryByCode, isIndia } from '../../../utils/countries';
+import { getPhoneCode, getPhonePlaceholder } from '../../../utils/phoneCodes';
 
 const CompanyInformationStep = ({ formData, updateFormData, errors }) => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -34,6 +35,11 @@ const CompanyInformationStep = ({ formData, updateFormData, errors }) => {
       <div className="mb-8">
         <h2 className="text-2xl font-bold text-foreground mb-2">Company Information</h2>
         <p className="text-text-secondary">Please provide your company's basic information and contact details.</p>
+        <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-md">
+          <p className="text-sm text-blue-800">
+            <span className="font-medium">💡 Tip:</span> When you select a country, the phone number field will automatically be formatted with the appropriate country code.
+          </p>
+        </div>
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -216,11 +222,16 @@ const CompanyInformationStep = ({ formData, updateFormData, errors }) => {
         <Input
           label="Phone Number"
           type="tel"
-          placeholder="Enter phone number"
+          placeholder={getPhonePlaceholder(formData.countryOrigin)}
           value={formData.phoneNumber}
           onChange={(e) => handleInputChange('phoneNumber', e.target.value)}
           error={errors.phoneNumber}
           required
+          description={
+            formData.countryOrigin 
+              ? `Country code: ${getPhoneCode(formData.countryOrigin)}${formData.phoneNumber && formData.phoneNumber.startsWith(getPhoneCode(formData.countryOrigin)) ? ' ✓ Auto-formatted' : ''}`
+              : 'Select a country to see the phone code'
+          }
         />
 
         <Input
