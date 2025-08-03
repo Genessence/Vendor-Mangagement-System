@@ -130,6 +130,7 @@ class VendorCompliance(Base):
     credit_rating = Column(String, nullable=True)
     insurance_coverage = Column(String, nullable=True)
     special_certifications = Column(Text, nullable=True)
+    gta_registration = Column(String, nullable=True)  # 'yes' or 'no'
     created_at = Column(DateTime(timezone=True), server_default=func.now())
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     

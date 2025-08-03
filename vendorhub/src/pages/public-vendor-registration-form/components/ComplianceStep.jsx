@@ -123,6 +123,19 @@ const ComplianceStep = ({ formData, updateFormData, errors }) => {
               maxLength={10}
             />
 
+            <Select
+              label="GTA Registration"
+              description="Are you registered under Goods and Services Tax Act (GTA)?"
+              options={[
+                { value: 'yes', label: 'Yes' },
+                { value: 'no', label: 'No' }
+              ]}
+              value={formData.gtaRegistration}
+              onChange={(value) => handleInputChange('gtaRegistration', value)}
+              error={errors.gtaRegistration}
+              required
+            />
+
             <div className="md:col-span-2">
               <Input
                 label="Place of Supply"
@@ -160,6 +173,19 @@ const ComplianceStep = ({ formData, updateFormData, errors }) => {
               value={formData.businessLicense}
               onChange={(e) => handleInputChange('businessLicense', e.target.value)}
               error={errors.businessLicense}
+              required
+            />
+
+            <Select
+              label="GTA Registration"
+              description="Are you registered under Goods and Services Tax Act (GTA)?"
+              options={[
+                { value: 'yes', label: 'Yes' },
+                { value: 'no', label: 'No' }
+              ]}
+              value={formData.gtaRegistration}
+              onChange={(value) => handleInputChange('gtaRegistration', value)}
+              error={errors.gtaRegistration}
               required
             />
 

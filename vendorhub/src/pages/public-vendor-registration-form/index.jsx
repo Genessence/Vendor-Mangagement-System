@@ -93,6 +93,7 @@ const PublicVendorRegistrationForm = () => {
     creditRating: '',
     insuranceCoverage: '',
     specialCertifications: '',
+    gtaRegistration: '',
 
     // Agreements
     agreements: {

@@ -175,6 +175,7 @@ class VendorComplianceBase(BaseModel):
     credit_rating: Optional[str] = None
     insurance_coverage: Optional[str] = None
     special_certifications: Optional[str] = None
+    gta_registration: Optional[str] = None
 
 
 class VendorComplianceCreate(VendorComplianceBase):
@@ -195,6 +196,7 @@ class VendorComplianceUpdate(BaseModel):
     credit_rating: Optional[str] = None
     insurance_coverage: Optional[str] = None
     special_certifications: Optional[str] = None
+    gta_registration: Optional[str] = None
 
 
 class VendorComplianceResponse(VendorComplianceBase):

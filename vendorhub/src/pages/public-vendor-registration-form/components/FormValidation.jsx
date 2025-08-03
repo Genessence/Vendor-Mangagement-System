@@ -98,7 +98,7 @@ export const validateStep = (step, formData) => {
       if (!formData.preferredCurrency) errors.preferredCurrency = 'Preferred currency is required';
       if (!formData.taxRegistrationNumber) errors.taxRegistrationNumber = 'Tax registration number is required';
       
-      if (formData.registeredCountry === 'IN') {
+      if (isIndia(formData.countryOrigin)) {
         if (!formData.panNumber) errors.panNumber = 'PAN number is required';
         else if (!/^[A-Z]{5}[0-9]{4}[A-Z]{1}$/.test(formData.panNumber)) {
           errors.panNumber = 'Invalid PAN format';
@@ -112,6 +112,9 @@ export const validateStep = (step, formData) => {
       } else {
         if (!formData.businessLicense) errors.businessLicense = 'Business license is required';
       }
+      
+      // GTA Registration is required for both Indian and foreign vendors
+      if (!formData.gtaRegistration) errors.gtaRegistration = 'GTA registration status is required';
       break;
 
     case 6: // Agreements
