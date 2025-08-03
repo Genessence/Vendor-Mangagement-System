@@ -1,9 +1,12 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Select from '../../../components/ui/Select';
 import { Checkbox } from '../../../components/ui/Checkbox';
 import Input from '../../../components/ui/Input';
+import jsPDF from 'jspdf';
 
 const CategorizationStep = ({ formData, updateFormData, errors }) => {
+  const [showMSMEDeclaration, setShowMSMEDeclaration] = useState(false);
+
   const supplierTypes = [
     { value: 'manufacturer', label: 'Manufacturer' },
     { value: 'trader', label: 'Trader' },
@@ -12,22 +15,26 @@ const CategorizationStep = ({ formData, updateFormData, errors }) => {
     { value: 'consultant', label: 'Consultant' }
   ];
 
+  // Updated supplier groups as per requirements
   const supplierGroups = [
-    { value: 'raw-materials', label: 'Raw Materials' },
-    { value: 'components', label: 'Components & Parts' },
-    { value: 'finished-goods', label: 'Finished Goods' },
-    { value: 'services', label: 'Services' },
-    { value: 'machinery', label: 'Machinery & Equipment' },
-    { value: 'consumables', label: 'Consumables' },
-    { value: 'packaging', label: 'Packaging Materials' }
+    { value: 'oem-customer', label: 'OEM-Customer Referred Supplier' },
+    { value: 'odm-amber', label: 'ODM-Amber Developed Supplier' },
+    { value: 'other', label: 'Other' }
   ];
 
+  // Updated supplier categories as per requirements
   const supplierCategories = [
-    { value: 'critical', label: 'Critical Supplier' },
-    { value: 'strategic', label: 'Strategic Supplier' },
-    { value: 'preferred', label: 'Preferred Supplier' },
-    { value: 'approved', label: 'Approved Supplier' },
-    { value: 'standard', label: 'Standard Supplier' }
+    { value: 'rw', label: 'RW-Raw Material' },
+    { value: 'pk', label: 'PK-Packaging' },
+    { value: 'consumables', label: 'Consumables' },
+    { value: 'others', label: 'Others' }
+  ];
+
+  // MSME categories
+  const msmeCategories = [
+    { value: 'micro', label: 'Micro' },
+    { value: 'small', label: 'Small' },
+    { value: 'medium', label: 'Medium' }
   ];
 
   const handleInputChange = (field, value) => {
@@ -42,8 +49,65 @@ const CategorizationStep = ({ formData, updateFormData, errors }) => {
     updateFormData({ 
       msmeStatus: value,
       msmeDeclaration: false,
-      msmeCertificate: null
+      msmeCertificate: null,
+      msmeCategory: '',
+      msmeNumber: ''
     });
+  };
+
+  const generateMSMEDeclarationPDF = () => {
+    const currentDate = new Date();
+    const formattedDate = currentDate.toLocaleDateString('en-GB');
+    const formattedTime = currentDate.toLocaleTimeString('en-GB');
+
+    // Create new PDF document
+    const doc = new jsPDF();
+    
+    // Set font styles
+    doc.setFontSize(16);
+    doc.setFont('helvetica', 'bold');
+    
+    // Company name and contact person
+    doc.text(`${formData.contactPersonName} (${formData.companyName})`, 20, 30);
+    
+    // Title
+    doc.setFontSize(14);
+    doc.text('DECLARATION OF REGISTRATION IN NON MSME', 20, 50);
+    
+    // Reset font for body text
+    doc.setFontSize(12);
+    doc.setFont('helvetica', 'normal');
+    
+    // Declaration text
+    const declarationText = `This is to certify that our company ${formData.companyName} located at ${formData.registeredAddress}, ${formData.registeredCity}, ${formData.registeredState}, ${formData.registeredCountry} and now has not registered under Micro, Small, Medium enterprises (MSME) development Act 2006 as on date of declaration.`;
+    
+    // Split text to fit page width
+    const splitText = doc.splitTextToSize(declarationText, 170);
+    doc.text(splitText, 20, 70);
+    
+    // Signature section
+    doc.text('For and on behalf of', 20, 120);
+    doc.setFont('helvetica', 'bold');
+    doc.text(formData.contactPersonName, 20, 130);
+    doc.setFont('helvetica', 'normal');
+    doc.text('(Digitally Signed)', 20, 140);
+    
+    // Address
+    const addressText = `${formData.registeredAddress}, ${formData.registeredCity}, ${formData.registeredState}, ${formData.registeredCountry}`;
+    const splitAddress = doc.splitTextToSize(addressText, 170);
+    doc.text(splitAddress, 20, 150);
+    
+    // Footer with timestamp
+    doc.setFontSize(10);
+    doc.text(`Document has been digitally signed with acceptance on Amber Compliance System at ${formattedTime} on ${formattedDate}`, 20, 180);
+    
+    // Save the PDF
+    const fileName = `msme-declaration-${formData.companyName.replace(/\s+/g, '-').toLowerCase()}.pdf`;
+    doc.save(fileName);
+
+    // Update form to indicate declaration was generated
+    updateFormData({ msmeDeclaration: true });
+    setShowMSMEDeclaration(false);
   };
 
   return (
@@ -78,7 +142,7 @@ const CategorizationStep = ({ formData, updateFormData, errors }) => {
 
         <Select
           label="Supplier Category"
-          description="This will be assigned based on your business relationship"
+          description="Select the category that best describes your offerings"
           options={supplierCategories}
           value={formData.supplierCategory}
           onChange={(value) => handleInputChange('supplierCategory', value)}
@@ -131,10 +195,19 @@ const CategorizationStep = ({ formData, updateFormData, errors }) => {
 
           {formData.msmeStatus === 'registered' && (
             <div className="space-y-4">
+              <Select
+                label="MSME Category"
+                options={msmeCategories}
+                value={formData.msmeCategory}
+                onChange={(value) => handleInputChange('msmeCategory', value)}
+                error={errors.msmeCategory}
+                required
+              />
+
               <Input
-                label="MSME Registration Number"
+                label="UDYAM Registration Number"
                 type="text"
-                placeholder="Enter MSME registration number"
+                placeholder="Enter UDYAM registration number"
                 value={formData.msmeNumber}
                 onChange={(e) => handleInputChange('msmeNumber', e.target.value)}
                 error={errors.msmeNumber}
@@ -159,13 +232,26 @@ const CategorizationStep = ({ formData, updateFormData, errors }) => {
           )}
 
           {formData.msmeStatus === 'not-registered' && (
-            <Checkbox
-              label="I declare that my enterprise is not registered under MSME and I understand that I will not be eligible for MSME benefits"
-              checked={formData.msmeDeclaration}
-              onChange={(e) => handleInputChange('msmeDeclaration', e.target.checked)}
-              error={errors.msmeDeclaration}
-              required
-            />
+            <div className="space-y-4">
+              <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <p className="text-sm text-yellow-800 mb-3">
+                  <strong>Note:</strong> If you are not MSME registered, you need to generate a declaration document.
+                </p>
+                <button
+                  type="button"
+                  onClick={() => setShowMSMEDeclaration(true)}
+                  className="px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 transition-colors"
+                >
+                  Generate MSME Declaration
+                </button>
+              </div>
+
+              {formData.msmeDeclaration && (
+                <div className="text-sm text-success">
+                  ✓ MSME Declaration PDF has been generated and downloaded
+                </div>
+              )}
+            </div>
           )}
         </div>
       </div>
@@ -207,6 +293,35 @@ const CategorizationStep = ({ formData, updateFormData, errors }) => {
           </div>
         </div>
       </div>
+
+      {/* MSME Declaration Modal */}
+      {showMSMEDeclaration && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4">
+          <div className="bg-white rounded-lg shadow-lg max-w-md w-full p-6">
+            <h3 className="text-lg font-semibold text-foreground mb-4">Generate MSME Declaration</h3>
+            <p className="text-sm text-gray-600 mb-6">
+              This will generate a declaration document stating that your company is not registered under MSME. 
+              The PDF document will be automatically downloaded.
+            </p>
+            <div className="flex space-x-3">
+              <button
+                type="button"
+                onClick={generateMSMEDeclarationPDF}
+                className="flex-1 px-4 py-2 bg-primary text-white rounded-md hover:bg-primary-dark transition-colors"
+              >
+                Generate & Download
+              </button>
+              <button
+                type="button"
+                onClick={() => setShowMSMEDeclaration(false)}
+                className="flex-1 px-4 py-2 bg-gray-300 text-gray-700 rounded-md hover:bg-gray-400 transition-colors"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };

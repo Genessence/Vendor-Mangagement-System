@@ -54,6 +54,7 @@ class Vendor(Base):
     annual_turnover = Column(Float, nullable=True)
     products_services = Column(Text, nullable=True)
     msme_status = Column(Enum(MSMEStatus), default=MSMEStatus.PENDING)
+    msme_category = Column(String, nullable=True)  # Micro, Small, Medium
     msme_number = Column(String, nullable=True)
     industry_sector = Column(String, nullable=True)
     employee_count = Column(String, nullable=True)

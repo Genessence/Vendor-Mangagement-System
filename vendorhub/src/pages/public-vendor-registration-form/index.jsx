@@ -70,6 +70,7 @@ const PublicVendorRegistrationForm = () => {
     annualTurnover: '',
     productsServices: '',
     msmeStatus: '',
+    msmeCategory: '',
     msmeNumber: '',
     msmeCertificate: null,
     msmeDeclaration: false,

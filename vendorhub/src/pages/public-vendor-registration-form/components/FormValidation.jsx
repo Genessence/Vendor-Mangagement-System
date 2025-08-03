@@ -75,7 +75,8 @@ export const validateStep = (step, formData) => {
       if (!formData.employeeCount) errors.employeeCount = 'Employee count is required';
       
       if (formData.msmeStatus === 'registered') {
-        if (!formData.msmeNumber) errors.msmeNumber = 'MSME registration number is required';
+        if (!formData.msmeCategory) errors.msmeCategory = 'MSME category is required';
+        if (!formData.msmeNumber) errors.msmeNumber = 'UDYAM registration number is required';
         if (!formData.msmeCertificate) errors.msmeCertificate = 'MSME certificate is required';
       } else if (formData.msmeStatus === 'not-registered') {
         if (!formData.msmeDeclaration) errors.msmeDeclaration = 'MSME declaration is required';

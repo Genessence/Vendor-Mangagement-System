@@ -3,10 +3,10 @@ import Input from '../../../components/ui/Input';
 import Select from '../../../components/ui/Select';
 
 const BankInformationStep = ({ formData, updateFormData, errors }) => {
+  // Updated account types - removed "Cash Credit Account" for all countries
   const accountTypes = [
     { value: 'savings', label: 'Savings Account' },
     { value: 'current', label: 'Current Account' },
-    { value: 'cc', label: 'Cash Credit Account' },
     { value: 'od', label: 'Overdraft Account' }
   ];
 
@@ -107,12 +107,11 @@ const BankInformationStep = ({ formData, updateFormData, errors }) => {
               required
             />
 
-            <Input
+            <Select
               label="Account Type"
-              type="text"
-              placeholder="Enter account type"
+              options={accountTypes}
               value={formData.accountType}
-              onChange={(e) => handleInputChange('accountType', e.target.value)}
+              onChange={(value) => handleInputChange('accountType', value)}
               error={errors.accountType}
               required
             />
@@ -137,12 +136,12 @@ const BankInformationStep = ({ formData, updateFormData, errors }) => {
           <p className="text-sm text-text-secondary mb-4">
             {isIndian 
               ? "Upload a cancelled cheque or bank statement (PDF, JPG, PNG - Max 5MB)"
-              : "Upload bank letterhead or official bank document (PDF, JPG, PNG - Max 5MB)"
+              : "Upload signed and stamped letterhead or official bank document (PDF, JPG, PNG - Max 5MB)"
             }
           </p>
           
           <Input
-            label={isIndian ? "Cancelled Cheque" : "Bank Letterhead"}
+            label={isIndian ? "Cancelled Cheque" : "Signed and Stamped Letter head"}
             type="file"
             accept=".pdf,.jpg,.jpeg,.png"
             onChange={(e) => handleFileUpload('bankProof', e.target.files[0])}

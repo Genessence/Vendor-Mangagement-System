@@ -24,6 +24,7 @@ class VendorBase(BaseModel):
     annual_turnover: Optional[float] = None
     products_services: Optional[str] = None
     msme_status: MSMEStatus = MSMEStatus.PENDING
+    msme_category: Optional[str] = None
     msme_number: Optional[str] = None
     industry_sector: Optional[str] = None
     employee_count: Optional[str] = None
@@ -53,6 +54,7 @@ class VendorUpdate(BaseModel):
     annual_turnover: Optional[float] = None
     products_services: Optional[str] = None
     msme_status: Optional[MSMEStatus] = None
+    msme_category: Optional[str] = None
     msme_number: Optional[str] = None
     industry_sector: Optional[str] = None
     employee_count: Optional[str] = None
