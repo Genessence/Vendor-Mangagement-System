@@ -128,7 +128,7 @@ const LoginForm = () => {
           onIconClick={() => setShowPassword(prev => !prev)}
         />
         {/* Remember Me & Forgot Password */}
-        <div className="flex items-center justify-between" style={{margin: "20px 0"}}>
+        <div className="flex items-center justify-between" style={{marginTop: "20px", marginBottom: "20px"}}>
           <Checkbox
             label="Remember me"
             name="rememberMe"

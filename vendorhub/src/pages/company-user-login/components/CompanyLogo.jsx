@@ -1,6 +1,6 @@
 import React from 'react';
 import Icon from '../../../components/AppIcon';
-import logo from "../../../../assets/images/amber-logo.png";
+import logo from "../../../../assets/images/amber-logo.png"
 
 const CompanyLogo = () => {
   return (
