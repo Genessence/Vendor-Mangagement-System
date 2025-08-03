@@ -1,3 +1,5 @@
+import { isIndia } from '../../../utils/countries';
+
 // Form validation utility functions
 export const validateStep = (step, formData) => {
   const errors = {};
@@ -67,19 +69,28 @@ export const validateStep = (step, formData) => {
     case 4: // Categorization
       if (!formData.supplierType) errors.supplierType = 'Supplier type is required';
       if (!formData.supplierGroup) errors.supplierGroup = 'Supplier group is required';
-      if (!formData.supplierCategory) errors.supplierCategory = 'Supplier category is required';
-      if (!formData.annualTurnover) errors.annualTurnover = 'Annual turnover is required';
-      if (!formData.productsServices) errors.productsServices = 'Products/services description is required';
-      if (!formData.msmeStatus) errors.msmeStatus = 'MSME status is required';
-      if (!formData.industrySector) errors.industrySector = 'Industry sector is required';
-      if (!formData.employeeCount) errors.employeeCount = 'Employee count is required';
       
-      if (formData.msmeStatus === 'registered') {
-        if (!formData.msmeCategory) errors.msmeCategory = 'MSME category is required';
-        if (!formData.msmeNumber) errors.msmeNumber = 'UDYAM registration number is required';
-        if (!formData.msmeCertificate) errors.msmeCertificate = 'MSME certificate is required';
-      } else if (formData.msmeStatus === 'not-registered') {
-        if (!formData.msmeDeclaration) errors.msmeDeclaration = 'MSME declaration is required';
+      // Only validate supplier category for Indian vendors
+      if (isIndia(formData.countryOrigin) && !formData.supplierCategory) {
+        errors.supplierCategory = 'Supplier category is required';
+      }
+      
+      if (!formData.annualTurnover) errors.annualTurnover = 'Annual turnover is required';
+      if (!formData.productsServices) errors.productsServices = 'Products/services offered is required';
+      if (!formData.industrySector) errors.industrySector = 'Industry sector is required';
+      if (!formData.employeeCount) errors.employeeCount = 'Number of employees is required';
+      
+      // Only validate MSME fields for Indian vendors
+      if (isIndia(formData.countryOrigin)) {
+        if (!formData.msmeStatus) errors.msmeStatus = 'MSME status is required';
+        
+        if (formData.msmeStatus === 'registered') {
+          if (!formData.msmeCategory) errors.msmeCategory = 'MSME category is required';
+          if (!formData.msmeNumber) errors.msmeNumber = 'UDYAM registration number is required';
+          if (!formData.msmeCertificate) errors.msmeCertificate = 'MSME certificate is required';
+        } else if (formData.msmeStatus === 'not-registered') {
+          if (!formData.msmeDeclaration) errors.msmeDeclaration = 'MSME declaration is required';
+        }
       }
       break;
 

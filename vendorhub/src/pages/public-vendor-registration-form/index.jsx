@@ -13,6 +13,7 @@ import Button from '../../components/ui/Button';
 import Icon from '../../components/AppIcon';
 import { API_BASE_URL } from '../../config/api';
 import { formatPhoneNumber } from '../../utils/phoneCodes';
+import { isIndia } from '../../utils/countries';
 
 const PublicVendorRegistrationForm = () => {
   const navigate = useNavigate();
@@ -135,6 +136,16 @@ const PublicVendorRegistrationForm = () => {
         // Clear state fields when country changes (as states are country-specific)
         newFormData.registeredState = '';
         newFormData.supplyState = '';
+        
+        // Clear supplier category and MSME fields for non-Indian countries
+        if (!isIndia(updates.countryOrigin)) {
+          newFormData.supplierCategory = '';
+          newFormData.msmeStatus = '';
+          newFormData.msmeCategory = '';
+          newFormData.msmeNumber = '';
+          newFormData.msmeCertificate = null;
+          newFormData.msmeDeclaration = false;
+        }
       }
       
       // Auto-format phone number when country origin changes

@@ -3,6 +3,8 @@ import Select from '../../../components/ui/Select';
 import { Checkbox } from '../../../components/ui/Checkbox';
 import Input from '../../../components/ui/Input';
 import jsPDF from 'jspdf';
+import { isIndia } from '../../../utils/countries';
+import { getCurrencySymbol, getCurrencyName } from '../../../utils/currencies';
 
 const CategorizationStep = ({ formData, updateFormData, errors }) => {
   const [showMSMEDeclaration, setShowMSMEDeclaration] = useState(false);
@@ -110,6 +112,13 @@ const CategorizationStep = ({ formData, updateFormData, errors }) => {
     setShowMSMEDeclaration(false);
   };
 
+  // Check if the selected country is India
+  const isIndianCountry = isIndia(formData.countryOrigin);
+  
+  // Get currency information based on country
+  const currencySymbol = getCurrencySymbol(formData.countryOrigin);
+  const currencyName = getCurrencyName(formData.countryOrigin);
+
   return (
     <div className="space-y-6">
       <div className="mb-8">
@@ -117,6 +126,13 @@ const CategorizationStep = ({ formData, updateFormData, errors }) => {
         <p className="text-text-secondary">
           Help us categorize your business to streamline our procurement process.
         </p>
+        {!isIndianCountry && (
+          <div className="mt-3 p-3 bg-blue-50 border border-blue-200 rounded-md">
+            <p className="text-sm text-blue-800">
+              <span className="font-medium">ℹ️ Note:</span> Some fields are hidden for non-Indian vendors as per business requirements.
+            </p>
+          </div>
+        )}
       </div>
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -140,24 +156,28 @@ const CategorizationStep = ({ formData, updateFormData, errors }) => {
           required
         />
 
-        <Select
-          label="Supplier Category"
-          description="Select the category that best describes your offerings"
-          options={supplierCategories}
-          value={formData.supplierCategory}
-          onChange={(value) => handleInputChange('supplierCategory', value)}
-          error={errors.supplierCategory}
-          required
-        />
+        {/* Only show Supplier Category for Indian vendors */}
+        {isIndianCountry && (
+          <Select
+            label="Supplier Category"
+            description="Select the category that best describes your offerings"
+            options={supplierCategories}
+            value={formData.supplierCategory}
+            onChange={(value) => handleInputChange('supplierCategory', value)}
+            error={errors.supplierCategory}
+            required
+          />
+        )}
 
         <Input
-          label="Annual Turnover (₹)"
+          label={`Annual Turnover (${currencySymbol})`}
           type="number"
-          placeholder="Enter annual turnover in INR"
+          placeholder={`Enter annual turnover in ${currencyName}`}
           value={formData.annualTurnover}
           onChange={(e) => handleInputChange('annualTurnover', e.target.value)}
           error={errors.annualTurnover}
           required
+          description={`Currency: ${currencyName} (${currencySymbol})`}
         />
 
         <div className="md:col-span-2">
@@ -173,88 +193,90 @@ const CategorizationStep = ({ formData, updateFormData, errors }) => {
         </div>
       </div>
 
-      {/* MSME Status Section */}
-      <div className="bg-muted/30 p-6 rounded-lg">
-        <h3 className="text-lg font-semibold text-foreground mb-4">MSME Status</h3>
-        <p className="text-sm text-text-secondary mb-4">
-          Micro, Small & Medium Enterprises (MSME) registration provides various benefits under government schemes.
-        </p>
+      {/* MSME Status Section - Only for Indian vendors */}
+      {isIndianCountry && (
+        <div className="bg-muted/30 p-6 rounded-lg">
+          <h3 className="text-lg font-semibold text-foreground mb-4">MSME Status</h3>
+          <p className="text-sm text-text-secondary mb-4">
+            Micro, Small & Medium Enterprises (MSME) registration provides various benefits under government schemes.
+          </p>
 
-        <div className="space-y-4">
-          <Select
-            label="MSME Registration Status"
-            options={[
-              { value: 'registered', label: 'MSME Registered' },
-              { value: 'not-registered', label: 'Not MSME Registered' }
-            ]}
-            value={formData.msmeStatus}
-            onChange={handleMSMEChange}
-            error={errors.msmeStatus}
-            required
-          />
+          <div className="space-y-4">
+            <Select
+              label="MSME Registration Status"
+              options={[
+                { value: 'registered', label: 'MSME Registered' },
+                { value: 'not-registered', label: 'Not MSME Registered' }
+              ]}
+              value={formData.msmeStatus}
+              onChange={handleMSMEChange}
+              error={errors.msmeStatus}
+              required
+            />
 
-          {formData.msmeStatus === 'registered' && (
-            <div className="space-y-4">
-              <Select
-                label="MSME Category"
-                options={msmeCategories}
-                value={formData.msmeCategory}
-                onChange={(value) => handleInputChange('msmeCategory', value)}
-                error={errors.msmeCategory}
-                required
-              />
+            {formData.msmeStatus === 'registered' && (
+              <div className="space-y-4">
+                <Select
+                  label="MSME Category"
+                  options={msmeCategories}
+                  value={formData.msmeCategory}
+                  onChange={(value) => handleInputChange('msmeCategory', value)}
+                  error={errors.msmeCategory}
+                  required
+                />
 
-              <Input
-                label="UDYAM Registration Number"
-                type="text"
-                placeholder="Enter UDYAM registration number"
-                value={formData.msmeNumber}
-                onChange={(e) => handleInputChange('msmeNumber', e.target.value)}
-                error={errors.msmeNumber}
-                required
-              />
+                <Input
+                  label="UDYAM Registration Number"
+                  type="text"
+                  placeholder="Enter UDYAM registration number"
+                  value={formData.msmeNumber}
+                  onChange={(e) => handleInputChange('msmeNumber', e.target.value)}
+                  error={errors.msmeNumber}
+                  required
+                />
 
-              <Input
-                label="MSME Certificate"
-                type="file"
-                accept=".pdf,.jpg,.jpeg,.png"
-                onChange={(e) => handleFileUpload('msmeCertificate', e.target.files[0])}
-                error={errors.msmeCertificate}
-                required
-              />
+                <Input
+                  label="MSME Certificate"
+                  type="file"
+                  accept=".pdf,.jpg,.jpeg,.png"
+                  onChange={(e) => handleFileUpload('msmeCertificate', e.target.files[0])}
+                  error={errors.msmeCertificate}
+                  required
+                />
 
-              {formData.msmeCertificate && (
-                <div className="text-sm text-success">
-                  ✓ Certificate uploaded: {formData.msmeCertificate.name}
-                </div>
-              )}
-            </div>
-          )}
-
-          {formData.msmeStatus === 'not-registered' && (
-            <div className="space-y-4">
-              <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-                <p className="text-sm text-yellow-800 mb-3">
-                  <strong>Note:</strong> If you are not MSME registered, you need to generate a declaration document.
-                </p>
-                <button
-                  type="button"
-                  onClick={() => setShowMSMEDeclaration(true)}
-                  className="px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 transition-colors"
-                >
-                  Generate MSME Declaration
-                </button>
+                {formData.msmeCertificate && (
+                  <div className="text-sm text-success">
+                    ✓ Certificate uploaded: {formData.msmeCertificate.name}
+                  </div>
+                )}
               </div>
+            )}
 
-              {formData.msmeDeclaration && (
-                <div className="text-sm text-success">
-                  ✓ MSME Declaration PDF has been generated and downloaded
+            {formData.msmeStatus === 'not-registered' && (
+              <div className="space-y-4">
+                <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+                  <p className="text-sm text-yellow-800 mb-3">
+                    <strong>Note:</strong> If you are not MSME registered, you need to generate a declaration document.
+                  </p>
+                  <button
+                    type="button"
+                    onClick={() => setShowMSMEDeclaration(true)}
+                    className="px-4 py-2 bg-yellow-600 text-white rounded-md hover:bg-yellow-700 transition-colors"
+                  >
+                    Generate MSME Declaration
+                  </button>
                 </div>
-              )}
-            </div>
-          )}
+
+                {formData.msmeDeclaration && (
+                  <div className="text-sm text-success">
+                    ✓ MSME Declaration PDF has been generated and downloaded
+                  </div>
+                )}
+              </div>
+            )}
+          </div>
         </div>
-      </div>
+      )}
 
       {/* Additional Classifications */}
       <div className="bg-muted/30 p-6 rounded-lg">
