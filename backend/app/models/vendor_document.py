@@ -11,6 +11,7 @@ class DocumentType(str, enum.Enum):
     BANK_STATEMENT = "bank_statement"
     MSME_CERTIFICATE = "msme_certificate"
     COMPANY_REGISTRATION = "company_registration"
+    INCORPORATION_CERTIFICATE = "incorporation_certificate"
     BUSINESS_LICENSE = "business_license"
     INSURANCE_CERTIFICATE = "insurance_certificate"
     QUALITY_CERTIFICATE = "quality_certificate"

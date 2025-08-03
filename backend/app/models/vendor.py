@@ -36,8 +36,10 @@ class Vendor(Base):
     # Company Information
     business_vertical = Column(String, nullable=False)
     company_name = Column(String, nullable=False)
-    registration_number = Column(String, nullable=True)
-    contact_person_name = Column(String, nullable=False)
+    country_origin = Column(String, nullable=False)  # Country of origin for the vendor
+    registration_number = Column(String, nullable=True)  # For Indian companies
+    incorporation_certificate_path = Column(String, nullable=True)  # For non-Indian companies
+    contact_person_name = Column(String, nullable=False)  # Name of person in charge
     designation = Column(String, nullable=True)
     email = Column(String, nullable=False)
     phone_number = Column(String, nullable=False)

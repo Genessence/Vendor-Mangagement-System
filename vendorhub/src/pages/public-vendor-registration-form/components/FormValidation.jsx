@@ -6,14 +6,21 @@ export const validateStep = (step, formData) => {
     case 1: // Company Information
       if (!formData.businessVertical) errors.businessVertical = 'Business vertical is required';
       if (!formData.companyName) errors.companyName = 'Company name is required';
-      if (!formData.registrationNumber) errors.registrationNumber = 'Registration number is required';
-      if (!formData.contactPersonName) errors.contactPersonName = 'Contact person name is required';
+      if (!formData.countryOrigin) errors.countryOrigin = 'Country of origin is required';
+      if (!formData.contactPersonName) errors.contactPersonName = 'Name of person incharge is required';
       if (!formData.designation) errors.designation = 'Designation is required';
       if (!formData.email) errors.email = 'Email is required';
       else if (!/\S+@\S+\.\S+/.test(formData.email)) errors.email = 'Email is invalid';
       if (!formData.phoneNumber) errors.phoneNumber = 'Phone number is required';
       if (!formData.yearEstablished) errors.yearEstablished = 'Year of establishment is required';
       if (!formData.businessDescription) errors.businessDescription = 'Business description is required';
+      
+      // Conditional validation based on country of origin
+      if (formData.countryOrigin === 'IN') {
+        if (!formData.registrationNumber) errors.registrationNumber = 'Company registration number is required';
+      } else if (formData.countryOrigin && formData.countryOrigin !== 'IN') {
+        if (!formData.incorporationCertificate) errors.incorporationCertificate = 'Company incorporation certificate is required';
+      }
       break;
 
     case 2: // Address Details

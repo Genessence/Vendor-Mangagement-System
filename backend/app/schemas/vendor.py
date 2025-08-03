@@ -8,7 +8,9 @@ from ..models.vendor import VendorStatus, VendorType, MSMEStatus
 class VendorBase(BaseModel):
     business_vertical: str
     company_name: str
+    country_origin: str
     registration_number: Optional[str] = None
+    incorporation_certificate_path: Optional[str] = None
     contact_person_name: str
     designation: Optional[str] = None
     email: EmailStr
@@ -35,7 +37,9 @@ class VendorCreate(VendorBase):
 class VendorUpdate(BaseModel):
     business_vertical: Optional[str] = None
     company_name: Optional[str] = None
+    country_origin: Optional[str] = None
     registration_number: Optional[str] = None
+    incorporation_certificate_path: Optional[str] = None
     contact_person_name: Optional[str] = None
     designation: Optional[str] = None
     email: Optional[EmailStr] = None

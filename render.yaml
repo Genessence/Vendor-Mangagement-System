@@ -1,0 +1,11 @@
+services:
+  - type: web
+    name: vendor-management-frontend
+    env: static
+    buildCommand: cd vendorhub && npm install && npm run build
+    staticPublishPath: vendorhub/dist
+    envVars:
+      - key: VITE_API_BASE_URL
+        value: https://vendor.ambercompliancesystem.com/api/v1
+      - key: VITE_USE_MOCK_DATA
+        value: false

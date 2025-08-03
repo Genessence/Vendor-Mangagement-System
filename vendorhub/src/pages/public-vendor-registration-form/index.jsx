@@ -11,6 +11,7 @@ import FormNavigation from './components/FormNavigation';
 import { validateStep, canProceedToNextStep } from './components/FormValidation';
 import Button from '../../components/ui/Button';
 import Icon from '../../components/AppIcon';
+import { API_BASE_URL } from '../../config/api';
 
 const PublicVendorRegistrationForm = () => {
   const navigate = useNavigate();
@@ -26,7 +27,9 @@ const PublicVendorRegistrationForm = () => {
     // Company Information
     businessVertical: 'amber-enterprises',
     companyName: '',
+    countryOrigin: '',
     registrationNumber: '',
+    incorporationCertificate: null,
     contactPersonName: '',
     designation: '',
     email: '',
@@ -39,13 +42,13 @@ const PublicVendorRegistrationForm = () => {
     registeredAddress: '',
     registeredCity: '',
     registeredState: '',
-    registeredCountry: 'IN',
+    registeredCountry: '', // Will be auto-populated from countryOrigin
     registeredPincode: '',
     sameAsRegistered: false,
     supplyAddress: '',
     supplyCity: '',
     supplyState: '',
-    supplyCountry: 'IN',
+    supplyCountry: '', // Will be auto-populated from countryOrigin
     supplyPincode: '',
 
     // Bank Information
@@ -118,7 +121,23 @@ const PublicVendorRegistrationForm = () => {
   }, [formData]);
 
   const updateFormData = (updates) => {
-    setFormData(prev => ({ ...prev, ...updates }));
+    setFormData(prev => {
+      const newFormData = { ...prev, ...updates };
+      
+      // Auto-sync country selection from Company Information to Address Details
+      if (updates.countryOrigin && updates.countryOrigin !== prev.countryOrigin) {
+        // Update both registered and supply country to match the selected country origin
+        newFormData.registeredCountry = updates.countryOrigin;
+        newFormData.supplyCountry = updates.countryOrigin;
+        
+        // Clear state fields when country changes (as states are country-specific)
+        newFormData.registeredState = '';
+        newFormData.supplyState = '';
+      }
+      
+      return newFormData;
+    });
+    
     // Clear errors for updated fields
     const updatedFields = Object.keys(updates);
     setErrors(prev => {
@@ -187,7 +206,41 @@ const PublicVendorRegistrationForm = () => {
       setIsSubmitting(true);
       
       try {
-        // Mock API submission
+        // Prepare vendor data for submission
+        const vendorData = {
+          business_vertical: formData.businessVertical,
+          company_name: formData.companyName,
+          country_origin: formData.countryOrigin,
+          registration_number: formData.countryOrigin === 'IN' ? formData.registrationNumber : null,
+          incorporation_certificate_path: formData.countryOrigin !== 'IN' ? formData.incorporationCertificate?.name : null,
+          contact_person_name: formData.contactPersonName,
+          designation: formData.designation,
+          email: formData.email,
+          phone_number: formData.phoneNumber,
+          website: formData.website,
+          year_established: parseInt(formData.yearEstablished),
+          business_description: formData.businessDescription,
+          // Add other fields as needed
+        };
+
+        // Handle file upload for incorporation certificate
+        if (formData.countryOrigin !== 'IN' && formData.incorporationCertificate) {
+          const formDataFile = new FormData();
+          formDataFile.append('file', formData.incorporationCertificate);
+          formDataFile.append('document_type', 'incorporation_certificate');
+          formDataFile.append('vendor_id', 'temp'); // Will be updated after vendor creation
+          
+          // Upload file first
+          // const uploadResponse = await fetch(`${API_BASE_URL}/documents/upload/temp`, {
+          //   method: 'POST',
+          //   body: formDataFile,
+          // });
+          // const uploadResult = await uploadResponse.json();
+          // vendorData.incorporation_certificate_path = uploadResult.file_path;
+        }
+
+        // Mock API submission for now
+        console.log('Submitting vendor data:', vendorData);
         await new Promise(resolve => setTimeout(resolve, 2000));
         
         // Clear saved form data
