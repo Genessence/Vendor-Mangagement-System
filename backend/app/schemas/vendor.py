@@ -6,6 +6,7 @@ from ..models.vendor import VendorStatus, VendorType, MSMEStatus
 
 # Vendor Base Schemas
 class VendorBase(BaseModel):
+    # Basic vendor information
     business_vertical: str
     company_name: str
     country_origin: str
@@ -18,6 +19,28 @@ class VendorBase(BaseModel):
     website: Optional[str] = None
     year_established: Optional[int] = None
     business_description: Optional[str] = None
+    
+    # Address information
+    registered_address: Optional[str] = None
+    registered_city: Optional[str] = None
+    registered_state: Optional[str] = None
+    registered_country: Optional[str] = None
+    registered_pincode: Optional[str] = None
+    supply_address: Optional[str] = None
+    supply_city: Optional[str] = None
+    supply_state: Optional[str] = None
+    supply_country: Optional[str] = None
+    supply_pincode: Optional[str] = None
+    
+    # Bank information
+    bank_name: Optional[str] = None
+    account_number: Optional[str] = None
+    account_type: Optional[str] = None
+    ifsc_code: Optional[str] = None
+    branch_name: Optional[str] = None
+    currency: Optional[str] = None
+    
+    # Supplier categorization
     supplier_type: Optional[VendorType] = None
     supplier_group: Optional[str] = None
     supplier_category: Optional[str] = None
@@ -29,6 +52,27 @@ class VendorBase(BaseModel):
     industry_sector: Optional[str] = None
     employee_count: Optional[str] = None
     certifications: Optional[str] = None
+    
+    # Compliance information
+    pan_number: Optional[str] = None
+    gst_number: Optional[str] = None
+    preferred_currency: Optional[str] = None
+    tax_registration_number: Optional[str] = None
+    vat_number: Optional[str] = None
+    business_license: Optional[str] = None
+    gta_registration: Optional[str] = None
+    compliance_notes: Optional[str] = None
+    credit_rating: Optional[str] = None
+    insurance_coverage: Optional[str] = None
+    special_certifications: Optional[str] = None
+    
+    # Agreements
+    nda: bool = False
+    sqa: bool = False
+    four_m: bool = False
+    code_of_conduct: bool = False
+    compliance_agreement: bool = False
+    self_declaration: bool = False
 
 
 class VendorCreate(VendorBase):
@@ -36,6 +80,7 @@ class VendorCreate(VendorBase):
 
 
 class VendorUpdate(BaseModel):
+    # Basic vendor information
     business_vertical: Optional[str] = None
     company_name: Optional[str] = None
     country_origin: Optional[str] = None
@@ -48,6 +93,28 @@ class VendorUpdate(BaseModel):
     website: Optional[str] = None
     year_established: Optional[int] = None
     business_description: Optional[str] = None
+    
+    # Address information
+    registered_address: Optional[str] = None
+    registered_city: Optional[str] = None
+    registered_state: Optional[str] = None
+    registered_country: Optional[str] = None
+    registered_pincode: Optional[str] = None
+    supply_address: Optional[str] = None
+    supply_city: Optional[str] = None
+    supply_state: Optional[str] = None
+    supply_country: Optional[str] = None
+    supply_pincode: Optional[str] = None
+    
+    # Bank information
+    bank_name: Optional[str] = None
+    account_number: Optional[str] = None
+    account_type: Optional[str] = None
+    ifsc_code: Optional[str] = None
+    branch_name: Optional[str] = None
+    currency: Optional[str] = None
+    
+    # Supplier categorization
     supplier_type: Optional[VendorType] = None
     supplier_group: Optional[str] = None
     supplier_category: Optional[str] = None
@@ -59,6 +126,28 @@ class VendorUpdate(BaseModel):
     industry_sector: Optional[str] = None
     employee_count: Optional[str] = None
     certifications: Optional[str] = None
+    
+    # Compliance information
+    pan_number: Optional[str] = None
+    gst_number: Optional[str] = None
+    preferred_currency: Optional[str] = None
+    tax_registration_number: Optional[str] = None
+    vat_number: Optional[str] = None
+    business_license: Optional[str] = None
+    gta_registration: Optional[str] = None
+    compliance_notes: Optional[str] = None
+    credit_rating: Optional[str] = None
+    insurance_coverage: Optional[str] = None
+    special_certifications: Optional[str] = None
+    
+    # Agreements
+    nda: Optional[bool] = None
+    sqa: Optional[bool] = None
+    four_m: Optional[bool] = None
+    code_of_conduct: Optional[bool] = None
+    compliance_agreement: Optional[bool] = None
+    self_declaration: Optional[bool] = None
+    
     status: Optional[VendorStatus] = None
 
 

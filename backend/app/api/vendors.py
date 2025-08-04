@@ -53,6 +53,35 @@ async def create_vendor(
     return db_vendor
 
 
+@router.post("/public-registration", response_model=VendorResponse)
+async def create_vendor_public(
+    vendor_data: VendorCreate,
+    db: Session = Depends(get_db)
+):
+    """Create a new vendor through public registration (no authentication required)"""
+    # Check if vendor with same email already exists
+    existing_vendor = db.query(Vendor).filter(Vendor.email == vendor_data.email).first()
+    if existing_vendor:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Vendor with this email already exists"
+        )
+    
+    # Create vendor with unique code
+    vendor_code = generate_vendor_code()
+    db_vendor = Vendor(
+        vendor_code=vendor_code,
+        status=VendorStatus.PENDING,  # Set status to pending for public registrations
+        **vendor_data.dict()
+    )
+    
+    db.add(db_vendor)
+    db.commit()
+    db.refresh(db_vendor)
+    
+    return db_vendor
+
+
 @router.get("/", response_model=List[VendorListResponse])
 async def get_vendors(
     skip: int = Query(0, ge=0),

@@ -47,6 +47,26 @@ class Vendor(Base):
     year_established = Column(Integer, nullable=True)
     business_description = Column(Text, nullable=True)
     
+    # Address information
+    registered_address = Column(String, nullable=True)
+    registered_city = Column(String, nullable=True)
+    registered_state = Column(String, nullable=True)
+    registered_country = Column(String, nullable=True)
+    registered_pincode = Column(String, nullable=True)
+    supply_address = Column(String, nullable=True)
+    supply_city = Column(String, nullable=True)
+    supply_state = Column(String, nullable=True)
+    supply_country = Column(String, nullable=True)
+    supply_pincode = Column(String, nullable=True)
+    
+    # Bank information
+    bank_name = Column(String, nullable=True)
+    account_number = Column(String, nullable=True)
+    account_type = Column(String, nullable=True)
+    ifsc_code = Column(String, nullable=True)
+    branch_name = Column(String, nullable=True)
+    currency = Column(String, nullable=True)
+    
     # Categorization
     supplier_type = Column(Enum(VendorType), nullable=True)
     supplier_group = Column(String, nullable=True)
@@ -59,6 +79,27 @@ class Vendor(Base):
     industry_sector = Column(String, nullable=True)
     employee_count = Column(String, nullable=True)
     certifications = Column(Text, nullable=True)
+    
+    # Compliance information
+    pan_number = Column(String, nullable=True)
+    gst_number = Column(String, nullable=True)
+    preferred_currency = Column(String, nullable=True)
+    tax_registration_number = Column(String, nullable=True)
+    vat_number = Column(String, nullable=True)
+    business_license = Column(String, nullable=True)
+    gta_registration = Column(String, nullable=True)
+    compliance_notes = Column(Text, nullable=True)
+    credit_rating = Column(String, nullable=True)
+    insurance_coverage = Column(String, nullable=True)
+    special_certifications = Column(Text, nullable=True)
+    
+    # Agreements
+    nda = Column(Boolean, default=False)
+    sqa = Column(Boolean, default=False)
+    four_m = Column(Boolean, default=False)
+    code_of_conduct = Column(Boolean, default=False)
+    compliance_agreement = Column(Boolean, default=False)
+    self_declaration = Column(Boolean, default=False)
     
     # Status and Metadata
     status = Column(Enum(VendorStatus), default=VendorStatus.DRAFT)

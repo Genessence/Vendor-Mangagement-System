@@ -227,6 +227,7 @@ const PublicVendorRegistrationForm = () => {
       try {
         // Prepare vendor data for submission
         const vendorData = {
+          // Basic vendor information
           business_vertical: formData.businessVertical,
           company_name: formData.companyName,
           country_origin: formData.countryOrigin,
@@ -239,28 +240,78 @@ const PublicVendorRegistrationForm = () => {
           website: formData.website,
           year_established: parseInt(formData.yearEstablished),
           business_description: formData.businessDescription,
-          // Add other fields as needed
+          
+          // Address information
+          registered_address: formData.registeredAddress,
+          registered_city: formData.registeredCity,
+          registered_state: formData.registeredState,
+          registered_country: formData.registeredCountry,
+          registered_pincode: formData.registeredPincode,
+          supply_address: formData.supplyAddress,
+          supply_city: formData.supplyCity,
+          supply_state: formData.supplyState,
+          supply_country: formData.supplyCountry,
+          supply_pincode: formData.supplyPincode,
+          
+          // Bank information
+          bank_name: formData.bankName,
+          account_number: formData.accountNumber,
+          account_type: formData.accountType,
+          ifsc_code: formData.ifscCode,
+          branch_name: formData.branchName,
+          currency: formData.currency,
+          
+          // Supplier categorization
+          supplier_type: formData.supplierType,
+          supplier_group: formData.supplierGroup,
+          supplier_category: formData.supplierCategory,
+          annual_turnover: parseFloat(formData.annualTurnover),
+          products_services: formData.productsServices,
+          msme_status: formData.msmeStatus,
+          msme_category: formData.msmeCategory,
+          msme_number: formData.msmeNumber,
+          industry_sector: formData.industrySector,
+          employee_count: formData.employeeCount,
+          certifications: formData.specialCertifications,
+          
+          // Compliance information
+          pan_number: formData.panNumber,
+          gst_number: formData.gstNumber,
+          preferred_currency: formData.preferredCurrency,
+          tax_registration_number: formData.taxRegistrationNumber,
+          vat_number: formData.vatNumber,
+          business_license: formData.businessLicense,
+          gta_registration: formData.gtaRegistration,
+          compliance_notes: formData.complianceNotes,
+          credit_rating: formData.creditRating,
+          insurance_coverage: formData.insuranceCoverage,
+          special_certifications: formData.specialCertifications,
+          
+          // Agreements
+          nda: formData.agreements?.nda || false,
+          sqa: formData.agreements?.sqa || false,
+          four_m: formData.agreements?.fourM || false,
+          code_of_conduct: formData.agreements?.codeOfConduct || false,
+          compliance_agreement: formData.agreements?.complianceAgreement || false,
+          self_declaration: formData.agreements?.selfDeclaration || false
         };
 
-        // Handle file upload for incorporation certificate
-        if (formData.countryOrigin !== 'IN' && formData.incorporationCertificate) {
-          const formDataFile = new FormData();
-          formDataFile.append('file', formData.incorporationCertificate);
-          formDataFile.append('document_type', 'incorporation_certificate');
-          formDataFile.append('vendor_id', 'temp'); // Will be updated after vendor creation
-          
-          // Upload file first
-          // const uploadResponse = await fetch(`${API_BASE_URL}/documents/upload/temp`, {
-          //   method: 'POST',
-          //   body: formDataFile,
-          // });
-          // const uploadResult = await uploadResponse.json();
-          // vendorData.incorporation_certificate_path = uploadResult.file_path;
+        // Call the backend API to create vendor
+        const response = await fetch(`${API_BASE_URL}/vendors/public-registration`, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(vendorData)
+        });
+
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.detail || 'Failed to create vendor');
         }
 
-        // Mock API submission for now
-        console.log('Submitting vendor data:', vendorData);
-        await new Promise(resolve => setTimeout(resolve, 2000));
+        const createdVendor = await response.json();
+        console.log('Vendor created successfully:', createdVendor);
         
         // Clear saved form data
         localStorage.removeItem('vendorRegistrationForm');
@@ -269,7 +320,7 @@ const PublicVendorRegistrationForm = () => {
         setShowSuccessModal(true);
       } catch (error) {
         console.error('Submission error:', error);
-        setErrors({ submit: 'Failed to submit registration. Please try again.' });
+        setErrors({ submit: error.message || 'Failed to submit registration. Please try again.' });
       } finally {
         setIsSubmitting(false);
       }

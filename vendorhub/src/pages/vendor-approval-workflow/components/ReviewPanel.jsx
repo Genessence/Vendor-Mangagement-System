@@ -4,6 +4,8 @@ import Button from '../../../components/ui/Button';
 import Input from '../../../components/ui/Input';
 import Select from '../../../components/ui/Select';
 import { Checkbox } from '../../../components/ui/Checkbox';
+import IndianVendorQuestionnaire from './IndianVendorQuestionnaire';
+import ForeignVendorQuestionnaire from './ForeignVendorQuestionnaire';
 
 const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChanges }) => {
   const [activeTab, setActiveTab] = useState('supplier');
@@ -11,13 +13,26 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
   const [rejectionReason, setRejectionReason] = useState('');
   const [customReason, setCustomReason] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
+  const [showRejectionForm, setShowRejectionForm] = useState(false);
+  
+  // Questionnaire form data
+  const [questionnaireData, setQuestionnaireData] = useState({
+    supplierTermOfPayment: '',
+    supplierPaymentMethod: '',
+    supplierDeliveryTerms: '',
+    supplierModeOfDelivery: '',
+    supplierGroup: '',
+    commodityCode: ''
+  });
+  const [questionnaireErrors, setQuestionnaireErrors] = useState({});
 
   const tabs = [
     { id: 'supplier', label: 'Supplier Info', icon: 'Building2' },
     { id: 'bank', label: 'Bank Details', icon: 'CreditCard' },
     { id: 'documents', label: 'Documents', icon: 'FileText' },
     { id: 'agreements', label: 'Agreements', icon: 'FileCheck' },
-    { id: 'history', label: 'History', icon: 'Clock' }
+    { id: 'history', label: 'History', icon: 'Clock' },
+    { id: 'questionnaire', label: 'Questionnaire', icon: 'ClipboardList' }
   ];
 
   const rejectionReasons = [
@@ -28,9 +43,42 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
     { value: 'other', label: 'Other (specify)' }
   ];
 
+  // Check if vendor is Indian
+  const isIndianVendor = application.country === 'IN' || application.countryOrigin === 'IN';
+
+  const updateQuestionnaireData = (updates) => {
+    setQuestionnaireData(prev => ({ ...prev, ...updates }));
+    // Clear errors for updated fields
+    const updatedFields = Object.keys(updates);
+    setQuestionnaireErrors(prev => {
+      const newErrors = { ...prev };
+      updatedFields.forEach(field => delete newErrors[field]);
+      return newErrors;
+    });
+  };
+
+  const validateQuestionnaire = () => {
+    const errors = {};
+    if (!questionnaireData.supplierTermOfPayment) errors.supplierTermOfPayment = 'Required';
+    if (!questionnaireData.supplierPaymentMethod) errors.supplierPaymentMethod = 'Required';
+    if (!questionnaireData.supplierDeliveryTerms) errors.supplierDeliveryTerms = 'Required';
+    if (!questionnaireData.supplierModeOfDelivery) errors.supplierModeOfDelivery = 'Required';
+    if (!questionnaireData.supplierGroup) errors.supplierGroup = 'Required';
+    if (!questionnaireData.commodityCode) errors.commodityCode = 'Required';
+    return errors;
+  };
+
   const handleAction = async (action) => {
-    if (!remarks.trim()) {
-      alert('Please provide remarks for this action');
+    if (action === 'reject') {
+      setShowRejectionForm(true);
+      return;
+    }
+
+    // For approve and request_changes, validate questionnaire
+    const questionnaireErrors = validateQuestionnaire();
+    if (Object.keys(questionnaireErrors).length > 0) {
+      setQuestionnaireErrors(questionnaireErrors);
+      alert('Please complete all questionnaire fields');
       return;
     }
 
@@ -39,22 +87,38 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
     try {
       switch (action) {
         case 'approve':
-          await onApprove(application.id, remarks);
-          break;
-        case 'reject':
-          if (!rejectionReason) {
-            alert('Please select a rejection reason');
-            return;
-          }
-          await onReject(application.id, rejectionReason, customReason, remarks);
+          await onApprove(application.id, questionnaireData);
           break;
         case 'request_changes':
-          await onRequestChanges(application.id, remarks);
+          await onRequestChanges(application.id, questionnaireData);
           break;
       }
       onClose();
     } catch (error) {
       console.error('Action failed:', error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleReject = async () => {
+    if (!rejectionReason) {
+      alert('Please select a rejection reason');
+      return;
+    }
+
+    if (rejectionReason === 'other' && !customReason.trim()) {
+      alert('Please specify the custom rejection reason');
+      return;
+    }
+
+    setIsProcessing(true);
+    
+    try {
+      await onReject(application.id, rejectionReason, customReason, remarks);
+      onClose();
+    } catch (error) {
+      console.error('Rejection failed:', error);
     } finally {
       setIsProcessing(false);
     }
@@ -240,24 +304,48 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
 
   const renderHistory = () => (
     <div className="space-y-4">
-      {application.history?.map((entry, index) => (
-        <div key={index} className="flex items-start space-x-4 p-4 border border-border rounded-lg">
-          <div className="w-8 h-8 bg-primary/10 rounded-full flex items-center justify-center flex-shrink-0">
-            <Icon name="Clock" size={16} className="text-primary" />
-          </div>
-          <div className="flex-1">
-            <div className="flex items-center justify-between mb-2">
-              <h5 className="font-medium text-card-foreground">{entry.action}</h5>
-              <span className="text-sm text-text-secondary">{entry.timestamp}</span>
-            </div>
-            <p className="text-sm text-text-secondary mb-2">{entry.description}</p>
-            <div className="flex items-center space-x-4 text-xs text-text-secondary">
-              <span>By: {entry.user}</span>
-              <span>Role: {entry.role}</span>
+      <h3 className="text-lg font-semibold text-foreground">Application History</h3>
+      <div className="space-y-3">
+        {application.history?.map((event, index) => (
+          <div key={index} className="flex items-start space-x-3 p-3 bg-muted/30 rounded-lg">
+            <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+            <div className="flex-1">
+              <p className="text-sm font-medium text-foreground">{event.action}</p>
+              <p className="text-xs text-text-secondary">{event.timestamp}</p>
+              {event.remarks && (
+                <p className="text-sm text-text-secondary mt-1">{event.remarks}</p>
+              )}
             </div>
           </div>
-        </div>
-      ))}
+        ))}
+      </div>
+    </div>
+  );
+
+  const renderQuestionnaire = () => (
+    <div className="space-y-6">
+      <div className="mb-6">
+        <h3 className="text-lg font-semibold text-foreground mb-2">
+          {isIndianVendor ? 'Indian Vendor' : 'Foreign Vendor'} Questionnaire
+        </h3>
+        <p className="text-sm text-text-secondary">
+          Please complete the questionnaire to proceed with the approval process.
+        </p>
+      </div>
+      
+      {isIndianVendor ? (
+        <IndianVendorQuestionnaire
+          formData={questionnaireData}
+          updateFormData={updateQuestionnaireData}
+          errors={questionnaireErrors}
+        />
+      ) : (
+        <ForeignVendorQuestionnaire
+          formData={questionnaireData}
+          updateFormData={updateQuestionnaireData}
+          errors={questionnaireErrors}
+        />
+      )}
     </div>
   );
 
@@ -268,13 +356,14 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
       case 'documents': return renderDocuments();
       case 'agreements': return renderAgreements();
       case 'history': return renderHistory();
+      case 'questionnaire': return renderQuestionnaire();
       default: return renderSupplierInfo();
     }
   };
 
   return (
     <div className="fixed inset-0 bg-black/50 z-200 flex items-center justify-center p-4">
-      <div className="bg-surface rounded-lg shadow-medium w-full max-w-6xl max-h-[90vh] flex flex-col">
+      <div className="bg-surface rounded-lg shadow-medium w-full max-w-7xl max-h-[90vh] flex flex-col">
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-border">
           <div>
@@ -288,12 +377,12 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
 
         {/* Tabs */}
         <div className="border-b border-border">
-          <nav className="flex space-x-8 px-6">
+          <nav className="flex space-x-6 px-6 overflow-x-auto">
             {tabs.map((tab) => (
               <button
                 key={tab.id}
                 onClick={() => setActiveTab(tab.id)}
-                className={`flex items-center space-x-2 py-4 border-b-2 font-medium text-sm transition-colors ${
+                className={`flex items-center space-x-2 py-4 border-b-2 font-medium text-sm transition-colors whitespace-nowrap ${
                   activeTab === tab.id
                     ? 'border-primary text-primary' :'border-transparent text-text-secondary hover:text-foreground'
                 }`}
@@ -312,21 +401,55 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
 
         {/* Action Panel */}
         <div className="border-t border-border p-6 bg-muted/30">
-          <div className="space-y-4">
-            <div>
-              <Input
-                label="Remarks *"
-                type="text"
-                placeholder="Enter your remarks for this action..."
-                value={remarks}
-                onChange={(e) => setRemarks(e.target.value)}
-                required
-              />
+          <div className="flex items-center justify-between">
+            <div className="flex items-center space-x-2 text-sm text-text-secondary">
+              <Icon name="Info" size={16} />
+              <span>Complete the questionnaire before taking action</span>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div className="flex items-center space-x-3">
+              <Button
+                variant="outline"
+                onClick={() => handleAction('request_changes')}
+                disabled={isProcessing}
+              >
+                <Icon name="MessageSquare" size={16} className="mr-2" />
+                Request Changes
+              </Button>
+              <Button
+                variant="destructive"
+                onClick={() => handleAction('reject')}
+                disabled={isProcessing}
+              >
+                <Icon name="XCircle" size={16} className="mr-2" />
+                Reject
+              </Button>
+              <Button
+                variant="success"
+                onClick={() => handleAction('approve')}
+                disabled={isProcessing}
+                loading={isProcessing}
+              >
+                <Icon name="CheckCircle" size={16} className="mr-2" />
+                Approve
+              </Button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Rejection Modal */}
+      {showRejectionForm && (
+        <div className="fixed inset-0 bg-black/50 z-300 flex items-center justify-center p-4">
+          <div className="bg-surface rounded-lg shadow-medium w-full max-w-md">
+            <div className="p-6 border-b border-border">
+              <h3 className="text-lg font-semibold text-foreground">Reject Application</h3>
+              <p className="text-sm text-text-secondary mt-1">Please provide a reason for rejection</p>
+            </div>
+            
+            <div className="p-6 space-y-4">
               <Select
-                label="Rejection Reason (if rejecting)"
+                label="Rejection Reason *"
                 placeholder="Select reason for rejection"
                 options={rejectionReasons}
                 value={rejectionReason}
@@ -335,52 +458,47 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
               
               {rejectionReason === 'other' && (
                 <Input
-                  label="Custom Reason"
+                  label="Custom Reason *"
                   type="text"
                   placeholder="Specify the reason..."
                   value={customReason}
                   onChange={(e) => setCustomReason(e.target.value)}
                 />
               )}
-            </div>
 
-            <div className="flex items-center justify-between">
-              <div className="flex items-center space-x-2 text-sm text-text-secondary">
-                <Icon name="Info" size={16} />
-                <span>All actions require remarks and will be logged in the system</span>
-              </div>
-              
-              <div className="flex items-center space-x-3">
-                <Button
-                  variant="outline"
-                  onClick={() => handleAction('request_changes')}
-                  disabled={isProcessing}
-                >
-                  <Icon name="MessageSquare" size={16} className="mr-2" />
-                  Request Changes
-                </Button>
-                <Button
-                  variant="destructive"
-                  onClick={() => handleAction('reject')}
-                  disabled={isProcessing}
-                >
-                  <Icon name="XCircle" size={16} className="mr-2" />
-                  Reject
-                </Button>
-                <Button
-                  variant="success"
-                  onClick={() => handleAction('approve')}
-                  disabled={isProcessing}
-                  loading={isProcessing}
-                >
-                  <Icon name="CheckCircle" size={16} className="mr-2" />
-                  Approve
-                </Button>
-              </div>
+              <Input
+                label="Additional Remarks"
+                type="textarea"
+                placeholder="Any additional comments..."
+                value={remarks}
+                onChange={(e) => setRemarks(e.target.value)}
+              />
+            </div>
+            
+            <div className="p-6 border-t border-border flex items-center justify-end space-x-3">
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setShowRejectionForm(false);
+                  setRejectionReason('');
+                  setCustomReason('');
+                  setRemarks('');
+                }}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="destructive"
+                onClick={handleReject}
+                disabled={isProcessing}
+                loading={isProcessing}
+              >
+                Confirm Rejection
+              </Button>
             </div>
           </div>
         </div>
-      </div>
+      )}
     </div>
   );
 };
