@@ -67,12 +67,82 @@ async def create_vendor_public(
             detail="Vendor with this email already exists"
         )
     
+    # Extract agreements from nested structure if present
+    agreements_data = {}
+    if hasattr(vendor_data, 'agreements') and vendor_data.agreements:
+        agreements_data = vendor_data.agreements
+    else:
+        # Handle flat agreement fields
+        agreements_data = {
+            'nda': vendor_data.nda,
+            'sqa': vendor_data.sqa,
+            'four_m': vendor_data.four_m,
+            'code_of_conduct': vendor_data.code_of_conduct,
+            'compliance_agreement': vendor_data.compliance_agreement,
+            'self_declaration': vendor_data.self_declaration
+        }
+    
+    # Apply conditional validation based on supplier type and country
+    validation_errors = []
+    
+    # Helper function to check if supplier is ODM
+    def is_odm_supplier(supplier_group):
+        return supplier_group == 'odm-amber'
+    
+    # Helper function to check if supplier is Indian
+    def is_indian_supplier(country_origin):
+        return country_origin == 'IN'
+    
+    # NDA validation: Required for non-ODM suppliers
+    if not is_odm_supplier(vendor_data.supplier_group):
+        if not agreements_data.get('nda'):
+            validation_errors.append("NDA is required for non-ODM suppliers")
+    
+    # SQA validation: Required for Indian suppliers
+    if is_indian_supplier(vendor_data.country_origin):
+        if not agreements_data.get('sqa'):
+            validation_errors.append("SQA is required for Indian suppliers")
+    
+    # Compliance Agreement validation: Required for Indian suppliers
+    if is_indian_supplier(vendor_data.country_origin):
+        if not agreements_data.get('compliance_agreement'):
+            validation_errors.append("Compliance Agreement is required for Indian suppliers")
+    
+    # Always required agreements
+    if not agreements_data.get('four_m'):
+        validation_errors.append("4M Change Control Agreement is required")
+    if not agreements_data.get('code_of_conduct'):
+        validation_errors.append("Code of Conduct is required")
+    if not agreements_data.get('self_declaration'):
+        validation_errors.append("Self Declaration is required")
+    
+    if validation_errors:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail={"message": "Agreement validation failed", "errors": validation_errors}
+        )
+    
+    # Create vendor data dict, excluding nested agreements
+    vendor_dict = vendor_data.dict()
+    if 'agreements' in vendor_dict:
+        del vendor_dict['agreements']
+    
+    # Set agreement fields from the agreements object
+    vendor_dict.update({
+        'nda': agreements_data.get('nda', False),
+        'sqa': agreements_data.get('sqa', False),
+        'four_m': agreements_data.get('four_m', False),
+        'code_of_conduct': agreements_data.get('code_of_conduct', False),
+        'compliance_agreement': agreements_data.get('compliance_agreement', False),
+        'self_declaration': agreements_data.get('self_declaration', False)
+    })
+    
     # Create vendor with unique code
     vendor_code = generate_vendor_code()
     db_vendor = Vendor(
         vendor_code=vendor_code,
         status=VendorStatus.PENDING,  # Set status to pending for public registrations
-        **vendor_data.dict()
+        **vendor_dict
     )
     
     db.add(db_vendor)

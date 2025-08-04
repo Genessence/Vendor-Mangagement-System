@@ -66,7 +66,7 @@ class VendorBase(BaseModel):
     insurance_coverage: Optional[str] = None
     special_certifications: Optional[str] = None
     
-    # Agreements
+    # Agreements (flat fields for backward compatibility)
     nda: bool = False
     sqa: bool = False
     four_m: bool = False
@@ -76,7 +76,8 @@ class VendorBase(BaseModel):
 
 
 class VendorCreate(VendorBase):
-    pass
+    # Add nested agreements object for frontend compatibility
+    agreements: Optional[dict] = None
 
 
 class VendorUpdate(BaseModel):
