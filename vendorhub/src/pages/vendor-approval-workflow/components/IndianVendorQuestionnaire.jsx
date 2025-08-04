@@ -319,18 +319,18 @@ const IndianVendorQuestionnaire = ({ formData, updateFormData, errors }) => {
   };
 
   return (
-    <div className="space-y-6">
-      <div className="mb-6">
-        <h3 className="text-lg font-semibold text-foreground mb-2">Indian Vendor Questionnaire</h3>
+    <div className="space-y-8">
+      <div className="mb-8">
+        <h3 className="text-xl font-semibold text-foreground mb-3">Indian Vendor Questionnaire</h3>
         <p className="text-sm text-text-secondary">
           Please answer the following questions to complete the vendor approval process.
         </p>
       </div>
 
       {/* 3x2 Matrix Layout */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
         {/* Row 1 */}
-        <div className="space-y-4">
+        <div className="space-y-6">
           <Select
             label="1. Supplier Term of Payment"
             options={supplierTermsOfPayment}
@@ -351,7 +351,7 @@ const IndianVendorQuestionnaire = ({ formData, updateFormData, errors }) => {
           />
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           <Select
             label="3. Supplier Delivery Terms"
             options={supplierDeliveryTerms}
@@ -371,7 +371,7 @@ const IndianVendorQuestionnaire = ({ formData, updateFormData, errors }) => {
           />
         </div>
 
-        <div className="space-y-4">
+        <div className="space-y-6">
           <Select
             label="5. Supplier Group"
             options={supplierGroups}

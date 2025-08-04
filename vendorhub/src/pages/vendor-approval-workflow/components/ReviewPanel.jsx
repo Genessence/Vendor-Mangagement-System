@@ -14,6 +14,7 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
   const [customReason, setCustomReason] = useState('');
   const [isProcessing, setIsProcessing] = useState(false);
   const [showRejectionForm, setShowRejectionForm] = useState(false);
+  const [showQuestionnaire, setShowQuestionnaire] = useState(false);
   
   // Questionnaire form data
   const [questionnaireData, setQuestionnaireData] = useState({
@@ -31,8 +32,7 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
     { id: 'bank', label: 'Bank Details', icon: 'CreditCard' },
     { id: 'documents', label: 'Documents', icon: 'FileText' },
     { id: 'agreements', label: 'Agreements', icon: 'FileCheck' },
-    { id: 'history', label: 'History', icon: 'Clock' },
-    { id: 'questionnaire', label: 'Questionnaire', icon: 'ClipboardList' }
+    { id: 'history', label: 'History', icon: 'Clock' }
   ];
 
   const rejectionReasons = [
@@ -74,7 +74,27 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
       return;
     }
 
-    // For approve and request_changes, validate questionnaire
+    if (action === 'approve') {
+      // Show questionnaire first for approval
+      setShowQuestionnaire(true);
+      return;
+    }
+
+    // For request_changes, proceed directly
+    setIsProcessing(true);
+    
+    try {
+      await onRequestChanges(application.id, {});
+      onClose();
+    } catch (error) {
+      console.error('Action failed:', error);
+    } finally {
+      setIsProcessing(false);
+    }
+  };
+
+  const handleQuestionnaireSubmit = async () => {
+    // Validate questionnaire
     const questionnaireErrors = validateQuestionnaire();
     if (Object.keys(questionnaireErrors).length > 0) {
       setQuestionnaireErrors(questionnaireErrors);
@@ -85,17 +105,10 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
     setIsProcessing(true);
     
     try {
-      switch (action) {
-        case 'approve':
-          await onApprove(application.id, questionnaireData);
-          break;
-        case 'request_changes':
-          await onRequestChanges(application.id, questionnaireData);
-          break;
-      }
+      await onApprove(application.id, questionnaireData);
       onClose();
     } catch (error) {
-      console.error('Action failed:', error);
+      console.error('Approval failed:', error);
     } finally {
       setIsProcessing(false);
     }
@@ -108,14 +121,15 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
     }
 
     if (rejectionReason === 'other' && !customReason.trim()) {
-      alert('Please specify the custom rejection reason');
+      alert('Please specify the custom reason');
       return;
     }
 
     setIsProcessing(true);
     
     try {
-      await onReject(application.id, rejectionReason, customReason, remarks);
+      const finalReason = rejectionReason === 'other' ? customReason : rejectionReason;
+      await onReject(application.id, finalReason, remarks);
       onClose();
     } catch (error) {
       console.error('Rejection failed:', error);
@@ -322,32 +336,7 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
     </div>
   );
 
-  const renderQuestionnaire = () => (
-    <div className="space-y-6">
-      <div className="mb-6">
-        <h3 className="text-lg font-semibold text-foreground mb-2">
-          {isIndianVendor ? 'Indian Vendor' : 'Foreign Vendor'} Questionnaire
-        </h3>
-        <p className="text-sm text-text-secondary">
-          Please complete the questionnaire to proceed with the approval process.
-        </p>
-      </div>
-      
-      {isIndianVendor ? (
-        <IndianVendorQuestionnaire
-          formData={questionnaireData}
-          updateFormData={updateQuestionnaireData}
-          errors={questionnaireErrors}
-        />
-      ) : (
-        <ForeignVendorQuestionnaire
-          formData={questionnaireData}
-          updateFormData={updateQuestionnaireData}
-          errors={questionnaireErrors}
-        />
-      )}
-    </div>
-  );
+
 
   const renderTabContent = () => {
     switch (activeTab) {
@@ -356,7 +345,6 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
       case 'documents': return renderDocuments();
       case 'agreements': return renderAgreements();
       case 'history': return renderHistory();
-      case 'questionnaire': return renderQuestionnaire();
       default: return renderSupplierInfo();
     }
   };
@@ -404,7 +392,7 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-2 text-sm text-text-secondary">
               <Icon name="Info" size={16} />
-              <span>Complete the questionnaire before taking action</span>
+              <span>Review the application and take appropriate action</span>
             </div>
             
             <div className="flex items-center space-x-3">
@@ -494,6 +482,55 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
                 loading={isProcessing}
               >
                 Confirm Rejection
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
+
+             {/* Questionnaire Modal */}
+       {showQuestionnaire && (
+         <div className="fixed inset-0 bg-black/50 z-300 flex items-center justify-center p-4">
+           <div className="bg-surface rounded-lg shadow-medium w-full max-w-6xl max-h-[95vh] flex flex-col">
+            <div className="p-6 border-b border-border flex items-center justify-between">
+              <h3 className="text-lg font-semibold text-foreground">
+                {isIndianVendor ? 'Indian Vendor' : 'Foreign Vendor'} Questionnaire
+              </h3>
+              <Button variant="ghost" size="icon" onClick={() => setShowQuestionnaire(false)}>
+                <Icon name="X" size={20} />
+              </Button>
+            </div>
+
+            <div className="flex-1 overflow-y-auto p-8">
+              {isIndianVendor ? (
+                <IndianVendorQuestionnaire
+                  formData={questionnaireData}
+                  updateFormData={updateQuestionnaireData}
+                  errors={questionnaireErrors}
+                />
+              ) : (
+                <ForeignVendorQuestionnaire
+                  formData={questionnaireData}
+                  updateFormData={updateQuestionnaireData}
+                  errors={questionnaireErrors}
+                />
+              )}
+            </div>
+
+            <div className="p-6 border-t border-border flex items-center justify-end space-x-3">
+              <Button
+                variant="outline"
+                onClick={() => setShowQuestionnaire(false)}
+              >
+                Cancel
+              </Button>
+              <Button
+                variant="success"
+                onClick={handleQuestionnaireSubmit}
+                disabled={isProcessing}
+                loading={isProcessing}
+              >
+                Confirm Approval
               </Button>
             </div>
           </div>
