@@ -334,4 +334,45 @@ class VendorAgreementResponse(VendorAgreementBase):
     updated_at: Optional[datetime] = None
 
     class Config:
+        from_attributes = True
+
+
+# Vendor Compliance Certificate Schemas
+class VendorComplianceCertificateBase(BaseModel):
+    title: str
+    certificate_number: str
+    status: str = "Compliant"  # Compliant, Expiring Soon, Non-Compliant, Under Review
+    issued_date: datetime
+    expiry_date: datetime
+    issuing_authority: str
+    description: Optional[str] = None
+    risk_level: str = "Low"  # Low, Medium, High
+    certificate_document_path: Optional[str] = None
+    audit_report_path: Optional[str] = None
+
+
+class VendorComplianceCertificateCreate(VendorComplianceCertificateBase):
+    pass
+
+
+class VendorComplianceCertificateUpdate(BaseModel):
+    title: Optional[str] = None
+    certificate_number: Optional[str] = None
+    status: Optional[str] = None
+    issued_date: Optional[datetime] = None
+    expiry_date: Optional[datetime] = None
+    issuing_authority: Optional[str] = None
+    description: Optional[str] = None
+    risk_level: Optional[str] = None
+    certificate_document_path: Optional[str] = None
+    audit_report_path: Optional[str] = None
+
+
+class VendorComplianceCertificateResponse(VendorComplianceCertificateBase):
+    id: int
+    vendor_id: int
+    created_at: datetime
+    updated_at: Optional[datetime] = None
+
+    class Config:
         from_attributes = True 

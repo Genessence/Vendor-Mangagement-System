@@ -64,9 +64,9 @@ const VendorProfileDetails = () => {
     { id: 'overview', label: 'Overview', icon: 'LayoutDashboard' },
     { id: 'company', label: 'Company Details', icon: 'Building2' },
     { id: 'bank', label: 'Bank Information', icon: 'CreditCard' },
-    { id: 'documents', label: 'Documents', icon: 'FileText', badge: vendor?.document_count || 0 },
-    { id: 'compliance', label: 'Compliance', icon: 'Shield', badge: vendor?.compliance_count || 0 },
-    { id: 'agreements', label: 'Agreements', icon: 'FileSignature', badge: vendor?.agreement_count || 0 },
+    { id: 'documents', label: 'Documents', icon: 'FileText', badge: vendor?.document_count > 0 ? vendor.document_count : null },
+    { id: 'compliance', label: 'Compliance', icon: 'Shield', badge: vendor?.compliance_count > 0 ? vendor.compliance_count : null },
+    { id: 'agreements', label: 'Agreements', icon: 'FileSignature', badge: vendor?.agreement_count > 0 ? vendor.agreement_count : null },
     { id: 'activity', label: 'Activity History', icon: 'Activity' }
   ];
 

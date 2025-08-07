@@ -113,6 +113,7 @@ class Vendor(Base):
     bank_info = relationship("VendorBankInfo", back_populates="vendor", uselist=False, cascade="all, delete-orphan")
     compliance = relationship("VendorCompliance", back_populates="vendor", uselist=False, cascade="all, delete-orphan")
     agreements = relationship("VendorAgreement", back_populates="vendor", uselist=False, cascade="all, delete-orphan")
+    compliance_certificates = relationship("VendorComplianceCertificate", back_populates="vendor", cascade="all, delete-orphan")
     documents = relationship("VendorDocument", back_populates="vendor", cascade="all, delete-orphan")
     approvals = relationship("VendorApproval", back_populates="vendor", cascade="all, delete-orphan")
 
@@ -194,4 +195,31 @@ class VendorAgreement(Base):
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     
     # Relationship
-    vendor = relationship("Vendor", back_populates="agreements") 
+    vendor = relationship("Vendor", back_populates="agreements")
+
+
+class VendorComplianceCertificate(Base):
+    __tablename__ = "vendor_compliance_certificates"
+
+    id = Column(Integer, primary_key=True, index=True)
+    vendor_id = Column(Integer, ForeignKey("vendors.id"), nullable=False)
+    
+    # Certificate Information
+    title = Column(String, nullable=False)  # e.g., "ISO 9001:2015 Quality Management"
+    certificate_number = Column(String, nullable=False)
+    status = Column(String, default="Compliant")  # Compliant, Expiring Soon, Non-Compliant, Under Review
+    issued_date = Column(Date, nullable=False)
+    expiry_date = Column(Date, nullable=False)
+    issuing_authority = Column(String, nullable=False)
+    description = Column(Text, nullable=True)
+    risk_level = Column(String, default="Low")  # Low, Medium, High
+    
+    # Document paths
+    certificate_document_path = Column(String, nullable=True)
+    audit_report_path = Column(String, nullable=True)
+    
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+    
+    # Relationship
+    vendor = relationship("Vendor", back_populates="compliance_certificates") 

@@ -4,13 +4,14 @@ from sqlalchemy.orm import Session
 from sqlalchemy import and_, or_
 from ..database import get_db
 from ..models.user import User
-from ..models.vendor import Vendor, VendorStatus, VendorType, MSMEStatus, VendorAddress, VendorBankInfo, VendorCompliance, VendorAgreement
+from ..models.vendor import Vendor, VendorStatus, VendorType, MSMEStatus, VendorAddress, VendorBankInfo, VendorCompliance, VendorAgreement, VendorComplianceCertificate
 from ..schemas.vendor import (
     VendorCreate, VendorUpdate, VendorResponse, VendorListResponse,
     VendorAddressCreate, VendorAddressUpdate, VendorAddressResponse,
     VendorBankInfoCreate, VendorBankInfoUpdate, VendorBankInfoResponse,
     VendorComplianceCreate, VendorComplianceUpdate, VendorComplianceResponse,
-    VendorAgreementCreate, VendorAgreementUpdate, VendorAgreementResponse
+    VendorAgreementCreate, VendorAgreementUpdate, VendorAgreementResponse,
+    VendorComplianceCertificateCreate, VendorComplianceCertificateUpdate, VendorComplianceCertificateResponse
 )
 from ..auth import get_current_active_user
 from ..utils.logger import compliance_logger
@@ -241,8 +242,7 @@ async def get_vendor(
     
     # Calculate counts for UI badges
     from ..models.vendor_document import VendorDocument
-    from ..models.vendor_compliance import VendorCompliance
-    from ..models.vendor_agreement import VendorAgreement
+    from ..models.vendor import VendorCompliance, VendorAgreement
     
     # Document count
     document_count = db.query(VendorDocument).filter(VendorDocument.vendor_id == vendor_id).count()
@@ -520,6 +520,116 @@ async def get_vendor_agreements(
         )
     
     return vendor.agreements 
+
+
+# Vendor Compliance Certificate Routes
+@router.post("/{vendor_id}/compliance-certificates", response_model=VendorComplianceCertificateResponse)
+async def create_vendor_compliance_certificate(
+    vendor_id: int,
+    certificate_data: VendorComplianceCertificateCreate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_active_user)
+):
+    """Add a compliance certificate to a vendor"""
+    vendor = db.query(Vendor).filter(Vendor.id == vendor_id).first()
+    if not vendor:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Vendor not found"
+        )
+    
+    db_certificate = VendorComplianceCertificate(**certificate_data.dict(), vendor_id=vendor_id)
+    db.add(db_certificate)
+    db.commit()
+    db.refresh(db_certificate)
+    
+    return db_certificate
+
+
+@router.get("/{vendor_id}/compliance-certificates", response_model=List[VendorComplianceCertificateResponse])
+async def get_vendor_compliance_certificates(
+    vendor_id: int,
+    db: Session = Depends(get_db)
+):
+    """Get all compliance certificates for a vendor"""
+    vendor = db.query(Vendor).filter(Vendor.id == vendor_id).first()
+    if not vendor:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Vendor not found"
+        )
+    
+    return vendor.compliance_certificates
+
+
+@router.put("/{vendor_id}/compliance-certificates/{certificate_id}", response_model=VendorComplianceCertificateResponse)
+async def update_vendor_compliance_certificate(
+    vendor_id: int,
+    certificate_id: int,
+    certificate_data: VendorComplianceCertificateUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_active_user)
+):
+    """Update a compliance certificate for a vendor"""
+    vendor = db.query(Vendor).filter(Vendor.id == vendor_id).first()
+    if not vendor:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Vendor not found"
+        )
+    
+    certificate = db.query(VendorComplianceCertificate).filter(
+        VendorComplianceCertificate.id == certificate_id,
+        VendorComplianceCertificate.vendor_id == vendor_id
+    ).first()
+    
+    if not certificate:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Compliance certificate not found"
+        )
+    
+    # Update certificate fields
+    update_data = certificate_data.dict(exclude_unset=True)
+    for field, value in update_data.items():
+        setattr(certificate, field, value)
+    
+    db.commit()
+    db.refresh(certificate)
+    
+    return certificate
+
+
+@router.delete("/{vendor_id}/compliance-certificates/{certificate_id}")
+async def delete_vendor_compliance_certificate(
+    vendor_id: int,
+    certificate_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_active_user)
+):
+    """Delete a compliance certificate for a vendor"""
+    vendor = db.query(Vendor).filter(Vendor.id == vendor_id).first()
+    if not vendor:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Vendor not found"
+        )
+    
+    certificate = db.query(VendorComplianceCertificate).filter(
+        VendorComplianceCertificate.id == certificate_id,
+        VendorComplianceCertificate.vendor_id == vendor_id
+    ).first()
+    
+    if not certificate:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Compliance certificate not found"
+        )
+    
+    db.delete(certificate)
+    db.commit()
+    
+    return {"message": "Compliance certificate deleted successfully"}
 
 @router.get("/{vendor_id}/export/pdf")
 async def export_vendor_pdf(

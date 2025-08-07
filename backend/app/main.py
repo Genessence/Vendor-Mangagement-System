@@ -33,7 +33,8 @@ app.add_middleware(
         "X-Requested-With",
         "Origin",
         "Access-Control-Request-Method",
-        "Access-Control-Request-Headers"
+        "Access-Control-Request-Headers",
+        "Cache-Control"
     ],
     expose_headers=["Content-Length", "Content-Range"],
     max_age=86400,  # 24 hours

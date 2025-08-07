@@ -16,10 +16,12 @@ class Settings(BaseSettings):
     debug: bool = True
     allowed_hosts: List[str] = ["localhost", "127.0.0.1"]
     cors_origins: List[str] = [
-        # Development
+        # Development - Allow all localhost ports
         "http://localhost:3000", 
         "http://localhost:5173", 
         "http://localhost:4173", 
+        "http://127.0.0.1:3000",
+        "http://127.0.0.1:5173", 
         "http://127.0.0.1:4173",
         "http://localhost:8080",
         "http://127.0.0.1:8080",
@@ -28,7 +30,7 @@ class Settings(BaseSettings):
         "https://www.ambercompliancesystem.com",
         "https://vendor.ambercompliancesystem.com",
         "https://msme.ambercompliancesystem.com",
-        # Add any additional development URLs
+        # Wildcard for development (be careful in production)
         "http://localhost:*",
         "http://127.0.0.1:*"
     ]
