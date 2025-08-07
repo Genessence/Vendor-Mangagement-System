@@ -3936,3 +3936,1780 @@
   "user_id": null,
   "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
 }
+2025-08-07 17:37:46 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTY4OTI1fQ.c9fXphIW-9CNZkWIRLs9EmlwLkOG3FDqR9oapa2eDuA",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 17:43:26 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTY4OTI1fQ.c9fXphIW-9CNZkWIRLs9EmlwLkOG3FDqR9oapa2eDuA",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 17:43:30 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTY4OTI1fQ.c9fXphIW-9CNZkWIRLs9EmlwLkOG3FDqR9oapa2eDuA",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 17:45:23 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTY4OTI1fQ.c9fXphIW-9CNZkWIRLs9EmlwLkOG3FDqR9oapa2eDuA",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:02:08 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTY4OTI1fQ.c9fXphIW-9CNZkWIRLs9EmlwLkOG3FDqR9oapa2eDuA",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:07:55 | security | INFO | Authentication Request: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/auth/login",
+  "path": "/api/v1/auth/login",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "content-type": "multipart/form-data; boundary=----geckoformboundary6dfb80c76dfb922689065473292ab328",
+    "content-length": "301",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "priority": "u=0"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:07:55 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:11:05 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:11:05 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:11:08 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:11:08 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:11:14 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:11:14 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:11:17 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:11:17 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:11:22 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:11:22 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:11:24 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:11:24 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:11:41 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:11:41 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:11:57 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:11:57 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:12:02 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:12:02 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:13:35 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:13:35 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:13:49 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:13:49 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:13:50 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:13:51 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:14:11 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:14:11 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:15:40 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:15:40 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:15:54 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:15:54 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:16:06 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:16:06 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:16:07 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:16:07 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTcyMDc1fQ.GT1b9yf9q9MqYos7lj0HqpZT2A0vm8A4RRJUj0l4A3k",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:24:00 | security | INFO | Authentication Request: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/auth/login",
+  "path": "/api/v1/auth/login",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "content-type": "multipart/form-data; boundary=----geckoformboundarybeddc39120fe5a0452ebb4616630425e",
+    "content-length": "301",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "priority": "u=0"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:24:00 | security | INFO | Authentication Request: {
+  "method": "OPTIONS",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "*/*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "access-control-request-method": "GET",
+    "access-control-request-headers": "authorization",
+    "referer": "http://localhost:5173/",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "priority": "u=4"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:24:00 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:34:19 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:34:21 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:34:22 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:34:22 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:35:23 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:35:25 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:35:27 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:35:27 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:35:38 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:35:38 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:35:56 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:35:56 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:36:09 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:36:09 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:44:21 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:44:21 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:45:17 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:45:17 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:45:38 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:45:38 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:46:27 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:46:27 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:46:51 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:46:51 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:49:00 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:49:00 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:52:53 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:52:53 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:53:15 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:53:15 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:53:18 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:53:18 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 19:05:20 | security | INFO | Authentication Request: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "path": "/api/v1/auth/me",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "application/json, text/plain, */*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "authorization": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxIiwiZXhwIjoxNzU0NTczMDQwfQ.9_8AwQfD600awZUVCpRDjChQtnjyNIZ09MxV9OPzzso",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "referer": "http://localhost:5173/",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}

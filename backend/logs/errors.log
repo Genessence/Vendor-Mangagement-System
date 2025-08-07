@@ -922,3 +922,169 @@
   "client_ip": "127.0.0.1",
   "user_id": null
 }
+2025-08-07 18:02:08 | error | WARNING | Error response: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "status_code": 401,
+  "duration_ms": 4.03,
+  "client_ip": "127.0.0.1",
+  "user_id": null
+}
+2025-08-07 18:02:22 | error | WARNING | Error response: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "status_code": 422,
+  "duration_ms": 5.28,
+  "client_ip": "127.0.0.1",
+  "user_id": null
+}
+2025-08-07 18:06:06 | error | WARNING | Error response: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "status_code": 422,
+  "duration_ms": 5.01,
+  "client_ip": "127.0.0.1",
+  "user_id": null
+}
+2025-08-07 18:06:36 | error | WARNING | Error response: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "status_code": 422,
+  "duration_ms": 19.05,
+  "client_ip": "127.0.0.1",
+  "user_id": null
+}
+2025-08-07 18:07:07 | error | WARNING | Error response: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "status_code": 422,
+  "duration_ms": 4.01,
+  "client_ip": "127.0.0.1",
+  "user_id": null
+}
+2025-08-07 18:07:10 | error | WARNING | Error response: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "status_code": 422,
+  "duration_ms": 4.0,
+  "client_ip": "127.0.0.1",
+  "user_id": null
+}
+2025-08-07 18:07:11 | error | WARNING | Error response: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "status_code": 422,
+  "duration_ms": 3.01,
+  "client_ip": "127.0.0.1",
+  "user_id": null
+}
+2025-08-07 18:07:25 | error | WARNING | Error response: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "status_code": 422,
+  "duration_ms": 3.0,
+  "client_ip": "127.0.0.1",
+  "user_id": null
+}
+2025-08-07 18:09:22 | error | WARNING | Error response: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "status_code": 422,
+  "duration_ms": 4.01,
+  "client_ip": "127.0.0.1",
+  "user_id": null
+}
+2025-08-07 18:12:19 | error | WARNING | Error response: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "status_code": 422,
+  "duration_ms": 4.0,
+  "client_ip": "127.0.0.1",
+  "user_id": null
+}
+2025-08-07 18:12:20 | error | WARNING | Error response: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "status_code": 422,
+  "duration_ms": 3.0,
+  "client_ip": "127.0.0.1",
+  "user_id": null
+}
+2025-08-07 18:12:35 | error | WARNING | Error response: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "status_code": 422,
+  "duration_ms": 2.0,
+  "client_ip": "127.0.0.1",
+  "user_id": null
+}
+2025-08-07 18:14:39 | error | WARNING | Error response: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "status_code": 422,
+  "duration_ms": 3.02,
+  "client_ip": "127.0.0.1",
+  "user_id": null
+}
+2025-08-07 18:56:05 | error | ERROR | System Error: {
+  "event_type": "SYSTEM_ERROR",
+  "timestamp": "2025-08-07T13:26:05.566050",
+  "error_type": "AttributeError",
+  "error_message": "'Vendor' object has no attribute 'registration_date'",
+  "context": "Request: POST /api/v1/vendors/14/registration-agreement-pdf",
+  "user_id": null,
+  "stack_trace": "Traceback (most recent call last):\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\anyio\\streams\\memory.py\", line 98, in receive\n    return self.receive_nowait()\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\anyio\\streams\\memory.py\", line 93, in receive_nowait\n    raise WouldBlock\nanyio.WouldBlock\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\base.py\", line 78, in call_next\n    message = await recv_stream.receive()\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\anyio\\streams\\memory.py\", line 118, in receive\n    raise EndOfStream\nanyio.EndOfStream\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"D:\\Vendor Management System\\backend\\app\\middleware\\logging_middleware.py\", line 29, in dispatch\n    response = await call_next(request)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\base.py\", line 84, in call_next\n    raise app_exc\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\base.py\", line 70, in coro\n    await self.app(scope, receive_or_disconnect, send_no_error)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\trustedhost.py\", line 51, in __call__\n    await self.app(scope, receive, send)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\cors.py\", line 91, in __call__\n    await self.simple_response(scope, receive, send, request_headers=headers)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\cors.py\", line 146, in simple_response\n    await self.app(scope, receive, send)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\exceptions.py\", line 79, in __call__\n    raise exc\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\exceptions.py\", line 68, in __call__\n    await self.app(scope, receive, sender)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\fastapi\\middleware\\asyncexitstack.py\", line 20, in __call__\n    raise e\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\fastapi\\middleware\\asyncexitstack.py\", line 17, in __call__\n    await self.app(scope, receive, send)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\routing.py\", line 718, in __call__\n    await route.handle(scope, receive, send)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\routing.py\", line 276, in handle\n    await self.app(scope, receive, send)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\routing.py\", line 66, in app\n    response = await func(request)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\fastapi\\routing.py\", line 274, in app\n    raw_response = await run_endpoint_function(\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n  File \"D:\\Vendor Management System\\backend\\app\\api\\vendors.py\", line 1627, in download_registration_agreement_pdf\n    ['Signed Date', vendor.registration_date.strftime('%d/%m/%Y') if vendor.registration_date else 'N/A'],\nAttributeError: 'Vendor' object has no attribute 'registration_date'\n"
+}
+2025-08-07 18:56:05 | error | ERROR | Request Error: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/14/registration-agreement-pdf",
+  "error_type": "AttributeError",
+  "error_message": "'Vendor' object has no attribute 'registration_date'",
+  "duration_ms": 761.51,
+  "client_ip": "127.0.0.1",
+  "user_id": null
+}
+2025-08-07 18:56:10 | error | ERROR | System Error: {
+  "event_type": "SYSTEM_ERROR",
+  "timestamp": "2025-08-07T13:26:10.470230",
+  "error_type": "AttributeError",
+  "error_message": "'Vendor' object has no attribute 'registration_date'",
+  "context": "Request: POST /api/v1/vendors/14/registration-agreement-pdf",
+  "user_id": null,
+  "stack_trace": "Traceback (most recent call last):\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\anyio\\streams\\memory.py\", line 98, in receive\n    return self.receive_nowait()\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\anyio\\streams\\memory.py\", line 93, in receive_nowait\n    raise WouldBlock\nanyio.WouldBlock\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\base.py\", line 78, in call_next\n    message = await recv_stream.receive()\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\anyio\\streams\\memory.py\", line 118, in receive\n    raise EndOfStream\nanyio.EndOfStream\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"D:\\Vendor Management System\\backend\\app\\middleware\\logging_middleware.py\", line 29, in dispatch\n    response = await call_next(request)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\base.py\", line 84, in call_next\n    raise app_exc\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\base.py\", line 70, in coro\n    await self.app(scope, receive_or_disconnect, send_no_error)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\trustedhost.py\", line 51, in __call__\n    await self.app(scope, receive, send)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\cors.py\", line 91, in __call__\n    await self.simple_response(scope, receive, send, request_headers=headers)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\cors.py\", line 146, in simple_response\n    await self.app(scope, receive, send)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\exceptions.py\", line 79, in __call__\n    raise exc\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\exceptions.py\", line 68, in __call__\n    await self.app(scope, receive, sender)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\fastapi\\middleware\\asyncexitstack.py\", line 20, in __call__\n    raise e\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\fastapi\\middleware\\asyncexitstack.py\", line 17, in __call__\n    await self.app(scope, receive, send)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\routing.py\", line 718, in __call__\n    await route.handle(scope, receive, send)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\routing.py\", line 276, in handle\n    await self.app(scope, receive, send)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\routing.py\", line 66, in app\n    response = await func(request)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\fastapi\\routing.py\", line 274, in app\n    raw_response = await run_endpoint_function(\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n  File \"D:\\Vendor Management System\\backend\\app\\api\\vendors.py\", line 1627, in download_registration_agreement_pdf\n    ['Signed Date', vendor.registration_date.strftime('%d/%m/%Y') if vendor.registration_date else 'N/A'],\nAttributeError: 'Vendor' object has no attribute 'registration_date'\n"
+}
+2025-08-07 18:56:10 | error | ERROR | Request Error: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/14/registration-agreement-pdf",
+  "error_type": "AttributeError",
+  "error_message": "'Vendor' object has no attribute 'registration_date'",
+  "duration_ms": 6.02,
+  "client_ip": "127.0.0.1",
+  "user_id": null
+}
+2025-08-07 18:56:14 | error | ERROR | System Error: {
+  "event_type": "SYSTEM_ERROR",
+  "timestamp": "2025-08-07T13:26:14.137243",
+  "error_type": "AttributeError",
+  "error_message": "'Vendor' object has no attribute 'registration_date'",
+  "context": "Request: POST /api/v1/vendors/14/registration-agreement-pdf",
+  "user_id": null,
+  "stack_trace": "Traceback (most recent call last):\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\anyio\\streams\\memory.py\", line 98, in receive\n    return self.receive_nowait()\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\anyio\\streams\\memory.py\", line 93, in receive_nowait\n    raise WouldBlock\nanyio.WouldBlock\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\base.py\", line 78, in call_next\n    message = await recv_stream.receive()\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\anyio\\streams\\memory.py\", line 118, in receive\n    raise EndOfStream\nanyio.EndOfStream\n\nDuring handling of the above exception, another exception occurred:\n\nTraceback (most recent call last):\n  File \"D:\\Vendor Management System\\backend\\app\\middleware\\logging_middleware.py\", line 29, in dispatch\n    response = await call_next(request)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\base.py\", line 84, in call_next\n    raise app_exc\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\base.py\", line 70, in coro\n    await self.app(scope, receive_or_disconnect, send_no_error)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\trustedhost.py\", line 51, in __call__\n    await self.app(scope, receive, send)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\cors.py\", line 91, in __call__\n    await self.simple_response(scope, receive, send, request_headers=headers)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\cors.py\", line 146, in simple_response\n    await self.app(scope, receive, send)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\exceptions.py\", line 79, in __call__\n    raise exc\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\middleware\\exceptions.py\", line 68, in __call__\n    await self.app(scope, receive, sender)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\fastapi\\middleware\\asyncexitstack.py\", line 20, in __call__\n    raise e\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\fastapi\\middleware\\asyncexitstack.py\", line 17, in __call__\n    await self.app(scope, receive, send)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\routing.py\", line 718, in __call__\n    await route.handle(scope, receive, send)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\routing.py\", line 276, in handle\n    await self.app(scope, receive, send)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\starlette\\routing.py\", line 66, in app\n    response = await func(request)\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\fastapi\\routing.py\", line 274, in app\n    raw_response = await run_endpoint_function(\n  File \"D:\\Vendor Management System\\backend\\venv\\lib\\site-packages\\fastapi\\routing.py\", line 191, in run_endpoint_function\n    return await dependant.call(**values)\n  File \"D:\\Vendor Management System\\backend\\app\\api\\vendors.py\", line 1627, in download_registration_agreement_pdf\n    ['Signed Date', vendor.registration_date.strftime('%d/%m/%Y') if vendor.registration_date else 'N/A'],\nAttributeError: 'Vendor' object has no attribute 'registration_date'\n"
+}
+2025-08-07 18:56:14 | error | ERROR | Request Error: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/14/registration-agreement-pdf",
+  "error_type": "AttributeError",
+  "error_message": "'Vendor' object has no attribute 'registration_date'",
+  "duration_ms": 6.71,
+  "client_ip": "127.0.0.1",
+  "user_id": null
+}
+2025-08-07 19:05:20 | error | WARNING | Error response: {
+  "method": "GET",
+  "url": "http://localhost:8000/api/v1/auth/me",
+  "status_code": 401,
+  "duration_ms": 2.52,
+  "client_ip": "127.0.0.1",
+  "user_id": null
+}

@@ -112,6 +112,14 @@ const PublicVendorRegistrationForm = () => {
     if (savedData) {
       try {
         const parsedData = JSON.parse(savedData);
+        
+        // Clear invalid supplier types that don't match backend enum
+        const validSupplierTypes = ['manufacturer', 'supplier', 'service_provider', 'distributor'];
+        if (parsedData.supplierType && !validSupplierTypes.includes(parsedData.supplierType)) {
+          console.log('⚠️ Clearing invalid supplier type:', parsedData.supplierType);
+          parsedData.supplierType = '';
+        }
+        
         setFormData(parsedData);
       } catch (error) {
         console.error('Error loading saved form data:', error);
@@ -221,6 +229,36 @@ const PublicVendorRegistrationForm = () => {
     const stepErrors = validateStep(currentStep, formData);
     setErrors(stepErrors);
 
+    // Check for required fields
+    const requiredFields = {
+      business_vertical: formData.businessVertical,
+      company_name: formData.companyName,
+      country_origin: formData.countryOrigin,
+      contact_person_name: formData.contactPersonName,
+      email: formData.email,
+      phone_number: formData.phoneNumber
+    };
+
+    // Validate supplier type
+    const validSupplierTypes = ['manufacturer', 'supplier', 'service_provider', 'distributor'];
+    if (formData.supplierType && !validSupplierTypes.includes(formData.supplierType)) {
+      setErrors({ 
+        submit: `Invalid supplier type: ${formData.supplierType}. Must be one of: ${validSupplierTypes.join(', ')}` 
+      });
+      return;
+    }
+
+    const missingFields = Object.entries(requiredFields)
+      .filter(([key, value]) => !value || value.trim() === '')
+      .map(([key]) => key);
+
+    if (missingFields.length > 0) {
+      setErrors({ 
+        submit: `Missing required fields: ${missingFields.join(', ')}` 
+      });
+      return;
+    }
+
     if (Object.keys(stepErrors).length === 0) {
       setIsSubmitting(true);
       
@@ -232,13 +270,13 @@ const PublicVendorRegistrationForm = () => {
           company_name: formData.companyName,
           country_origin: formData.countryOrigin,
           registration_number: formData.countryOrigin === 'IN' ? formData.registrationNumber : null,
-          incorporation_certificate_path: formData.countryOrigin !== 'IN' ? formData.incorporationCertificate?.name : null,
+          incorporation_certificate_path: formData.countryOrigin !== 'IN' ? (formData.incorporationCertificate?.name || null) : null,
           contact_person_name: formData.contactPersonName,
           designation: formData.designation,
           email: formData.email,
           phone_number: formData.phoneNumber,
           website: formData.website,
-          year_established: parseInt(formData.yearEstablished),
+          year_established: formData.yearEstablished ? parseInt(formData.yearEstablished) : null,
           business_description: formData.businessDescription,
           
           // Address information
@@ -259,15 +297,15 @@ const PublicVendorRegistrationForm = () => {
           account_type: formData.accountType,
           ifsc_code: formData.ifscCode,
           branch_name: formData.branchName,
-          currency: formData.currency,
+          currency: formData.preferredCurrency, // Use preferred currency as bank currency
           
           // Supplier categorization
-          supplier_type: formData.supplierType === 'service-provider' ? 'service_provider' : formData.supplierType,
+          supplier_type: formData.supplierType, // Now directly matches backend enum values
           supplier_group: formData.supplierGroup,
           supplier_category: formData.supplierCategory === 'rw' ? 'rw-raw-material' : 
                            formData.supplierCategory === 'pk' ? 'pk-packaging' : 
                            formData.supplierCategory,
-          annual_turnover: parseFloat(formData.annualTurnover),
+          annual_turnover: formData.annualTurnover ? parseFloat(formData.annualTurnover) : null,
           products_services: formData.productsServices,
           msme_status: formData.msmeStatus === 'registered' ? 'msme' : (formData.msmeStatus === 'not-registered' ? 'non_msme' : 'pending'),
           msme_category: formData.msmeCategory,
@@ -298,6 +336,12 @@ const PublicVendorRegistrationForm = () => {
           self_declaration: formData.agreements?.selfDeclaration || false
         };
 
+        // Log the data being sent for debugging
+        console.log('📤 Sending vendor data:', vendorData);
+        console.log('🔍 Supplier Type being sent:', vendorData.supplier_type);
+        console.log('🔍 Form Data Supplier Type:', formData.supplierType);
+        console.log('🌐 API URL:', `${API_BASE_URL}/vendors/public-registration`);
+
         // Call the backend API to create vendor
         const response = await fetch(`${API_BASE_URL}/vendors/public-registration`, {
           method: 'POST',
@@ -307,8 +351,27 @@ const PublicVendorRegistrationForm = () => {
           body: JSON.stringify(vendorData)
         });
 
+        console.log('📥 Response status:', response.status);
+        console.log('📥 Response headers:', Object.fromEntries(response.headers.entries()));
+
         if (!response.ok) {
           const errorData = await response.json();
+          console.error('❌ API Error:', errorData);
+          
+          // Handle validation errors
+          if (response.status === 422 && errorData.detail) {
+            let errorMessage = 'Validation errors:\n';
+            if (Array.isArray(errorData.detail)) {
+              errorData.detail.forEach((error, index) => {
+                const fieldPath = error.loc?.join(' -> ') || 'unknown';
+                errorMessage += `${index + 1}. ${fieldPath}: ${error.msg}\n`;
+              });
+            } else {
+              errorMessage += errorData.detail;
+            }
+            throw new Error(errorMessage);
+          }
+          
           throw new Error(errorData.detail || 'Failed to create vendor');
         }
 

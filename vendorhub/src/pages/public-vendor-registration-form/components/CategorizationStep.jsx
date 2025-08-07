@@ -11,10 +11,9 @@ const CategorizationStep = ({ formData, updateFormData, errors }) => {
 
   const supplierTypes = [
     { value: 'manufacturer', label: 'Manufacturer' },
-    { value: 'trader', label: 'Trader' },
-    { value: 'service-provider', label: 'Service Provider' },
-    { value: 'contractor', label: 'Contractor' },
-    { value: 'consultant', label: 'Consultant' }
+    { value: 'supplier', label: 'Supplier' },
+    { value: 'service_provider', label: 'Service Provider' },
+    { value: 'distributor', label: 'Distributor' }
   ];
 
   // Updated supplier groups as per requirements

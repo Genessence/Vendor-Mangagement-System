@@ -535,3 +535,521 @@
 2025-08-07 17:03:52 | app | INFO | Request: GET /api/v1/vendors/12 from 127.0.0.1
 2025-08-07 17:03:54 | app | INFO | Request: GET /api/v1/vendors/12/compliance-certificates from 127.0.0.1
 2025-08-07 17:03:59 | app | INFO | Request: GET /api/v1/vendors/12/compliance-certificates from 127.0.0.1
+2025-08-07 17:15:29 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 17:15:29 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 17:15:32 | app | INFO | Request: GET /api/v1/vendors/12 from 127.0.0.1
+2025-08-07 17:15:36 | app | INFO | Request: GET /api/v1/documents/vendor/12 from 127.0.0.1
+2025-08-07 17:15:36 | app | INFO | Request: GET /api/v1/documents/stats/vendor/12 from 127.0.0.1
+2025-08-07 17:15:37 | app | INFO | Request: GET /api/v1/vendors/12/compliance-certificates from 127.0.0.1
+2025-08-07 17:15:41 | app | INFO | Request: GET /api/v1/vendors/12 from 127.0.0.1
+2025-08-07 17:16:59 | app | INFO | Request: GET /api/v1/vendors/1/agreement-details from 127.0.0.1
+2025-08-07 17:18:26 | app | INFO | Request: GET /api/v1/vendors/1/agreement-details from 127.0.0.1
+2025-08-07 17:18:54 | app | INFO | Request: GET /api/v1/vendors/12 from 127.0.0.1
+2025-08-07 17:18:57 | app | INFO | Request: GET /api/v1/vendors/12 from 127.0.0.1
+2025-08-07 17:19:00 | app | INFO | Request: GET /api/v1/vendors/12 from 127.0.0.1
+2025-08-07 17:19:08 | app | INFO | Request: GET /api/v1/vendors/12 from 127.0.0.1
+2025-08-07 17:19:09 | app | INFO | Request: GET /api/v1/vendors/12 from 127.0.0.1
+2025-08-07 17:19:34 | app | INFO | Request: GET /api/v1/vendors/12/agreement-details from 127.0.0.1
+2025-08-07 17:19:49 | app | INFO | Request: GET /api/v1/vendors/12/agreement-details from 127.0.0.1
+2025-08-07 17:22:12 | app | INFO | Request: GET /api/v1/vendors/12/compliance-certificates from 127.0.0.1
+2025-08-07 17:22:13 | app | INFO | Request: GET /api/v1/vendors/12/agreement-details from 127.0.0.1
+2025-08-07 17:23:41 | app | INFO | Request: GET /api/v1/vendors/12/compliance-certificates from 127.0.0.1
+2025-08-07 17:23:42 | app | INFO | Request: GET /api/v1/vendors/12/agreement-details from 127.0.0.1
+2025-08-07 17:23:45 | app | INFO | Request: GET /api/v1/vendors/12/agreement-details from 127.0.0.1
+2025-08-07 17:23:48 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 17:23:48 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 17:36:40 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 17:36:40 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 17:36:43 | app | INFO | Request: GET /api/v1/vendors/12 from 127.0.0.1
+2025-08-07 17:36:45 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 17:36:45 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 17:45:25 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 17:45:25 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:02:22 | app | INFO | Vendor Registration Request: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "path": "/api/v1/vendors/public-registration",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "*/*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "referer": "http://localhost:5173/",
+    "content-type": "application/json",
+    "content-length": "1407",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "priority": "u=0"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:06:06 | app | INFO | Vendor Registration Request: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "path": "/api/v1/vendors/public-registration",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "*/*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "referer": "http://localhost:5173/",
+    "content-type": "application/json",
+    "content-length": "1407",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "priority": "u=0"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:06:36 | app | INFO | Vendor Registration Request: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "path": "/api/v1/vendors/public-registration",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "*/*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "referer": "http://localhost:5173/",
+    "content-type": "application/json",
+    "content-length": "1407",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "priority": "u=0"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:07:02 | app | INFO | Vendor Registration Request: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "path": "/api/v1/vendors/public-registration",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "python-requests/2.32.4",
+    "accept-encoding": "gzip, deflate",
+    "accept": "application/json",
+    "connection": "keep-alive",
+    "content-type": "application/json",
+    "content-length": "1967"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "python-requests/2.32.4"
+}
+2025-08-07 18:07:07 | app | INFO | Vendor Registration Request: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "path": "/api/v1/vendors/public-registration",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "*/*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "referer": "http://localhost:5173/",
+    "content-type": "application/json",
+    "content-length": "1407",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "priority": "u=0"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:07:10 | app | INFO | Vendor Registration Request: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "path": "/api/v1/vendors/public-registration",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "*/*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "referer": "http://localhost:5173/",
+    "content-type": "application/json",
+    "content-length": "1407",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "priority": "u=0"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:07:11 | app | INFO | Vendor Registration Request: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "path": "/api/v1/vendors/public-registration",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "*/*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "referer": "http://localhost:5173/",
+    "content-type": "application/json",
+    "content-length": "1407",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "priority": "u=0"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:07:25 | app | INFO | Vendor Registration Request: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "path": "/api/v1/vendors/public-registration",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "*/*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "referer": "http://localhost:5173/",
+    "content-type": "application/json",
+    "content-length": "1407",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "priority": "u=0"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:07:57 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:07:57 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:08:01 | app | INFO | Request: GET /api/v1/vendors/13 from 127.0.0.1
+2025-08-07 18:08:09 | app | INFO | Request: GET /api/v1/vendors/13/agreement-details from 127.0.0.1
+2025-08-07 18:08:21 | app | INFO | Request: GET /api/v1/documents/vendor/13 from 127.0.0.1
+2025-08-07 18:08:21 | app | INFO | Request: GET /api/v1/documents/stats/vendor/13 from 127.0.0.1
+2025-08-07 18:08:22 | app | INFO | Request: GET /api/v1/vendors/13/compliance-certificates from 127.0.0.1
+2025-08-07 18:08:23 | app | INFO | Request: GET /api/v1/vendors/13/agreement-details from 127.0.0.1
+2025-08-07 18:08:34 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:08:34 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:08:38 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:08:38 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:09:22 | app | INFO | Vendor Registration Request: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "path": "/api/v1/vendors/public-registration",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "*/*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "referer": "http://localhost:5173/",
+    "content-type": "application/json",
+    "content-length": "1407",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "priority": "u=0"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:11:05 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:11:05 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:11:08 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:11:08 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:11:14 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:11:14 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:11:17 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:11:17 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:11:22 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:11:22 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:11:24 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:11:24 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:11:41 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:11:41 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:11:58 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:11:58 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:12:02 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:12:02 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:12:19 | app | INFO | Vendor Registration Request: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "path": "/api/v1/vendors/public-registration",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "*/*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "referer": "http://localhost:5173/",
+    "content-type": "application/json",
+    "content-length": "1424",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "priority": "u=0"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:12:20 | app | INFO | Vendor Registration Request: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "path": "/api/v1/vendors/public-registration",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "*/*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "referer": "http://localhost:5173/",
+    "content-type": "application/json",
+    "content-length": "1424",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "priority": "u=0"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:12:35 | app | INFO | Vendor Registration Request: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "path": "/api/v1/vendors/public-registration",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "*/*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "referer": "http://localhost:5173/",
+    "content-type": "application/json",
+    "content-length": "1424",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "priority": "u=0"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:13:35 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:13:35 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:13:49 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:13:49 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:13:50 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:13:50 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:14:11 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:14:11 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:14:39 | app | INFO | Vendor Registration Request: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "path": "/api/v1/vendors/public-registration",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "*/*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "referer": "http://localhost:5173/",
+    "content-type": "application/json",
+    "content-length": "1462",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "priority": "u=0"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:15:40 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:15:40 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:15:54 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:15:54 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:16:06 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:16:06 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:16:07 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:16:07 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:23:51 | app | INFO | Vendor Registration Request: {
+  "method": "OPTIONS",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "path": "/api/v1/vendors/public-registration",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "*/*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "access-control-request-method": "POST",
+    "access-control-request-headers": "content-type",
+    "referer": "http://localhost:5173/",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "priority": "u=4"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:23:51 | app | INFO | Vendor Registration Request: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/public-registration",
+  "path": "/api/v1/vendors/public-registration",
+  "query_params": {},
+  "headers": {
+    "host": "localhost:8000",
+    "user-agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0",
+    "accept": "*/*",
+    "accept-language": "en-US,en;q=0.5",
+    "accept-encoding": "gzip, deflate, br, zstd",
+    "referer": "http://localhost:5173/",
+    "content-type": "application/json",
+    "content-length": "1472",
+    "origin": "http://localhost:5173",
+    "connection": "keep-alive",
+    "sec-fetch-dest": "empty",
+    "sec-fetch-mode": "cors",
+    "sec-fetch-site": "same-site",
+    "priority": "u=0"
+  },
+  "client_ip": "127.0.0.1",
+  "user_id": null,
+  "user_agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:141.0) Gecko/20100101 Firefox/141.0"
+}
+2025-08-07 18:24:02 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:24:02 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:24:07 | app | INFO | Request: GET /api/v1/vendors/14 from 127.0.0.1
+2025-08-07 18:24:08 | app | INFO | Request: GET /api/v1/vendors/14/agreement-details from 127.0.0.1
+2025-08-07 18:24:12 | app | INFO | Request: GET /api/v1/vendors/14/compliance-certificates from 127.0.0.1
+2025-08-07 18:24:14 | app | INFO | Request: GET /api/v1/vendors/14/agreement-details from 127.0.0.1
+2025-08-07 18:24:15 | app | INFO | Request: GET /api/v1/vendors/14/compliance-certificates from 127.0.0.1
+2025-08-07 18:24:16 | app | INFO | Request: GET /api/v1/documents/vendor/14 from 127.0.0.1
+2025-08-07 18:24:16 | app | INFO | Request: GET /api/v1/documents/stats/vendor/14 from 127.0.0.1
+2025-08-07 18:24:40 | app | INFO | Request: GET /api/v1/vendors/14/agreement-details from 127.0.0.1
+2025-08-07 18:34:19 | app | INFO | Request: GET /api/v1/vendors/14 from 127.0.0.1
+2025-08-07 18:34:21 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:34:21 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:34:23 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:34:23 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:34:23 | app | INFO | Request: GET /api/v1/vendors/14 from 127.0.0.1
+2025-08-07 18:35:23 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:35:23 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:35:25 | app | INFO | Request: GET /api/v1/vendors/14 from 127.0.0.1
+2025-08-07 18:35:27 | app | INFO | Request: GET /api/v1/vendors/14 from 127.0.0.1
+2025-08-07 18:35:27 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:35:27 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:35:38 | app | INFO | Request: GET /api/v1/vendors/14 from 127.0.0.1
+2025-08-07 18:35:38 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:35:38 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:35:56 | app | INFO | Request: GET /api/v1/vendors/14 from 127.0.0.1
+2025-08-07 18:35:56 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:35:56 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:36:09 | app | INFO | Request: GET /api/v1/vendors/14 from 127.0.0.1
+2025-08-07 18:36:09 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:36:09 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:36:56 | app | INFO | Request: GET /api/v1/vendors/14/agreement-details from 127.0.0.1
+2025-08-07 18:37:25 | app | INFO | Request: GET /api/v1/vendors/14/agreement-details from 127.0.0.1
+2025-08-07 18:37:25 | app | INFO | Request: GET /api/v1/vendors/14/compliance-certificates from 127.0.0.1
+2025-08-07 18:37:26 | app | INFO | Request: GET /api/v1/documents/vendor/14 from 127.0.0.1
+2025-08-07 18:37:26 | app | INFO | Request: GET /api/v1/documents/stats/vendor/14 from 127.0.0.1
+2025-08-07 18:37:30 | app | INFO | Request: GET /api/v1/vendors/14/compliance-certificates from 127.0.0.1
+2025-08-07 18:37:31 | app | INFO | Request: GET /api/v1/vendors/14/agreement-details from 127.0.0.1
+2025-08-07 18:44:21 | app | INFO | Request: GET /api/v1/vendors/14 from 127.0.0.1
+2025-08-07 18:44:21 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:44:21 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:44:56 | app | INFO | Request: GET /api/v1/vendors/14/agreement-details from 127.0.0.1
+2025-08-07 18:45:17 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:45:17 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:45:17 | app | INFO | Request: GET /api/v1/vendors/14 from 127.0.0.1
+2025-08-07 18:45:38 | app | INFO | Request: GET /api/v1/vendors/14 from 127.0.0.1
+2025-08-07 18:45:38 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:45:38 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:46:27 | app | INFO | Request: GET /api/v1/vendors/14 from 127.0.0.1
+2025-08-07 18:46:27 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:46:27 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:46:51 | app | INFO | Request: GET /api/v1/vendors/14 from 127.0.0.1
+2025-08-07 18:46:51 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:46:51 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:47:09 | app | INFO | Request: GET /api/v1/vendors/14/agreement-details from 127.0.0.1
+2025-08-07 18:49:00 | app | INFO | Request: GET /api/v1/vendors/14 from 127.0.0.1
+2025-08-07 18:49:00 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:49:00 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:52:53 | app | INFO | Request: GET /api/v1/vendors/14 from 127.0.0.1
+2025-08-07 18:52:54 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:52:54 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:53:15 | app | INFO | Request: GET /api/v1/vendors/14 from 127.0.0.1
+2025-08-07 18:53:15 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:53:15 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:53:18 | app | INFO | Request: GET /api/v1/vendors from 127.0.0.1
+2025-08-07 18:53:18 | app | INFO | Request: GET /api/v1/vendors/14 from 127.0.0.1
+2025-08-07 18:53:18 | app | INFO | Request: GET /api/v1/vendors/ from 127.0.0.1
+2025-08-07 18:55:54 | app | INFO | Request: GET /api/v1/vendors/14/agreement-details from 127.0.0.1
+2025-08-07 18:56:04 | app | INFO | Request: OPTIONS /api/v1/vendors/14/registration-agreement-pdf from 127.0.0.1
+2025-08-07 18:56:04 | app | INFO | Request: POST /api/v1/vendors/14/registration-agreement-pdf from 127.0.0.1
+2025-08-07 18:56:10 | app | INFO | Request: OPTIONS /api/v1/vendors/14/registration-agreement-pdf from 127.0.0.1
+2025-08-07 18:56:10 | app | INFO | Request: POST /api/v1/vendors/14/registration-agreement-pdf from 127.0.0.1
+2025-08-07 18:56:14 | app | INFO | Request: OPTIONS /api/v1/vendors/14/registration-agreement-pdf from 127.0.0.1
+2025-08-07 18:56:14 | app | INFO | Request: POST /api/v1/vendors/14/registration-agreement-pdf from 127.0.0.1

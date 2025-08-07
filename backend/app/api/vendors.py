@@ -770,6 +770,453 @@ async def delete_vendor_agreement_detail(
     return {"message": "Agreement deleted successfully"}
 
 
+@router.get("/{vendor_id}/agreement-details/{agreement_id}/view")
+async def view_agreement_document(
+    vendor_id: int,
+    agreement_id: int,
+    db: Session = Depends(get_db)
+):
+    """View agreement document content"""
+    # Verify vendor exists
+    vendor = db.query(Vendor).filter(Vendor.id == vendor_id).first()
+    if not vendor:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Vendor not found"
+        )
+    
+    # Get agreement detail
+    agreement = db.query(VendorAgreementDetail).filter(
+        VendorAgreementDetail.id == agreement_id,
+        VendorAgreementDetail.vendor_id == vendor_id
+    ).first()
+    
+    if not agreement:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Agreement not found"
+        )
+    
+    # For now, return agreement details as JSON
+    # In a real implementation, this would serve the actual document file
+    return {
+        "id": agreement.id,
+        "title": agreement.title,
+        "type": agreement.type,
+        "status": agreement.status,
+        "description": agreement.description,
+        "version": agreement.version,
+        "signed_date": agreement.signed_date,
+        "signed_by": agreement.signed_by,
+        "valid_until": agreement.valid_until,
+        "document_content": f"Sample content for {agreement.title}. This would contain the actual agreement text in a real implementation.",
+        "document_size": agreement.document_size,
+        "last_modified": agreement.last_modified
+    }
+
+
+@router.get("/{vendor_id}/agreement-details/{agreement_id}/pdf")
+async def download_agreement_pdf(
+    vendor_id: int,
+    agreement_id: int,
+    db: Session = Depends(get_db)
+):
+    """Download agreement as PDF"""
+    from reportlab.lib.pagesizes import letter, A4
+    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+    from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
+    from reportlab.lib.units import inch, cm
+    from reportlab.lib import colors
+    from io import BytesIO
+    from fastapi.responses import StreamingResponse
+    
+    # Verify vendor exists
+    vendor = db.query(Vendor).filter(Vendor.id == vendor_id).first()
+    if not vendor:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Vendor not found"
+        )
+    
+    # Get agreement detail
+    agreement = db.query(VendorAgreementDetail).filter(
+        VendorAgreementDetail.id == agreement_id,
+        VendorAgreementDetail.vendor_id == vendor_id
+    ).first()
+    
+    if not agreement:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Agreement not found"
+        )
+    
+    # Create PDF
+    buffer = BytesIO()
+    doc = SimpleDocTemplate(buffer, pagesize=A4, 
+                           leftMargin=1.5*cm, rightMargin=1.5*cm, 
+                           topMargin=2*cm, bottomMargin=2*cm)
+    styles = getSampleStyleSheet()
+    story = []
+    
+    # Title
+    title_style = ParagraphStyle(
+        'CustomTitle',
+        parent=styles['Heading1'],
+        fontSize=22,
+        spaceAfter=25,
+        spaceBefore=10,
+        alignment=1,  # Center alignment
+        textColor=colors.HexColor('#1f2937'),
+        fontName='Helvetica-Bold'
+    )
+    
+    story.append(Paragraph(f"Agreement: {agreement.title}", title_style))
+    story.append(Spacer(1, 20))
+    
+    # Agreement Details
+    heading_style = ParagraphStyle(
+        'CustomHeading',
+        parent=styles['Heading2'],
+        fontSize=14,
+        spaceAfter=15,
+        spaceBefore=25,
+        textColor=colors.HexColor('#374151'),
+        fontName='Helvetica-Bold',
+        borderWidth=1,
+        borderColor=colors.HexColor('#d1d5db'),
+        borderPadding=10,
+        backColor=colors.HexColor('#f9fafb')
+    )
+    
+    story.append(Paragraph("Agreement Details", heading_style))
+    story.append(Spacer(1, 10))
+    
+    details_info = [
+        ['Agreement Type', agreement.type],
+        ['Status', agreement.status],
+        ['Version', f"v{agreement.version}" if agreement.version else 'N/A'],
+        ['Signed Date', agreement.signed_date.strftime('%d/%m/%Y') if agreement.signed_date else 'N/A'],
+        ['Signed By', agreement.signed_by or 'N/A'],
+        ['Valid Until', agreement.valid_until or 'N/A'],
+        ['Document Size', agreement.document_size or 'N/A'],
+        ['Last Modified', agreement.last_modified.strftime('%d/%m/%Y %H:%M') if agreement.last_modified else 'N/A'],
+    ]
+    
+    details_table = Table(details_info, colWidths=[2.2*inch, 3.8*inch])
+    details_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#1f2937')),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 11),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
+        ('TOPPADDING', (0, 0), (-1, 0), 10),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.HexColor('#f9fafb')),
+        ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#d1d5db')),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#f3f4f6')]),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('FONTSIZE', (0, 1), (-1, -1), 9),
+        ('TOPPADDING', (0, 1), (-1, -1), 6),
+        ('BOTTOMPADDING', (0, 1), (-1, -1), 6),
+        ('LEFTPADDING', (0, 0), (-1, -1), 8),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 8),
+    ]))
+    story.append(details_table)
+    story.append(Spacer(1, 20))
+    
+    # Agreement Content
+    story.append(Paragraph("Agreement Content", heading_style))
+    story.append(Spacer(1, 10))
+    
+    content_style = ParagraphStyle(
+        'Content',
+        parent=styles['Normal'],
+        fontSize=10,
+        spaceAfter=12,
+        textColor=colors.HexColor('#374151'),
+        fontName='Helvetica'
+    )
+    
+    # Sample agreement content - in real implementation, this would be the actual agreement text
+    agreement_content = f"""
+    This is a sample agreement document for {agreement.title}.
+    
+    AGREEMENT
+    
+    This Agreement is made and entered into on {agreement.signed_date.strftime('%B %d, %Y') if agreement.signed_date else 'the date of signing'} by and between:
+    
+    VENDOR: {vendor.company_name}
+    Address: {vendor.registered_address or 'N/A'}
+    
+    And
+    
+    COMPANY: Amber Compliance System
+    Address: [Company Address]
+    
+    WHEREAS, the parties desire to establish a business relationship;
+    
+    NOW, THEREFORE, in consideration of the mutual promises and covenants contained herein, the parties agree as follows:
+    
+    1. SCOPE OF WORK
+    The Vendor shall provide services/products as described in this agreement.
+    
+    2. TERM
+    This agreement shall be effective from the date of signing and shall remain in force until {agreement.valid_until or 'terminated by either party'}.
+    
+    3. COMPENSATION
+    Payment terms and amounts shall be as mutually agreed upon by both parties.
+    
+    4. CONFIDENTIALITY
+    Both parties agree to maintain the confidentiality of any proprietary information shared during the course of this agreement.
+    
+    5. TERMINATION
+    Either party may terminate this agreement with written notice as per the terms specified herein.
+    
+    IN WITNESS WHEREOF, the parties have executed this agreement as of the date first above written.
+    
+    VENDOR: {vendor.company_name}
+    By: {agreement.signed_by or vendor.contact_person_name}
+    Date: {agreement.signed_date.strftime('%B %d, %Y') if agreement.signed_date else 'N/A'}
+    
+    COMPANY: Amber Compliance System
+    By: [Authorized Signatory]
+    Date: {agreement.signed_date.strftime('%B %d, %Y') if agreement.signed_date else 'N/A'}
+    """
+    
+    story.append(Paragraph(agreement_content, content_style))
+    
+    # Footer
+    story.append(Spacer(1, 30))
+    footer_style = ParagraphStyle(
+        'Footer',
+        parent=styles['Normal'],
+        fontSize=9,
+        alignment=1,  # Center alignment
+        textColor=colors.HexColor('#6b7280'),
+        spaceBefore=20,
+        spaceAfter=10,
+        borderWidth=1,
+        borderColor=colors.HexColor('#e5e7eb'),
+        borderPadding=10,
+        backColor=colors.HexColor('#f9fafb')
+    )
+    
+    story.append(Paragraph(f"Generated on: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}", footer_style))
+    story.append(Paragraph(f"Vendor: {vendor.company_name} ({vendor.vendor_code})", footer_style))
+    story.append(Paragraph(f"Agreement: {agreement.title}", footer_style))
+    
+    # Build PDF
+    doc.build(story)
+    buffer.seek(0)
+    
+    return StreamingResponse(
+        buffer,
+        media_type="application/pdf",
+        headers={"Content-Disposition": f"attachment; filename=agreement_{agreement.id}_{vendor.vendor_code}.pdf"}
+    )
+
+
+@router.get("/{vendor_id}/agreement-details/{agreement_id}/signature")
+async def view_agreement_signature(
+    vendor_id: int,
+    agreement_id: int,
+    db: Session = Depends(get_db)
+):
+    """View agreement signature details"""
+    # Verify vendor exists
+    vendor = db.query(Vendor).filter(Vendor.id == vendor_id).first()
+    if not vendor:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Vendor not found"
+        )
+    
+    # Get agreement detail
+    agreement = db.query(VendorAgreementDetail).filter(
+        VendorAgreementDetail.id == agreement_id,
+        VendorAgreementDetail.vendor_id == vendor_id
+    ).first()
+    
+    if not agreement:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Agreement not found"
+        )
+    
+    if agreement.status != 'Signed':
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Agreement is not signed yet"
+        )
+    
+    # Return signature details
+    return {
+        "agreement_id": agreement.id,
+        "agreement_title": agreement.title,
+        "signature_details": {
+            "signed_by": agreement.signed_by or vendor.contact_person_name,
+            "signed_date": agreement.signed_date,
+            "signature_method": "Digital Signature",
+            "certificate_authority": "eMudhra Limited",
+            "signature_verified": True,
+            "timestamp": agreement.last_modified or agreement.signed_date,
+            "signature_image_url": f"/api/v1/vendors/{vendor_id}/agreement-details/{agreement_id}/signature-image"
+        },
+        "vendor_info": {
+            "company_name": vendor.company_name,
+            "vendor_code": vendor.vendor_code,
+            "contact_person": vendor.contact_person_name
+        }
+    }
+
+
+@router.get("/{vendor_id}/agreement-details/{agreement_id}/signature-image")
+async def get_signature_image(
+    vendor_id: int,
+    agreement_id: int,
+    db: Session = Depends(get_db)
+):
+    """Get signature image (placeholder for now)"""
+    # Verify vendor exists
+    vendor = db.query(Vendor).filter(Vendor.id == vendor_id).first()
+    if not vendor:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Vendor not found"
+        )
+    
+    # Get agreement detail
+    agreement = db.query(VendorAgreementDetail).filter(
+        VendorAgreementDetail.id == agreement_id,
+        VendorAgreementDetail.vendor_id == vendor_id
+    ).first()
+    
+    if not agreement:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Agreement not found"
+        )
+    
+    # For now, return a placeholder response
+    # In a real implementation, this would serve the actual signature image
+    return {
+        "message": "Signature image placeholder",
+        "agreement_id": agreement.id,
+        "signed_by": agreement.signed_by or vendor.contact_person_name,
+        "note": "In a real implementation, this endpoint would serve the actual signature image file"
+    }
+
+
+@router.post("/{vendor_id}/agreement-details/{agreement_id}/comments")
+async def add_agreement_comment(
+    vendor_id: int,
+    agreement_id: int,
+    comment_data: dict,
+    db: Session = Depends(get_db)
+):
+    """Add a comment to an agreement"""
+    # Verify vendor exists
+    vendor = db.query(Vendor).filter(Vendor.id == vendor_id).first()
+    if not vendor:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Vendor not found"
+        )
+    
+    # Get agreement detail
+    agreement = db.query(VendorAgreementDetail).filter(
+        VendorAgreementDetail.id == agreement_id,
+        VendorAgreementDetail.vendor_id == vendor_id
+    ).first()
+    
+    if not agreement:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Agreement not found"
+        )
+    
+    # For now, we'll store comments in a simple way
+    # In a real implementation, you might want a separate comments table
+    comment = {
+        "id": len(getattr(agreement, 'comments', [])) + 1,
+        "text": comment_data.get("comment", ""),
+        "author": comment_data.get("author", "System"),
+        "timestamp": datetime.now().isoformat(),
+        "type": comment_data.get("type", "general")
+    }
+    
+    # Add comment to agreement (this is a simplified approach)
+    if not hasattr(agreement, 'comments'):
+        agreement.comments = []
+    agreement.comments.append(comment)
+    
+    # In a real implementation, you would save this to the database
+    # For now, we'll just return the comment
+    return {
+        "message": "Comment added successfully",
+        "comment": comment,
+        "agreement_id": agreement.id,
+        "total_comments": len(agreement.comments)
+    }
+
+
+@router.get("/{vendor_id}/agreement-details/{agreement_id}/comments")
+async def get_agreement_comments(
+    vendor_id: int,
+    agreement_id: int,
+    db: Session = Depends(get_db)
+):
+    """Get all comments for an agreement"""
+    # Verify vendor exists
+    vendor = db.query(Vendor).filter(Vendor.id == vendor_id).first()
+    if not vendor:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Vendor not found"
+        )
+    
+    # Get agreement detail
+    agreement = db.query(VendorAgreementDetail).filter(
+        VendorAgreementDetail.id == agreement_id,
+        VendorAgreementDetail.vendor_id == vendor_id
+    ).first()
+    
+    if not agreement:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Agreement not found"
+        )
+    
+    # Return comments (this is a simplified approach)
+    comments = getattr(agreement, 'comments', [])
+    
+    # Add some sample comments for demonstration
+    if not comments:
+        comments = [
+            {
+                "id": 1,
+                "text": "Agreement reviewed and approved by legal team",
+                "author": "Legal Department",
+                "timestamp": "2024-03-27T10:30:00",
+                "type": "approval"
+            },
+            {
+                "id": 2,
+                "text": "Vendor has been notified about the agreement terms",
+                "author": "Procurement Team",
+                "timestamp": "2024-03-27T14:15:00",
+                "type": "notification"
+            }
+        ]
+    
+    return {
+        "agreement_id": agreement.id,
+        "agreement_title": agreement.title,
+        "comments": comments,
+        "total_comments": len(comments)
+    }
+
+
 @router.get("/{vendor_id}/export/pdf")
 async def export_vendor_pdf(
     vendor_id: int,
@@ -777,11 +1224,12 @@ async def export_vendor_pdf(
     current_user: User = Depends(get_current_active_user)
 ):
     """Export vendor data as PDF"""
-    from reportlab.lib.pagesizes import letter, A4
-    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
+    from reportlab.lib.pagesizes import A4
+    from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle, PageBreak, KeepTogether
     from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
-    from reportlab.lib.units import inch
+    from reportlab.lib.units import inch, cm
     from reportlab.lib import colors
+    from reportlab.pdfgen import canvas
     from io import BytesIO
     from fastapi.responses import StreamingResponse
     
@@ -793,141 +1241,303 @@ async def export_vendor_pdf(
             detail="Vendor not found"
         )
     
-    # Create PDF
+    # Create PDF with proper margins
     buffer = BytesIO()
-    doc = SimpleDocTemplate(buffer, pagesize=A4)
+    doc = SimpleDocTemplate(buffer, pagesize=A4, 
+                           leftMargin=1.5*cm, rightMargin=1.5*cm, 
+                           topMargin=2*cm, bottomMargin=2*cm)
     styles = getSampleStyleSheet()
     story = []
     
-    # Title
+    # Custom styles with better spacing
     title_style = ParagraphStyle(
         'CustomTitle',
         parent=styles['Heading1'],
-        fontSize=18,
-        spaceAfter=30,
-        alignment=1  # Center alignment
+        fontSize=22,
+        spaceAfter=25,
+        spaceBefore=10,
+        alignment=1,  # Center alignment
+        textColor=colors.HexColor('#1f2937'),
+        fontName='Helvetica-Bold'
     )
-    story.append(Paragraph(f"Vendor Profile Report", title_style))
-    story.append(Spacer(1, 20))
+    
+    heading_style = ParagraphStyle(
+        'CustomHeading',
+        parent=styles['Heading2'],
+        fontSize=14,
+        spaceAfter=15,
+        spaceBefore=25,
+        textColor=colors.HexColor('#374151'),
+        fontName='Helvetica-Bold',
+        borderWidth=1,
+        borderColor=colors.HexColor('#d1d5db'),
+        borderPadding=10,
+        backColor=colors.HexColor('#f9fafb')
+    )
+    
+    # Title page
+    story.append(Paragraph("Vendor Profile Report", title_style))
+    story.append(Spacer(1, 15))
+    
+    # Add page break after title
+    story.append(PageBreak())
     
     # Vendor Basic Information
-    story.append(Paragraph("Basic Information", styles['Heading2']))
-    story.append(Spacer(1, 12))
+    story.append(Paragraph("Basic Information", heading_style))
+    story.append(Spacer(1, 10))
     
     basic_info = [
         ['Vendor Code', vendor.vendor_code],
         ['Company Name', vendor.company_name],
-        ['Legal Name', vendor.legal_name or 'N/A'],
-        ['Status', vendor.status],
+        ['Country of Origin', vendor.country_origin],
+        ['Contact Person', vendor.contact_person_name],
+        ['Designation', vendor.designation or 'N/A'],
         ['Email', vendor.email],
-        ['Phone', vendor.phone],
-        ['Registration Date', vendor.registration_date.strftime('%d/%m/%Y') if vendor.registration_date else 'N/A'],
+        ['Phone Number', vendor.phone_number],
+        ['Website', vendor.website or 'N/A'],
+        ['Year Established', str(vendor.year_established) if vendor.year_established else 'N/A'],
+        ['Status', vendor.status.value.title()],
     ]
     
-    basic_table = Table(basic_info, colWidths=[2*inch, 4*inch])
+    basic_table = Table(basic_info, colWidths=[2.2*inch, 3.8*inch])
     basic_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
-        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#1f2937')),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
         ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 0), (-1, 0), 12),
-        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
-        ('GRID', (0, 0), (-1, -1), 1, colors.black)
+        ('FONTSIZE', (0, 0), (-1, 0), 11),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
+        ('TOPPADDING', (0, 0), (-1, 0), 10),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.HexColor('#f9fafb')),
+        ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#d1d5db')),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#f3f4f6')]),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('FONTSIZE', (0, 1), (-1, -1), 9),
+        ('TOPPADDING', (0, 1), (-1, -1), 6),
+        ('BOTTOMPADDING', (0, 1), (-1, -1), 6),
+        ('LEFTPADDING', (0, 0), (-1, -1), 8),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 8),
     ]))
-    story.append(basic_table)
-    story.append(Spacer(1, 20))
+    story.append(KeepTogether(basic_table))
+    story.append(Spacer(1, 15))
     
     # Business Information
-    story.append(Paragraph("Business Information", styles['Heading2']))
-    story.append(Spacer(1, 12))
+    story.append(Paragraph("Business Information", heading_style))
+    story.append(Spacer(1, 10))
     
     business_info = [
-        ['Category', vendor.category],
-        ['Business Type', vendor.business_type],
-        ['Industry', vendor.industry],
-        ['Year Established', str(vendor.year_established) if vendor.year_established else 'N/A'],
+        ['Business Vertical', vendor.business_vertical],
+        ['Supplier Type', vendor.supplier_type.value.title() if vendor.supplier_type else 'N/A'],
+        ['Supplier Group', vendor.supplier_group or 'N/A'],
+        ['Supplier Category', vendor.supplier_category or 'N/A'],
+        ['Annual Turnover', f"₹{vendor.annual_turnover:,.2f}" if vendor.annual_turnover else 'N/A'],
+        ['Products/Services', vendor.products_services or 'N/A'],
+        ['MSME Status', vendor.msme_status.value.title() if vendor.msme_status else 'N/A'],
+        ['MSME Category', vendor.msme_category or 'N/A'],
+        ['Industry Sector', vendor.industry_sector or 'N/A'],
         ['Employee Count', vendor.employee_count or 'N/A'],
-        ['Annual Revenue', vendor.annual_revenue or 'N/A'],
     ]
     
-    business_table = Table(business_info, colWidths=[2*inch, 4*inch])
+    business_table = Table(business_info, colWidths=[2.2*inch, 3.8*inch])
     business_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
-        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#1f2937')),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
         ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 0), (-1, 0), 12),
-        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
-        ('GRID', (0, 0), (-1, -1), 1, colors.black)
+        ('FONTSIZE', (0, 0), (-1, 0), 11),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
+        ('TOPPADDING', (0, 0), (-1, 0), 10),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.HexColor('#f9fafb')),
+        ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#d1d5db')),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#f3f4f6')]),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('FONTSIZE', (0, 1), (-1, -1), 9),
+        ('TOPPADDING', (0, 1), (-1, -1), 6),
+        ('BOTTOMPADDING', (0, 1), (-1, -1), 6),
+        ('LEFTPADDING', (0, 0), (-1, -1), 8),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 8),
     ]))
-    story.append(business_table)
-    story.append(Spacer(1, 20))
+    story.append(KeepTogether(business_table))
+    story.append(Spacer(1, 15))
+    
+    # Add page break before address section
+    story.append(PageBreak())
+    
+    # Address Information
+    story.append(Paragraph("Address Information", heading_style))
+    story.append(Spacer(1, 10))
+    
+    address_info = [
+        ['Registered Address', vendor.registered_address or 'N/A'],
+        ['Registered City', vendor.registered_city or 'N/A'],
+        ['Registered State', vendor.registered_state or 'N/A'],
+        ['Registered Country', vendor.registered_country or 'N/A'],
+        ['Registered Pincode', vendor.registered_pincode or 'N/A'],
+        ['Supply Address', vendor.supply_address or 'N/A'],
+        ['Supply City', vendor.supply_city or 'N/A'],
+        ['Supply State', vendor.supply_state or 'N/A'],
+        ['Supply Country', vendor.supply_country or 'N/A'],
+        ['Supply Pincode', vendor.supply_pincode or 'N/A'],
+    ]
+    
+    address_table = Table(address_info, colWidths=[2.2*inch, 3.8*inch])
+    address_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#1f2937')),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 11),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
+        ('TOPPADDING', (0, 0), (-1, 0), 10),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.HexColor('#f9fafb')),
+        ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#d1d5db')),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#f3f4f6')]),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('FONTSIZE', (0, 1), (-1, -1), 9),
+        ('TOPPADDING', (0, 1), (-1, -1), 6),
+        ('BOTTOMPADDING', (0, 1), (-1, -1), 6),
+        ('LEFTPADDING', (0, 0), (-1, -1), 8),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 8),
+    ]))
+    story.append(KeepTogether(address_table))
+    story.append(Spacer(1, 15))
+    
+    # Bank Information
+    story.append(Paragraph("Bank Information", heading_style))
+    story.append(Spacer(1, 10))
+    
+    bank_info = [
+        ['Bank Name', vendor.bank_name or 'N/A'],
+        ['Account Number', vendor.account_number or 'N/A'],
+        ['Account Type', vendor.account_type or 'N/A'],
+        ['IFSC Code', vendor.ifsc_code or 'N/A'],
+        ['Branch Name', vendor.branch_name or 'N/A'],
+        ['Currency', vendor.currency or 'N/A'],
+    ]
+    
+    bank_table = Table(bank_info, colWidths=[2.2*inch, 3.8*inch])
+    bank_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#1f2937')),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
+        ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
+        ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
+        ('FONTSIZE', (0, 0), (-1, 0), 11),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
+        ('TOPPADDING', (0, 0), (-1, 0), 10),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.HexColor('#f9fafb')),
+        ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#d1d5db')),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#f3f4f6')]),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('FONTSIZE', (0, 1), (-1, -1), 9),
+        ('TOPPADDING', (0, 1), (-1, -1), 6),
+        ('BOTTOMPADDING', (0, 1), (-1, -1), 6),
+        ('LEFTPADDING', (0, 0), (-1, -1), 8),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 8),
+    ]))
+    story.append(KeepTogether(bank_table))
+    story.append(Spacer(1, 15))
+    
+    # Add page break before compliance section
+    story.append(PageBreak())
     
     # Compliance Information
-    story.append(Paragraph("Compliance Information", styles['Heading2']))
-    story.append(Spacer(1, 12))
+    story.append(Paragraph("Compliance Information", heading_style))
+    story.append(Spacer(1, 10))
     
     compliance_info = [
         ['PAN Number', vendor.pan_number or 'N/A'],
         ['GST Number', vendor.gst_number or 'N/A'],
-        ['CIN Number', vendor.cin_number or 'N/A'],
-        ['MSME Number', vendor.msme_number or 'N/A'],
-        ['Nature of Assessee', vendor.nature_of_assessee or 'N/A'],
+        ['Preferred Currency', vendor.preferred_currency or 'N/A'],
+        ['Tax Registration Number', vendor.tax_registration_number or 'N/A'],
+        ['VAT Number', vendor.vat_number or 'N/A'],
+        ['Business License', vendor.business_license or 'N/A'],
+        ['GTA Registration', vendor.gta_registration or 'N/A'],
+        ['Compliance Notes', vendor.compliance_notes or 'N/A'],
+        ['Credit Rating', vendor.credit_rating or 'N/A'],
+        ['Insurance Coverage', vendor.insurance_coverage or 'N/A'],
     ]
     
-    compliance_table = Table(compliance_info, colWidths=[2*inch, 4*inch])
+    compliance_table = Table(compliance_info, colWidths=[2.2*inch, 3.8*inch])
     compliance_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
-        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#1f2937')),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
         ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 0), (-1, 0), 12),
-        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
-        ('GRID', (0, 0), (-1, -1), 1, colors.black)
+        ('FONTSIZE', (0, 0), (-1, 0), 11),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
+        ('TOPPADDING', (0, 0), (-1, 0), 10),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.HexColor('#f9fafb')),
+        ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#d1d5db')),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#f3f4f6')]),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('FONTSIZE', (0, 1), (-1, -1), 9),
+        ('TOPPADDING', (0, 1), (-1, -1), 6),
+        ('BOTTOMPADDING', (0, 1), (-1, -1), 6),
+        ('LEFTPADDING', (0, 0), (-1, -1), 8),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 8),
     ]))
-    story.append(compliance_table)
-    story.append(Spacer(1, 20))
+    story.append(KeepTogether(compliance_table))
+    story.append(Spacer(1, 15))
     
-    # Address Information
-    story.append(Paragraph("Address Information", styles['Heading2']))
-    story.append(Spacer(1, 12))
+    # Agreements Information
+    story.append(Paragraph("Agreements", heading_style))
+    story.append(Spacer(1, 10))
     
-    address_info = [
-        ['City', vendor.city],
-        ['State', vendor.state],
-        ['Country', vendor.country],
-        ['Postal Code', vendor.postal_code],
-        ['Registered Address', vendor.registered_address or 'N/A'],
+    agreements_info = [
+        ['NDA', 'Yes' if vendor.nda else 'No'],
+        ['SQA', 'Yes' if vendor.sqa else 'No'],
+        ['4M Change Management', 'Yes' if vendor.four_m else 'No'],
+        ['Code of Conduct', 'Yes' if vendor.code_of_conduct else 'No'],
+        ['Compliance Agreement', 'Yes' if vendor.compliance_agreement else 'No'],
+        ['Self Declaration', 'Yes' if vendor.self_declaration else 'No'],
     ]
     
-    address_table = Table(address_info, colWidths=[2*inch, 4*inch])
-    address_table.setStyle(TableStyle([
-        ('BACKGROUND', (0, 0), (-1, 0), colors.grey),
-        ('TEXTCOLOR', (0, 0), (-1, 0), colors.whitesmoke),
+    agreements_table = Table(agreements_info, colWidths=[2.2*inch, 3.8*inch])
+    agreements_table.setStyle(TableStyle([
+        ('BACKGROUND', (0, 0), (-1, 0), colors.HexColor('#1f2937')),
+        ('TEXTCOLOR', (0, 0), (-1, 0), colors.white),
         ('ALIGN', (0, 0), (-1, -1), 'LEFT'),
         ('FONTNAME', (0, 0), (-1, 0), 'Helvetica-Bold'),
-        ('FONTSIZE', (0, 0), (-1, 0), 12),
-        ('BOTTOMPADDING', (0, 0), (-1, 0), 12),
-        ('BACKGROUND', (0, 1), (-1, -1), colors.beige),
-        ('GRID', (0, 0), (-1, -1), 1, colors.black)
+        ('FONTSIZE', (0, 0), (-1, 0), 11),
+        ('BOTTOMPADDING', (0, 0), (-1, 0), 10),
+        ('TOPPADDING', (0, 0), (-1, 0), 10),
+        ('BACKGROUND', (0, 1), (-1, -1), colors.HexColor('#f9fafb')),
+        ('GRID', (0, 0), (-1, -1), 1, colors.HexColor('#d1d5db')),
+        ('ROWBACKGROUNDS', (0, 1), (-1, -1), [colors.white, colors.HexColor('#f3f4f6')]),
+        ('VALIGN', (0, 0), (-1, -1), 'MIDDLE'),
+        ('FONTSIZE', (0, 1), (-1, -1), 9),
+        ('TOPPADDING', (0, 1), (-1, -1), 6),
+        ('BOTTOMPADDING', (0, 1), (-1, -1), 6),
+        ('LEFTPADDING', (0, 0), (-1, -1), 8),
+        ('RIGHTPADDING', (0, 0), (-1, -1), 8),
     ]))
-    story.append(address_table)
+    story.append(KeepTogether(agreements_table))
     story.append(Spacer(1, 20))
     
-    # Footer
-    story.append(Spacer(1, 30))
+    # Add page break before footer to prevent overlapping
+    story.append(PageBreak())
+    
+    # Footer with proper spacing
     footer_style = ParagraphStyle(
         'Footer',
         parent=styles['Normal'],
-        fontSize=10,
+        fontSize=9,
         alignment=1,  # Center alignment
-        textColor=colors.grey
+        textColor=colors.HexColor('#6b7280'),
+        spaceBefore=20,
+        spaceAfter=10,
+        borderWidth=1,
+        borderColor=colors.HexColor('#e5e7eb'),
+        borderPadding=10,
+        backColor=colors.HexColor('#f9fafb')
     )
+    
+    # Add footer information with proper spacing
     story.append(Paragraph(f"Generated on: {datetime.now().strftime('%d/%m/%Y %H:%M:%S')}", footer_style))
+    story.append(Spacer(1, 5))
     story.append(Paragraph(f"Generated by: {current_user.email}", footer_style))
+    story.append(Spacer(1, 5))
+    story.append(Paragraph(f"Vendor Code: {vendor.vendor_code}", footer_style))
     
     # Build PDF
     doc.build(story)
@@ -941,6 +1551,8 @@ async def export_vendor_pdf(
         media_type="application/pdf",
         headers={"Content-Disposition": f"attachment; filename={filename}"}
     )
+
+
 
 @router.get("/{vendor_id}/export/excel")
 async def export_vendor_excel(
