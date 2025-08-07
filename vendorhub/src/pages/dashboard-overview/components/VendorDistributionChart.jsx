@@ -1,16 +1,45 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { PieChart, Pie, Cell, ResponsiveContainer, Legend, Tooltip } from 'recharts';
 import Icon from '../../../components/AppIcon';
-
+import { API_BASE_URL } from '../../../config/api';
 
 const VendorDistributionChart = () => {
-  const data = [
-    { name: 'Manufacturing', value: 145, color: '#1E40AF' },
-    { name: 'Services', value: 89, color: '#059669' },
-    { name: 'Technology', value: 67, color: '#F59E0B' },
-    { name: 'Logistics', value: 43, color: '#DC2626' },
-    { name: 'Others', value: 28, color: '#64748B' }
-  ];
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchVendorDistribution = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`${API_BASE_URL}/dashboard/vendor-distribution`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const distributionData = await response.json();
+        setData(distributionData);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching vendor distribution:', err);
+        setError('Failed to load vendor distribution');
+        
+        // Fallback to mock data
+        setData([
+          { name: 'Manufacturing', value: 145, color: '#1E40AF' },
+          { name: 'Services', value: 89, color: '#059669' },
+          { name: 'Technology', value: 67, color: '#F59E0B' },
+          { name: 'Logistics', value: 43, color: '#DC2626' },
+          { name: 'Others', value: 28, color: '#64748B' }
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchVendorDistribution();
+  }, []);
 
   const CustomTooltip = ({ active, payload }) => {
     if (active && payload && payload.length) {

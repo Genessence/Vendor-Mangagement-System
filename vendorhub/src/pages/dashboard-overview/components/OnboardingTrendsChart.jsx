@@ -1,21 +1,50 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer, BarChart, Bar } from 'recharts';
 import Button from '../../../components/ui/Button';
-
+import { API_BASE_URL } from '../../../config/api';
 
 const OnboardingTrendsChart = () => {
   const [chartType, setChartType] = useState('line');
   const [timeRange, setTimeRange] = useState('6months');
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  const data = [
-    { month: 'Jan', vendors: 12, approved: 10, pending: 2 },
-    { month: 'Feb', vendors: 18, approved: 15, pending: 3 },
-    { month: 'Mar', vendors: 25, approved: 22, pending: 3 },
-    { month: 'Apr', vendors: 31, approved: 28, pending: 3 },
-    { month: 'May', vendors: 28, approved: 25, pending: 3 },
-    { month: 'Jun', vendors: 35, approved: 32, pending: 3 },
-    { month: 'Jul', vendors: 42, approved: 38, pending: 4 }
-  ];
+  useEffect(() => {
+    const fetchOnboardingTrends = async () => {
+      try {
+        setLoading(true);
+        const months = timeRange === '3months' ? 3 : timeRange === '12months' ? 12 : 6;
+        const response = await fetch(`${API_BASE_URL}/dashboard/onboarding-trends?months=${months}`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const trendsData = await response.json();
+        setData(trendsData);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching onboarding trends:', err);
+        setError('Failed to load onboarding trends');
+        
+        // Fallback to mock data
+        setData([
+          { month: 'Jan', vendors: 12, approved: 10, pending: 2 },
+          { month: 'Feb', vendors: 18, approved: 15, pending: 3 },
+          { month: 'Mar', vendors: 25, approved: 22, pending: 3 },
+          { month: 'Apr', vendors: 31, approved: 28, pending: 3 },
+          { month: 'May', vendors: 28, approved: 25, pending: 3 },
+          { month: 'Jun', vendors: 35, approved: 32, pending: 3 },
+          { month: 'Jul', vendors: 42, approved: 38, pending: 4 }
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchOnboardingTrends();
+  }, [timeRange]);
 
   const CustomTooltip = ({ active, payload, label }) => {
     if (active && payload && payload.length) {

@@ -3,7 +3,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from .config import settings
 from .database import engine, Base
-from .api import auth, vendors, approvals, documents
+from .api import auth, vendors, approvals, documents, dashboard
 from .middleware.logging_middleware import LoggingMiddleware, AuditMiddleware
 
 # Create database tables
@@ -55,6 +55,7 @@ app.include_router(auth.router, prefix="/api/v1")
 app.include_router(vendors.router, prefix="/api/v1")
 app.include_router(approvals.router, prefix="/api/v1")
 app.include_router(documents.router, prefix="/api/v1")
+app.include_router(dashboard.router, prefix="/api/v1")
 
 
 @app.get("/")

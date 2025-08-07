@@ -1,16 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
+import { API_BASE_URL } from '../../../config/api';
 
 const ApprovalWorkflowStatus = () => {
-  const data = [
-    { stage: 'Submitted', count: 12, color: '#64748B' },
-    { stage: 'L1 Review', count: 8, color: '#F59E0B' },
-    { stage: 'L2 Review', count: 5, color: '#D97706' },
-    { stage: 'Approved', count: 28, color: '#059669' },
-    { stage: 'Rejected', count: 3, color: '#DC2626' }
-  ];
+  const [data, setData] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchApprovalWorkflowStatus = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`${API_BASE_URL}/dashboard/approval-workflow-status`);
+        
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const workflowData = await response.json();
+        setData(workflowData);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching approval workflow status:', err);
+        setError('Failed to load approval workflow status');
+        
+        // Fallback to mock data
+        setData([
+          { stage: 'Submitted', count: 12, color: '#64748B' },
+          { stage: 'L1 Review', count: 8, color: '#F59E0B' },
+          { stage: 'L2 Review', count: 5, color: '#D97706' },
+          { stage: 'Approved', count: 28, color: '#059669' },
+          { stage: 'Rejected', count: 3, color: '#DC2626' }
+        ]);
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchApprovalWorkflowStatus();
+  }, []);
 
   const totalPending = data.slice(0, 3).reduce((sum, item) => sum + item.count, 0);
 
