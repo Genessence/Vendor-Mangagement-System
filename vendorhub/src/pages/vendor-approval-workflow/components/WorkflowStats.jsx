@@ -5,35 +5,27 @@ const WorkflowStats = ({ stats }) => {
   const statCards = [
     {
       title: 'Pending Level 1',
-      value: stats.pendingLevel1,
+      value: stats.pendingLevel1 || 0,
       icon: 'Clock',
-      color: 'text-warning bg-warning/10 border-warning/20',
-      change: '+12%',
-      changeType: 'increase'
+      color: 'text-warning bg-warning/10 border-warning/20'
     },
     {
       title: 'Pending Level 2',
-      value: stats.pendingLevel2,
+      value: stats.pendingLevel2 || 0,
       icon: 'AlertCircle',
-      color: 'text-accent bg-accent/10 border-accent/20',
-      change: '+8%',
-      changeType: 'increase'
+      color: 'text-accent bg-accent/10 border-accent/20'
     },
     {
       title: 'Approved Today',
-      value: stats.approvedToday,
+      value: stats.approvedToday || 0,
       icon: 'CheckCircle',
-      color: 'text-success bg-success/10 border-success/20',
-      change: '+15%',
-      changeType: 'increase'
+      color: 'text-success bg-success/10 border-success/20'
     },
     {
       title: 'Rejected This Week',
-      value: stats.rejectedWeek,
+      value: stats.rejectedWeek || 0,
       icon: 'XCircle',
-      color: 'text-error bg-error/10 border-error/20',
-      change: '-5%',
-      changeType: 'decrease'
+      color: 'text-error bg-error/10 border-error/20'
     }
   ];
 
@@ -44,15 +36,6 @@ const WorkflowStats = ({ stats }) => {
           <div className="flex items-center justify-between mb-4">
             <div className={`w-12 h-12 rounded-lg flex items-center justify-center ${stat.color}`}>
               <Icon name={stat.icon} size={24} />
-            </div>
-            <div className={`flex items-center space-x-1 text-sm ${
-              stat.changeType === 'increase' ? 'text-success' : 'text-error'
-            }`}>
-              <Icon 
-                name={stat.changeType === 'increase' ? 'TrendingUp' : 'TrendingDown'} 
-                size={14} 
-              />
-              <span>{stat.change}</span>
             </div>
           </div>
           

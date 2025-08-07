@@ -256,7 +256,7 @@ const ForeignVendorQuestionnaire = ({ formData, updateFormData, errors }) => {
     { value: 'FM', label: 'FM - Wire-Cust' },
     { value: 'FQ', label: 'FQ - Aluminium Strip-Imp' },
     { value: 'FP', label: 'FP - Aluminium Brazing Filler-Imp' },
-    { value: 'FQ', label: 'FQ - Aluminium Pipe-Imp' },
+    { value: 'FQ2', label: 'FQ - Aluminium Pipe-Imp' },
     { value: 'FR', label: 'FR - Aluminium Foil-Imp' },
     { value: 'FS', label: 'FS - Brass Part-Imp' },
     { value: 'FT', label: 'FT - Brazing Rod-Imp' },

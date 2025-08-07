@@ -1,8 +1,9 @@
 import React from 'react';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
+import { getCountryName } from '../../../utils/countries';
 
-const ApplicationCard = ({ application, onViewDetails, onQuickAction }) => {
+const ApplicationCard = ({ application, onViewDetails }) => {
   const getUrgencyColor = (urgency) => {
     switch (urgency) {
       case 'high': return 'text-error bg-error/10 border-error/20';
@@ -79,7 +80,7 @@ const ApplicationCard = ({ application, onViewDetails, onQuickAction }) => {
           <Icon name="MapPin" size={16} className="text-text-secondary" />
           <div>
             <div className="text-xs text-text-secondary">Country</div>
-            <div className="text-sm font-medium text-card-foreground">{application.country_origin}</div>
+                            <div className="text-sm font-medium text-card-foreground">{getCountryName(application.country_origin)}</div>
           </div>
         </div>
         <div className="flex items-center space-x-2">
@@ -87,7 +88,7 @@ const ApplicationCard = ({ application, onViewDetails, onQuickAction }) => {
           <div>
             <div className="text-xs text-text-secondary">Documents</div>
             <div className="text-sm font-medium text-card-foreground">
-              {application.documentsCompleted}/{application.totalDocuments} Complete
+              {application.documents ? application.documents.length : 0} Uploaded
             </div>
           </div>
         </div>
@@ -105,7 +106,7 @@ const ApplicationCard = ({ application, onViewDetails, onQuickAction }) => {
         </span>
         <span className="flex items-center space-x-1">
           <Icon name="Phone" size={14} />
-          <span>{application.phone}</span>
+          <span>{application.phone_number}</span>
         </span>
       </div>
 
@@ -113,12 +114,15 @@ const ApplicationCard = ({ application, onViewDetails, onQuickAction }) => {
       <div className="mb-4">
         <div className="flex justify-between text-xs text-text-secondary mb-1">
           <span>Application Progress</span>
-          <span>{Math.round((application.documentsCompleted / application.totalDocuments) * 100)}%</span>
+          <span>{application.status === 'approved' ? '100%' : application.status === 'rejected' ? '0%' : '75%'}</span>
         </div>
         <div className="w-full bg-muted rounded-full h-2">
           <div 
             className="bg-primary h-2 rounded-full transition-all duration-300"
-            style={{ width: `${(application.documentsCompleted / application.totalDocuments) * 100}%` }}
+            style={{ 
+              width: application.status === 'approved' ? '100%' : 
+                     application.status === 'rejected' ? '0%' : '75%' 
+            }}
           />
         </div>
       </div>
@@ -126,18 +130,7 @@ const ApplicationCard = ({ application, onViewDetails, onQuickAction }) => {
       {/* Action Buttons */}
       <div className="flex items-center justify-between">
         <div className="flex items-center space-x-2">
-          {application.hasNewDocuments && (
-            <span className="flex items-center space-x-1 text-xs text-accent">
-              <Icon name="AlertCircle" size={12} />
-              <span>New documents</span>
-            </span>
-          )}
-          {application.hasComments && (
-            <span className="flex items-center space-x-1 text-xs text-primary">
-              <Icon name="MessageSquare" size={12} />
-              <span>{application.commentCount} comments</span>
-            </span>
-          )}
+          {/* Status indicators can be added here when needed */}
         </div>
         <div className="flex items-center space-x-2">
           <Button
@@ -147,15 +140,6 @@ const ApplicationCard = ({ application, onViewDetails, onQuickAction }) => {
           >
             <Icon name="Eye" size={14} className="mr-2" />
             Review
-          </Button>
-          <Button
-            variant="default"
-            size="sm"
-            onClick={() => onQuickAction(application, 'approve')}
-            disabled={application.documentsCompleted !== application.totalDocuments}
-          >
-            <Icon name="CheckCircle" size={14} className="mr-2" />
-            Quick Approve
           </Button>
         </div>
       </div>

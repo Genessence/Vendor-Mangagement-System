@@ -11,25 +11,23 @@ from ..models.vendor_document import VendorDocument, DocumentType, DocumentStatu
 from ..schemas.vendor_document import VendorDocumentCreate, VendorDocumentUpdate, VendorDocumentResponse
 from ..auth import get_current_active_user
 from ..config import settings
+from ..utils.azure_storage import azure_storage
 
 router = APIRouter(prefix="/documents", tags=["documents"])
 
 
 def save_upload_file(upload_file: UploadFile, vendor_id: int) -> str:
-    """Save uploaded file and return file path"""
-    # Create upload directory if it doesn't exist
-    upload_dir = os.path.join(settings.upload_dir, str(vendor_id))
-    os.makedirs(upload_dir, exist_ok=True)
+    """Save uploaded file using Azure Storage or local fallback"""
+    # Read file data
+    file_data = upload_file.file.read()
     
-    # Generate unique filename
-    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-    file_extension = os.path.splitext(upload_file.filename)[1]
-    filename = f"{timestamp}_{upload_file.filename}"
-    file_path = os.path.join(upload_dir, filename)
-    
-    # Save file
-    with open(file_path, "wb") as buffer:
-        shutil.copyfileobj(upload_file.file, buffer)
+    # Upload to Azure Storage (or local fallback)
+    file_path = azure_storage.upload_file(
+        file_data=file_data,
+        file_name=upload_file.filename,
+        vendor_id=vendor_id,
+        content_type=upload_file.content_type
+    )
     
     return file_path
 
@@ -43,7 +41,7 @@ async def upload_document(
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_active_user)
 ):
-    """Upload a document for a vendor"""
+    """Upload a document for a vendor (authenticated users)"""
     # Check if vendor exists
     vendor = db.query(Vendor).filter(Vendor.id == vendor_id).first()
     if not vendor:
@@ -81,6 +79,61 @@ async def upload_document(
         mime_type=file.content_type or "application/octet-stream",
         expiry_date=expiry_date,
         uploaded_by=current_user.id
+    )
+    
+    db.add(db_document)
+    db.commit()
+    db.refresh(db_document)
+    
+    return db_document
+
+
+@router.post("/upload/{vendor_id}/public", response_model=VendorDocumentResponse)
+async def upload_document_public(
+    vendor_id: int,
+    document_type: DocumentType,
+    file: UploadFile = File(...),
+    expiry_date: Optional[datetime] = None,
+    db: Session = Depends(get_db)
+):
+    """Upload a document for a vendor (public endpoint for registration)"""
+    # Check if vendor exists
+    vendor = db.query(Vendor).filter(Vendor.id == vendor_id).first()
+    if not vendor:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Vendor not found"
+        )
+    
+    # Validate file size
+    if file.size and file.size > settings.max_file_size:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"File size exceeds maximum limit of {settings.max_file_size} bytes"
+        )
+    
+    # Validate file type
+    allowed_extensions = ['.pdf', '.jpg', '.jpeg', '.png', '.doc', '.docx']
+    file_extension = os.path.splitext(file.filename)[1].lower()
+    if file_extension not in allowed_extensions:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"File type not allowed. Allowed types: {', '.join(allowed_extensions)}"
+        )
+    
+    # Save file
+    file_path = save_upload_file(file, vendor_id)
+    
+    # Create document record
+    db_document = VendorDocument(
+        vendor_id=vendor_id,
+        document_type=document_type,
+        file_name=file.filename,
+        file_path=file_path,
+        file_size=file.size or 0,
+        mime_type=file.content_type or "application/octet-stream",
+        expiry_date=expiry_date,
+        uploaded_by=None  # No user for public uploads
     )
     
     db.add(db_document)
@@ -132,6 +185,41 @@ async def get_document(
         )
     
     return document
+
+
+@router.get("/{document_id}/download")
+async def download_document(
+    document_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_active_user)
+):
+    """Download a specific document"""
+    document = db.query(VendorDocument).filter(VendorDocument.id == document_id).first()
+    if not document:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Document not found"
+        )
+    
+    # Download file from Azure Storage or local storage
+    file_data = azure_storage.download_file(document.file_path)
+    if not file_data:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="File not found"
+        )
+    
+    # Determine content type
+    content_type = document.mime_type or "application/octet-stream"
+    
+    from fastapi.responses import Response
+    return Response(
+        content=file_data,
+        media_type=content_type,
+        headers={
+            "Content-Disposition": f"attachment; filename={document.file_name}"
+        }
+    )
 
 
 @router.put("/{document_id}", response_model=VendorDocumentResponse)

@@ -12,8 +12,10 @@ class VendorApprovalBase(BaseModel):
     comments: Optional[str] = None
 
 
-class VendorApprovalCreate(VendorApprovalBase):
-    pass
+class VendorApprovalCreate(BaseModel):
+    level: ApprovalLevel
+    status: ApprovalStatus = ApprovalStatus.PENDING
+    comments: Optional[str] = None
 
 
 class VendorApprovalUpdate(BaseModel):

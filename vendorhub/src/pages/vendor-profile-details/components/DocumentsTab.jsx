@@ -173,7 +173,7 @@ const DocumentsTab = ({ vendor, userRole }) => {
 
   const handleDownload = async (documentId, fileName) => {
     try {
-      const response = await fetch(`${API_BASE_URL}/documents/${documentId}`, {
+      const response = await fetch(`${API_BASE_URL}/documents/${documentId}/download`, {
         headers: {
           'Authorization': `Bearer ${localStorage.getItem('access_token')}`
         }

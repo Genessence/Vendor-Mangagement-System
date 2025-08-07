@@ -63,31 +63,52 @@ const VendorApprovalWorkflow = () => {
     fetchApplications();
   }, []);
 
-  // Calculate stats when applications change
+  // Fetch workflow statistics from API
   useEffect(() => {
-    if (applications.length > 0) {
-      const pendingLevel1 = applications.filter(app => app.status === 'pending').length;
-      const pendingLevel2 = applications.filter(app => app.status === 'pending_level_2').length;
-      const approvedToday = applications.filter(app => {
-        const today = new Date().toDateString();
-        const approvedDate = new Date(app.approved_at || app.created_at).toDateString();
-        return app.status === 'approved' && approvedDate === today;
-      }).length;
-      const rejectedWeek = applications.filter(app => {
-        const weekAgo = new Date();
-        weekAgo.setDate(weekAgo.getDate() - 7);
-        const rejectedDate = new Date(app.updated_at || app.created_at);
-        return app.status === 'rejected' && rejectedDate >= weekAgo;
-      }).length;
-      
-      setStats({
-        pendingLevel1,
-        pendingLevel2,
-        approvedToday,
-        rejectedWeek
-      });
-    }
-  }, [applications]);
+    const fetchWorkflowStats = async () => {
+      try {
+        const response = await fetch(`${API_BASE_URL}/approvals/workflow-stats`);
+        
+        if (!response.ok) {
+          if (response.status === 401) {
+            console.error('Authentication required for stats');
+            return;
+          }
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const statsData = await response.json();
+        setStats(statsData);
+      } catch (err) {
+        console.error('Error fetching workflow stats:', err);
+        // Fallback to calculated stats from applications
+        if (applications.length > 0) {
+          const pendingLevel1 = applications.filter(app => app.status === 'pending').length;
+          const pendingLevel2 = applications.filter(app => app.status === 'pending_level_2').length;
+          const approvedToday = applications.filter(app => {
+            const today = new Date().toDateString();
+            const approvedDate = new Date(app.approved_at || app.created_at).toDateString();
+            return app.status === 'approved' && approvedDate === today;
+          }).length;
+          const rejectedWeek = applications.filter(app => {
+            const weekAgo = new Date();
+            weekAgo.setDate(weekAgo.getDate() - 7);
+            const rejectedDate = new Date(app.updated_at || app.created_at);
+            return app.status === 'rejected' && rejectedDate >= weekAgo;
+          }).length;
+          
+          setStats({
+            pendingLevel1,
+            pendingLevel2,
+            approvedToday,
+            rejectedWeek
+          });
+        }
+      }
+    };
+
+    fetchWorkflowStats();
+  }, [applications]); // Re-fetch when applications change to get updated stats
 
   useEffect(() => {
     // Apply filters
@@ -132,42 +153,193 @@ const VendorApprovalWorkflow = () => {
     setFilteredApplications(filtered);
   }, [applications, filters]);
 
-  const handleViewDetails = (application) => {
-    setSelectedApplication(application);
-    setShowReviewPanel(true);
-  };
-
-  const handleQuickAction = async (application, action) => {
-    if (action === 'approve') {
-      // Quick approve logic
-      console.log('Quick approving:', application.id);
-      // In real app, this would call an API
+  const handleViewDetails = async (application) => {
+    try {
+      // Fetch detailed vendor information
+      const response = await fetch(`${API_BASE_URL}/vendors/${application.id}`);
+      
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      
+      const detailedVendor = await response.json();
+      
+      // Fetch vendor documents
+      const documentsResponse = await fetch(`${API_BASE_URL}/documents/vendor/${application.id}`);
+      const documents = documentsResponse.ok ? await documentsResponse.json() : [];
+      
+      // Fetch vendor approval history
+      const historyResponse = await fetch(`${API_BASE_URL}/approvals/vendor/${application.id}/public`);
+      const history = historyResponse.ok ? await historyResponse.json() : [];
+      
+      // Combine all data
+      const detailedApplication = {
+        ...detailedVendor,
+        documents: documents,
+        history: history
+      };
+      
+      setSelectedApplication(detailedApplication);
+      setShowReviewPanel(true);
+    } catch (err) {
+      console.error('Error fetching vendor details:', err);
+      // Fallback to basic application data
+      setSelectedApplication(application);
+      setShowReviewPanel(true);
     }
   };
 
+
+
   const handleApprove = async (applicationId, remarks) => {
     console.log('Approving application:', applicationId, 'with remarks:', remarks);
-    // Update application status
-    setApplications(prev => prev.map(app => 
-      app.id === applicationId 
-        ? { ...app, status: app.status === 'pending_level_1' ? 'pending_level_2' : 'approved' }
-        : app
-    ));
+    
+    try {
+      // Call the approval API
+      const response = await fetch(`${API_BASE_URL}/approvals/vendor/${applicationId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Authorization': `Bearer ${localStorage.getItem('access_token')}`  // Temporarily disabled for testing
+        },
+        body: JSON.stringify({
+          level: 'final',
+          status: 'approved',
+          comments: remarks || 'Approved through questionnaire process'
+        })
+      });
+      
+      if (!response.ok) {
+        let errorMessage = 'Failed to approve vendor';
+        try {
+          const errorData = await response.json();
+          errorMessage = errorData.detail || errorData.message || errorMessage;
+        } catch (e) {
+          // If we can't parse the error response, use the status text
+          errorMessage = `${errorMessage}: ${response.status} ${response.statusText}`;
+        }
+        throw new Error(errorMessage);
+      }
+      
+      const result = await response.json();
+      
+      // Update application status in local state
+      setApplications(prev => prev.map(app => 
+        app.id === applicationId 
+          ? { ...app, status: 'approved', approved_at: new Date().toISOString() }
+          : app
+      ));
+      
+      // Refresh workflow stats
+      const statsResponse = await fetch(`${API_BASE_URL}/approvals/workflow-stats`);
+      if (statsResponse.ok) {
+        const updatedStats = await statsResponse.json();
+        setStats(updatedStats);
+      }
+      
+      // Show success message
+      alert(`Successfully approved vendor!`);
+      
+    } catch (error) {
+      console.error('Approval failed:', error);
+      alert(`Failed to approve vendor: ${error.message}`);
+    }
   };
 
   const handleReject = async (applicationId, reason, customReason, remarks) => {
     console.log('Rejecting application:', applicationId, 'reason:', reason, 'remarks:', remarks);
-    // Update application status
-    setApplications(prev => prev.map(app => 
-      app.id === applicationId 
-        ? { ...app, status: 'rejected' }
-        : app
-    ));
+    
+    try {
+      // Call the approval API with rejected status
+      const response = await fetch(`${API_BASE_URL}/approvals/vendor/${applicationId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Authorization': `Bearer ${localStorage.getItem('access_token')}`  // Temporarily disabled for testing
+        },
+        body: JSON.stringify({
+          level: 'final',
+          status: 'rejected',
+          comments: `Rejected: ${reason}${remarks ? ` - ${remarks}` : ''}`
+        })
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Failed to reject vendor');
+      }
+      
+      const result = await response.json();
+      
+      // Update application status in local state
+      setApplications(prev => prev.map(app => 
+        app.id === applicationId 
+          ? { ...app, status: 'rejected' }
+          : app
+      ));
+      
+      // Refresh workflow stats
+      const statsResponse = await fetch(`${API_BASE_URL}/approvals/workflow-stats`);
+      if (statsResponse.ok) {
+        const updatedStats = await statsResponse.json();
+        setStats(updatedStats);
+      }
+      
+      // Show success message
+      alert(`Successfully rejected vendor!`);
+      
+    } catch (error) {
+      console.error('Rejection failed:', error);
+      alert(`Failed to reject vendor: ${error.message}`);
+    }
   };
 
   const handleRequestChanges = async (applicationId, remarks) => {
     console.log('Requesting changes for application:', applicationId, 'remarks:', remarks);
-    // In real app, this would send notification to vendor
+    
+    try {
+      // Call the approval API with pending status and comments requesting changes
+      const response = await fetch(`${API_BASE_URL}/approvals/vendor/${applicationId}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+          // 'Authorization': `Bearer ${localStorage.getItem('access_token')}`  // Temporarily disabled for testing
+        },
+        body: JSON.stringify({
+          level: 'level_1',
+          status: 'pending',
+          comments: `Changes requested: ${remarks || 'Please review and update required information'}`
+        })
+      });
+      
+      if (!response.ok) {
+        const errorData = await response.json();
+        throw new Error(errorData.detail || 'Failed to request changes');
+      }
+      
+      const result = await response.json();
+      
+      // Update application status in local state
+      setApplications(prev => prev.map(app => 
+        app.id === applicationId 
+          ? { ...app, status: 'pending_level_1' }
+          : app
+      ));
+      
+      // Refresh workflow stats
+      const statsResponse = await fetch(`${API_BASE_URL}/approvals/workflow-stats`);
+      if (statsResponse.ok) {
+        const updatedStats = await statsResponse.json();
+        setStats(updatedStats);
+      }
+      
+      // Show success message
+      alert(`Successfully requested changes from vendor!`);
+      
+    } catch (error) {
+      console.error('Request changes failed:', error);
+      alert(`Failed to request changes: ${error.message}`);
+    }
   };
 
   const handleFilterChange = (newFilters) => {
@@ -307,7 +479,6 @@ const VendorApprovalWorkflow = () => {
                         key={application.id}
                         application={application}
                         onViewDetails={handleViewDetails}
-                        onQuickAction={handleQuickAction}
                       />
                     ))}
                   </div>

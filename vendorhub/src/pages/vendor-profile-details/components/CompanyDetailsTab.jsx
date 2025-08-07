@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
 import { API_BASE_URL } from '../../../config/api';
+import { getCountryName } from '../../../utils/countries';
 
 const CompanyDetailsTab = ({ vendor, userRole, onVendorUpdate }) => {
   const [isEditing, setIsEditing] = useState(false);
@@ -31,7 +32,7 @@ const CompanyDetailsTab = ({ vendor, userRole, onVendorUpdate }) => {
       title: 'Registration Information',
       icon: 'FileText',
       fields: [
-        { label: 'Country of Origin', value: editableVendor?.country_origin || 'N/A', key: 'country_origin' },
+        { label: 'Country of Origin', value: getCountryName(editableVendor?.country_origin) || 'N/A', key: 'country_origin' },
         { label: 'Registration Number', value: editableVendor?.registration_number || 'N/A', key: 'registration_number' },
         { label: 'PAN Number', value: editableVendor?.pan_number || 'N/A', key: 'pan_number' },
         { label: 'GST Number', value: editableVendor?.gst_number || 'N/A', key: 'gst_number' },

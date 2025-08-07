@@ -45,6 +45,10 @@ class Settings(BaseSettings):
     upload_dir: str = "uploads"
     max_file_size: int = 10485760  # 10MB
     
+    # Azure Storage (for production)
+    azure_storage_connection_string: str = ""
+    azure_storage_container_name: str = "vendor-documents"
+    
     class Config:
         env_file = ".env"
         case_sensitive = False

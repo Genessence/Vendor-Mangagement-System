@@ -4,6 +4,7 @@ import Button from '../../../components/ui/Button';
 import Input from '../../../components/ui/Input';
 import Select from '../../../components/ui/Select';
 import { Checkbox } from '../../../components/ui/Checkbox';
+import { getCountryName } from '../../../utils/countries';
 import IndianVendorQuestionnaire from './IndianVendorQuestionnaire';
 import ForeignVendorQuestionnaire from './ForeignVendorQuestionnaire';
 
@@ -44,7 +45,7 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
   ];
 
   // Check if vendor is Indian
-  const isIndianVendor = application.country === 'IN' || application.countryOrigin === 'IN';
+  const isIndianVendor = application.country_origin === 'IN';
 
   const updateQuestionnaireData = (updates) => {
     setQuestionnaireData(prev => ({ ...prev, ...updates }));
@@ -105,7 +106,12 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
     setIsProcessing(true);
     
     try {
-      await onApprove(application.id, questionnaireData);
+      // Convert questionnaire data to a readable string format
+      const questionnaireString = Object.entries(questionnaireData)
+        .map(([key, value]) => `${key}: ${value}`)
+        .join(', ');
+      
+      await onApprove(application.id, `Questionnaire completed: ${questionnaireString}`);
       onClose();
     } catch (error) {
       console.error('Approval failed:', error);
@@ -146,19 +152,19 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
           <div className="space-y-3">
             <div>
               <label className="text-sm text-text-secondary">Company Name</label>
-              <p className="text-card-foreground font-medium">{application.companyName}</p>
+              <p className="text-card-foreground font-medium">{application.company_name}</p>
             </div>
             <div>
               <label className="text-sm text-text-secondary">Business Vertical</label>
-              <p className="text-card-foreground">{application.businessVertical}</p>
+              <p className="text-card-foreground">{application.business_vertical}</p>
             </div>
             <div>
               <label className="text-sm text-text-secondary">Category</label>
-              <p className="text-card-foreground">{application.category}</p>
+              <p className="text-card-foreground">{application.supplier_category}</p>
             </div>
             <div>
               <label className="text-sm text-text-secondary">Supplier Type</label>
-              <p className="text-card-foreground">{application.supplierType}</p>
+              <p className="text-card-foreground">{application.supplier_type}</p>
             </div>
           </div>
         </div>
@@ -167,7 +173,7 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
           <div className="space-y-3">
             <div>
               <label className="text-sm text-text-secondary">Contact Person</label>
-              <p className="text-card-foreground font-medium">{application.contactPerson}</p>
+              <p className="text-card-foreground font-medium">{application.contact_person_name}</p>
             </div>
             <div>
               <label className="text-sm text-text-secondary">Email</label>
@@ -175,11 +181,11 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
             </div>
             <div>
               <label className="text-sm text-text-secondary">Phone</label>
-              <p className="text-card-foreground">{application.phone}</p>
+              <p className="text-card-foreground">{application.phone_number}</p>
             </div>
             <div>
               <label className="text-sm text-text-secondary">Country</label>
-              <p className="text-card-foreground">{application.country}</p>
+              <p className="text-card-foreground">{getCountryName(application.country_origin)}</p>
             </div>
           </div>
         </div>
@@ -190,11 +196,11 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
           <div>
             <label className="text-sm text-text-secondary">Registered Address</label>
-            <p className="text-card-foreground">{application.registeredAddress}</p>
+            <p className="text-card-foreground">{application.registered_address}</p>
           </div>
           <div>
             <label className="text-sm text-text-secondary">Supply Address</label>
-            <p className="text-card-foreground">{application.supplyAddress}</p>
+            <p className="text-card-foreground">{application.supply_address}</p>
           </div>
         </div>
       </div>
@@ -209,19 +215,19 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
           <div className="space-y-3">
             <div>
               <label className="text-sm text-text-secondary">Bank Name</label>
-              <p className="text-card-foreground font-medium">{application.bankDetails?.bankName}</p>
+              <p className="text-card-foreground font-medium">{application.bank_name}</p>
             </div>
             <div>
               <label className="text-sm text-text-secondary">Account Number</label>
-              <p className="text-card-foreground">{application.bankDetails?.accountNumber}</p>
+              <p className="text-card-foreground">{application.account_number}</p>
             </div>
             <div>
               <label className="text-sm text-text-secondary">Account Type</label>
-              <p className="text-card-foreground">{application.bankDetails?.accountType}</p>
+              <p className="text-card-foreground">{application.account_type}</p>
             </div>
             <div>
               <label className="text-sm text-text-secondary">IFSC/Swift Code</label>
-              <p className="text-card-foreground font-mono">{application.bankDetails?.ifscCode}</p>
+              <p className="text-card-foreground font-mono">{application.ifsc_code || application.swift_code}</p>
             </div>
           </div>
         </div>
@@ -230,19 +236,17 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
           <div className="space-y-3">
             <div>
               <label className="text-sm text-text-secondary">Branch</label>
-              <p className="text-card-foreground">{application.bankDetails?.branch}</p>
+              <p className="text-card-foreground">{application.branch_name}</p>
             </div>
             <div>
               <label className="text-sm text-text-secondary">Currency</label>
-              <p className="text-card-foreground">{application.bankDetails?.currency}</p>
+              <p className="text-card-foreground">{application.currency}</p>
             </div>
             <div>
               <label className="text-sm text-text-secondary">Bank Proof</label>
               <div className="flex items-center space-x-2">
                 <Icon name="FileText" size={16} className="text-primary" />
-                <a href="#" className="text-primary hover:underline">
-                  {application.bankDetails?.proofDocument}
-                </a>
+                <span className="text-card-foreground">Bank proof document uploaded</span>
               </div>
             </div>
           </div>
@@ -253,65 +257,203 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
 
   const renderDocuments = () => (
     <div className="space-y-6">
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {application.documents?.map((doc, index) => (
-          <div key={index} className="border border-border rounded-lg p-4">
-            <div className="flex items-center space-x-3 mb-3">
-              <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
-                <Icon name="FileText" size={20} className="text-primary" />
+      {application.documents && application.documents.length > 0 ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+          {application.documents.map((doc, index) => (
+            <div key={index} className="border border-border rounded-lg p-4">
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
+                  <Icon name="FileText" size={20} className="text-primary" />
+                </div>
+                <div className="flex-1">
+                  <h5 className="font-medium text-card-foreground">{doc.document_type}</h5>
+                  <p className="text-xs text-text-secondary">{doc.filename}</p>
+                </div>
               </div>
-              <div className="flex-1">
-                <h5 className="font-medium text-card-foreground">{doc.name}</h5>
-                <p className="text-xs text-text-secondary">{doc.type}</p>
+              <div className="flex items-center justify-between">
+                <span className="text-xs text-text-secondary">
+                  {doc.expiry_date ? `Expires: ${new Date(doc.expiry_date).toLocaleDateString()}` : 'No expiry'}
+                </span>
+                <div className="flex items-center space-x-2">
+                  <Button variant="ghost" size="sm">
+                    <Icon name="Eye" size={14} />
+                  </Button>
+                  <Button variant="ghost" size="sm">
+                    <Icon name="Download" size={14} />
+                  </Button>
+                </div>
               </div>
             </div>
-            <div className="flex items-center justify-between">
-              <span className="text-xs text-text-secondary">{doc.size}</span>
-              <div className="flex items-center space-x-2">
-                <Button variant="ghost" size="sm">
-                  <Icon name="Eye" size={14} />
-                </Button>
-                <Button variant="ghost" size="sm">
-                  <Icon name="Download" size={14} />
-                </Button>
-              </div>
-            </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-8">
+          <Icon name="FileText" size={48} className="text-text-secondary mx-auto mb-4" />
+          <p className="text-text-secondary">No documents uploaded yet</p>
+        </div>
+      )}
     </div>
   );
 
   const renderAgreements = () => (
     <div className="space-y-6">
       <div className="space-y-4">
-        {application.agreements?.map((agreement, index) => (
-          <div key={index} className="flex items-center justify-between p-4 border border-border rounded-lg">
-            <div className="flex items-center space-x-3">
-              <Checkbox 
-                checked={agreement.signed} 
-                disabled 
-                className="pointer-events-none"
-              />
-              <div>
-                <h5 className="font-medium text-card-foreground">{agreement.name}</h5>
-                <p className="text-sm text-text-secondary">{agreement.description}</p>
-              </div>
-            </div>
-            <div className="flex items-center space-x-2">
-              <span className={`px-2 py-1 rounded-full text-xs font-medium ${
-                agreement.signed ? 'bg-success/10 text-success' : 'bg-error/10 text-error'
-              }`}>
-                {agreement.signed ? 'Signed' : 'Pending'}
-              </span>
-              {agreement.signed && (
-                <Button variant="ghost" size="sm">
-                  <Icon name="Download" size={14} />
-                </Button>
-              )}
+        {/* Basic Agreements from vendor registration */}
+        <div className="flex items-center justify-between p-4 border border-border rounded-lg">
+          <div className="flex items-center space-x-3">
+            <Checkbox 
+              checked={application.nda} 
+              disabled 
+              className="pointer-events-none"
+            />
+            <div>
+              <h5 className="font-medium text-card-foreground">Non-Disclosure Agreement (NDA)</h5>
+              <p className="text-sm text-text-secondary">Confidentiality and non-disclosure terms</p>
             </div>
           </div>
-        ))}
+          <div className="flex items-center space-x-2">
+            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+              application.nda ? 'bg-success/10 text-success' : 'bg-error/10 text-error'
+            }`}>
+              {application.nda ? 'Signed' : 'Pending'}
+            </span>
+            {application.nda && (
+              <Button variant="ghost" size="sm">
+                <Icon name="Download" size={14} />
+              </Button>
+            )}
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between p-4 border border-border rounded-lg">
+          <div className="flex items-center space-x-3">
+            <Checkbox 
+              checked={application.sqa} 
+              disabled 
+              className="pointer-events-none"
+            />
+            <div>
+              <h5 className="font-medium text-card-foreground">Supplier Quality Agreement (SQA)</h5>
+              <p className="text-sm text-text-secondary">Quality standards and requirements</p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+              application.sqa ? 'bg-success/10 text-success' : 'bg-error/10 text-error'
+            }`}>
+              {application.sqa ? 'Signed' : 'Pending'}
+            </span>
+            {application.sqa && (
+              <Button variant="ghost" size="sm">
+                <Icon name="Download" size={14} />
+              </Button>
+            )}
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between p-4 border border-border rounded-lg">
+          <div className="flex items-center space-x-3">
+            <Checkbox 
+              checked={application.four_m} 
+              disabled 
+              className="pointer-events-none"
+            />
+            <div>
+              <h5 className="font-medium text-card-foreground">4M Agreement</h5>
+              <p className="text-sm text-text-secondary">Man, Machine, Material, Method standards</p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+              application.four_m ? 'bg-success/10 text-success' : 'bg-error/10 text-error'
+            }`}>
+              {application.four_m ? 'Signed' : 'Pending'}
+            </span>
+            {application.four_m && (
+              <Button variant="ghost" size="sm">
+                <Icon name="Download" size={14} />
+              </Button>
+            )}
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between p-4 border border-border rounded-lg">
+          <div className="flex items-center space-x-3">
+            <Checkbox 
+              checked={application.code_of_conduct} 
+              disabled 
+              className="pointer-events-none"
+            />
+            <div>
+              <h5 className="font-medium text-card-foreground">Code of Conduct</h5>
+              <p className="text-sm text-text-secondary">Ethical business practices</p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+              application.code_of_conduct ? 'bg-success/10 text-success' : 'bg-error/10 text-error'
+            }`}>
+              {application.code_of_conduct ? 'Signed' : 'Pending'}
+            </span>
+            {application.code_of_conduct && (
+              <Button variant="ghost" size="sm">
+                <Icon name="Download" size={14} />
+              </Button>
+            )}
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between p-4 border border-border rounded-lg">
+          <div className="flex items-center space-x-3">
+            <Checkbox 
+              checked={application.compliance_agreement} 
+              disabled 
+              className="pointer-events-none"
+            />
+            <div>
+              <h5 className="font-medium text-card-foreground">Compliance Agreement</h5>
+              <p className="text-sm text-text-secondary">Regulatory compliance requirements</p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+              application.compliance_agreement ? 'bg-success/10 text-success' : 'bg-error/10 text-error'
+            }`}>
+              {application.compliance_agreement ? 'Signed' : 'Pending'}
+            </span>
+            {application.compliance_agreement && (
+              <Button variant="ghost" size="sm">
+                <Icon name="Download" size={14} />
+              </Button>
+            )}
+          </div>
+        </div>
+
+        <div className="flex items-center justify-between p-4 border border-border rounded-lg">
+          <div className="flex items-center space-x-3">
+            <Checkbox 
+              checked={application.self_declaration} 
+              disabled 
+              className="pointer-events-none"
+            />
+            <div>
+              <h5 className="font-medium text-card-foreground">Self Declaration</h5>
+              <p className="text-sm text-text-secondary">Vendor self-declaration form</p>
+            </div>
+          </div>
+          <div className="flex items-center space-x-2">
+            <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+              application.self_declaration ? 'bg-success/10 text-success' : 'bg-error/10 text-error'
+            }`}>
+              {application.self_declaration ? 'Signed' : 'Pending'}
+            </span>
+            {application.self_declaration && (
+              <Button variant="ghost" size="sm">
+                <Icon name="Download" size={14} />
+              </Button>
+            )}
+          </div>
+        </div>
       </div>
     </div>
   );
@@ -319,20 +461,37 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
   const renderHistory = () => (
     <div className="space-y-4">
       <h3 className="text-lg font-semibold text-foreground">Application History</h3>
-      <div className="space-y-3">
-        {application.history?.map((event, index) => (
-          <div key={index} className="flex items-start space-x-3 p-3 bg-muted/30 rounded-lg">
-            <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
-            <div className="flex-1">
-              <p className="text-sm font-medium text-foreground">{event.action}</p>
-              <p className="text-xs text-text-secondary">{event.timestamp}</p>
-              {event.remarks && (
-                <p className="text-sm text-text-secondary mt-1">{event.remarks}</p>
-              )}
+      {application.history && application.history.length > 0 ? (
+        <div className="space-y-3">
+          {application.history.map((event, index) => (
+            <div key={index} className="flex items-start space-x-3 p-3 bg-muted/30 rounded-lg">
+              <div className="w-2 h-2 bg-primary rounded-full mt-2 flex-shrink-0"></div>
+              <div className="flex-1">
+                <p className="text-sm font-medium text-foreground">
+                  {event.status === 'approved' ? 'Approved' : 
+                   event.status === 'rejected' ? 'Rejected' : 
+                   event.status === 'pending' ? 'Under Review' : 'Status Updated'}
+                </p>
+                <p className="text-xs text-text-secondary">
+                  {new Date(event.created_at).toLocaleString()}
+                </p>
+                {event.comments && (
+                  <p className="text-sm text-text-secondary mt-1">{event.comments}</p>
+                )}
+                <p className="text-xs text-text-secondary mt-1">
+                  Level: {event.level === 'level_1' ? 'Level 1' : 
+                         event.level === 'final' ? 'Final' : event.level}
+                </p>
+              </div>
             </div>
-          </div>
-        ))}
-      </div>
+          ))}
+        </div>
+      ) : (
+        <div className="text-center py-8">
+          <Icon name="Clock" size={48} className="text-text-secondary mx-auto mb-4" />
+          <p className="text-text-secondary">No approval history available</p>
+        </div>
+      )}
     </div>
   );
 
@@ -355,7 +514,7 @@ const ReviewPanel = ({ application, onClose, onApprove, onReject, onRequestChang
         {/* Header */}
         <div className="flex items-center justify-between p-6 border-b border-border">
           <div>
-            <h2 className="text-xl font-semibold text-foreground">{application.companyName}</h2>
+                         <h2 className="text-xl font-semibold text-foreground">{application.company_name}</h2>
             <p className="text-sm text-text-secondary">Application Review - {application.status.replace('_', ' ')}</p>
           </div>
           <Button variant="ghost" size="icon" onClick={onClose}>

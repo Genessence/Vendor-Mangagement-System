@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
+import { getCountryName } from '../../../utils/countries';
 
 const VendorHeader = ({ vendor, onEdit, onStatusChange, userRole }) => {
   const [showExportDropdown, setShowExportDropdown] = useState(false);
@@ -11,6 +12,10 @@ const VendorHeader = ({ vendor, onEdit, onStatusChange, userRole }) => {
         return 'bg-success text-success-foreground';
       case 'pending':
         return 'bg-warning text-warning-foreground';
+      case 'approved':
+        return 'bg-success text-success-foreground';
+      case 'rejected':
+        return 'bg-error text-error-foreground';
       case 'inactive':
         return 'bg-error text-error-foreground';
       case 'suspended':
@@ -183,7 +188,7 @@ const VendorHeader = ({ vendor, onEdit, onStatusChange, userRole }) => {
               <div className="flex items-center space-x-2">
                 <Icon name="MapPin" size={16} className="text-text-secondary" />
                 <span className="text-text-secondary">Location:</span>
-                <span className="font-medium text-foreground">{vendor.registered_city}, {vendor.country_origin}</span>
+                <span className="font-medium text-foreground">{vendor.registered_city}, {getCountryName(vendor.country_origin)}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Icon name="Calendar" size={16} className="text-text-secondary" />

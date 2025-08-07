@@ -3,6 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
 import { Checkbox } from '../../../components/ui/Checkbox';
+import { getCountryName } from '../../../utils/countries';
 
 const VendorTable = ({ 
   vendors, 
@@ -36,8 +37,9 @@ const VendorTable = ({
     const statusConfig = {
       active: { bg: 'bg-success/10', text: 'text-success', label: 'Active' },
       pending: { bg: 'bg-warning/10', text: 'text-warning', label: 'Pending' },
-      inactive: { bg: 'bg-muted', text: 'text-text-secondary', label: 'Inactive' },
-      rejected: { bg: 'bg-error/10', text: 'text-error', label: 'Rejected' }
+      approved: { bg: 'bg-success/10', text: 'text-success', label: 'Approved' },
+      rejected: { bg: 'bg-error/10', text: 'text-error', label: 'Rejected' },
+      inactive: { bg: 'bg-muted', text: 'text-text-secondary', label: 'Inactive' }
     };
 
     const config = statusConfig[status] || statusConfig.inactive;
@@ -206,7 +208,7 @@ const VendorTable = ({
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center space-x-2">
-                      <span className="text-sm text-foreground">{vendor.country_origin}</span>
+                      <span className="text-sm text-foreground">{getCountryName(vendor.country_origin)}</span>
                       {vendor.msme_status === 'msme' && (
                         <span className="bg-accent/10 text-accent px-1.5 py-0.5 rounded text-xs font-medium">
                           MSME
@@ -315,10 +317,10 @@ const VendorTable = ({
                     className="font-medium text-foreground hover:text-primary cursor-pointer transition-micro"
                     onClick={() => handleVendorClick(vendor)}
                   >
-                    {vendor.companyName}
+                    {vendor.company_name}
                   </div>
-                  <div className="text-sm text-text-secondary">{vendor.contactPerson}</div>
-                  <div className="font-mono text-sm text-primary mt-1">{vendor.vendorCode}</div>
+                  <div className="text-sm text-text-secondary">{vendor.contact_person_name}</div>
+                  <div className="font-mono text-sm text-primary mt-1">{vendor.vendor_code}</div>
                 </div>
               </div>
               <button
@@ -335,25 +337,25 @@ const VendorTable = ({
             <div className="grid grid-cols-2 gap-4 mb-3">
               <div>
                 <div className="text-xs text-text-secondary mb-1">Category</div>
-                <div className="text-sm text-foreground">{vendor.category}</div>
+                <div className="text-sm text-foreground">{vendor.supplier_category}</div>
               </div>
-              <div>
-                <div className="text-xs text-text-secondary mb-1">Country</div>
-                <div className="flex items-center space-x-2">
-                  <span className="text-sm text-foreground">{vendor.country}</span>
-                  {vendor.msmeStatus === 'msme' && (
-                    <span className="bg-accent/10 text-accent px-1.5 py-0.5 rounded text-xs font-medium">
-                      MSME
-                    </span>
-                  )}
-                </div>
-              </div>
+                             <div>
+                 <div className="text-xs text-text-secondary mb-1">Country</div>
+                 <div className="flex items-center space-x-2">
+                   <span className="text-sm text-foreground">{getCountryName(vendor.country_origin)}</span>
+                   {vendor.msme_status === 'msme' && (
+                     <span className="bg-accent/10 text-accent px-1.5 py-0.5 rounded text-xs font-medium">
+                       MSME
+                     </span>
+                   )}
+                 </div>
+               </div>
             </div>
 
             <div className="flex items-center justify-between">
               <div className="flex items-center space-x-2">
                 {getStatusBadge(vendor.status)}
-                {getApprovalStageBadge(vendor.approvalStage)}
+                {getApprovalStageBadge(vendor.approval_stage)}
               </div>
               <div className="flex items-center space-x-1">
                 <Button
@@ -391,16 +393,16 @@ const VendorTable = ({
                     <h4 className="font-medium text-foreground mb-2">Contact Information</h4>
                     <div className="space-y-1 text-sm text-text-secondary">
                       <div>Email: {vendor.email}</div>
-                      <div>Phone: {vendor.phone}</div>
-                      <div>Address: {vendor.address}</div>
+                      <div>Phone: {vendor.phone_number}</div>
+                      <div>Address: {vendor.registered_address}</div>
                     </div>
                   </div>
                   <div>
                     <h4 className="font-medium text-foreground mb-2">Business Details</h4>
                     <div className="space-y-1 text-sm text-text-secondary">
-                      <div>Type: {vendor.vendorType}</div>
-                      <div>Turnover: {formatCurrency(vendor.annualTurnover)}</div>
-                      <div>Registration: {formatDate(vendor.registrationDate)}</div>
+                      <div>Type: {vendor.supplier_type}</div>
+                      <div>Turnover: {formatCurrency(vendor.annual_turnover || 0)}</div>
+                      <div>Registration: {formatDate(vendor.created_at)}</div>
                     </div>
                   </div>
                   <div>
