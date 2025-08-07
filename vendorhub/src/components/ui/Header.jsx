@@ -33,7 +33,7 @@ const Header = () => {
         {/* Logo */}
         <div className="flex items-center">
           <Link to="/dashboard-overview" className="flex items-center space-x-3">
-            <img src="/assets/images/amber_logo.png" alt="Amber Logo" className="h-8 w-auto mr-2" style={{maxWidth: '120px'}} />
+            {/* Removed Amber logo image */}
             <span className="text-xl font-semibold text-foreground">VendorHub</span>
           </Link>
         </div>
@@ -70,7 +70,7 @@ const Header = () => {
                 <Icon name="User" size={16} color="white" />
               </div>
               <div className="hidden lg:block text-left">
-                <div className="text-sm font-medium text-foreground">{user?.name || 'User'}</div>
+                <div className="text-sm font-medium text-foreground">{user?.full_name || user?.username || 'User'}</div>
                 <div className="text-xs text-text-secondary">{user?.role || 'Loading...'}</div>
               </div>
               <Icon name="ChevronDown" size={16} className="text-text-secondary" />
@@ -80,7 +80,7 @@ const Header = () => {
             {isUserMenuOpen && (
               <div className="absolute right-0 mt-2 w-64 bg-popover border border-border rounded-lg shadow-medium z-150">
                 <div className="p-4 border-b border-border">
-                  <div className="text-sm font-medium text-popover-foreground">{user?.name || 'User'}</div>
+                  <div className="text-sm font-medium text-popover-foreground">{user?.full_name || user?.username || 'User'}</div>
                   <div className="text-xs text-text-secondary">{user?.email || 'Loading...'}</div>
                   <div className="text-xs text-accent font-medium mt-1">{user?.role || 'Loading...'}</div>
                 </div>

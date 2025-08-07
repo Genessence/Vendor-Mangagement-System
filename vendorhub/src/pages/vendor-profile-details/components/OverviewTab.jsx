@@ -2,75 +2,40 @@ import React from 'react';
 import Icon from '../../../components/AppIcon';
 
 const OverviewTab = ({ vendor }) => {
+  // For new vendors, show empty/zero values instead of fake data
   const summaryCards = [
     {
       title: 'Total Orders',
-      value: '247',
-      change: '+12%',
-      changeType: 'positive',
+      value: '0',
+      change: '0%',
+      changeType: 'neutral',
       icon: 'ShoppingCart'
     },
     {
       title: 'Total Value',
-      value: '₹45,67,890',
-      change: '+8.5%',
-      changeType: 'positive',
+      value: '₹0',
+      change: '0%',
+      changeType: 'neutral',
       icon: 'IndianRupee'
     },
     {
       title: 'Avg. Rating',
-      value: '4.8/5',
-      change: '+0.2',
-      changeType: 'positive',
+      value: 'N/A',
+      change: '0',
+      changeType: 'neutral',
       icon: 'Star'
     },
     {
       title: 'Response Time',
-      value: '2.4 hrs',
-      change: '-15%',
-      changeType: 'positive',
+      value: 'N/A',
+      change: '0%',
+      changeType: 'neutral',
       icon: 'Clock'
     }
   ];
 
-  const recentActivities = [
-    {
-      id: 1,
-      type: 'order',
-      title: 'New Purchase Order #PO-2024-1247',
-      description: 'Order for electronic components worth ₹2,45,000',
-      timestamp: '2 hours ago',
-      icon: 'ShoppingCart',
-      status: 'pending'
-    },
-    {
-      id: 2,
-      type: 'payment',
-      title: 'Payment Processed',
-      description: 'Invoice #INV-2024-0892 payment of ₹1,85,000 completed',
-      timestamp: '1 day ago',
-      icon: 'CreditCard',
-      status: 'completed'
-    },
-    {
-      id: 3,
-      type: 'document',
-      title: 'Document Updated',
-      description: 'GST certificate renewed and uploaded',
-      timestamp: '3 days ago',
-      icon: 'FileText',
-      status: 'completed'
-    },
-    {
-      id: 4,
-      type: 'compliance',
-      title: 'Compliance Review',
-      description: 'Annual compliance audit completed successfully',
-      timestamp: '1 week ago',
-      icon: 'Shield',
-      status: 'completed'
-    }
-  ];
+  // Empty activities for new vendors
+  const recentActivities = [];
 
   const getStatusColor = (status) => {
     switch (status) {
@@ -86,7 +51,14 @@ const OverviewTab = ({ vendor }) => {
   };
 
   const getChangeColor = (changeType) => {
-    return changeType === 'positive' ? 'text-success' : 'text-error';
+    switch (changeType) {
+      case 'positive':
+        return 'text-success';
+      case 'negative':
+        return 'text-error';
+      default:
+        return 'text-text-secondary';
+    }
   };
 
   return (
@@ -122,23 +94,25 @@ const OverviewTab = ({ vendor }) => {
           <div className="space-y-3">
             <div className="flex justify-between">
               <span className="text-text-secondary">Business Type:</span>
-              <span className="font-medium text-foreground">{vendor.businessType}</span>
+              <span className="font-medium text-foreground">{vendor?.supplier_type || 'N/A'}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-text-secondary">Industry:</span>
-              <span className="font-medium text-foreground">{vendor.industry}</span>
+              <span className="font-medium text-foreground">{vendor?.industry_sector || 'N/A'}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-text-secondary">Employee Count:</span>
-              <span className="font-medium text-foreground">{vendor.employeeCount}</span>
+              <span className="font-medium text-foreground">{vendor?.employee_count || 'N/A'}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-text-secondary">Annual Revenue:</span>
-              <span className="font-medium text-foreground">{vendor.annualRevenue}</span>
+              <span className="font-medium text-foreground">
+                {vendor?.annual_turnover ? `₹${vendor.annual_turnover.toLocaleString()}` : 'N/A'}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-text-secondary">MSME Status:</span>
-              <span className="font-medium text-foreground">{vendor.msmeStatus}</span>
+              <span className="font-medium text-foreground">{vendor?.msme_status || 'N/A'}</span>
             </div>
           </div>
         </div>
@@ -152,23 +126,23 @@ const OverviewTab = ({ vendor }) => {
           <div className="space-y-3">
             <div className="flex justify-between">
               <span className="text-text-secondary">Contact Person:</span>
-              <span className="font-medium text-foreground">{vendor.contactPerson}</span>
+              <span className="font-medium text-foreground">{vendor?.contact_person_name || 'N/A'}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-text-secondary">Designation:</span>
-              <span className="font-medium text-foreground">{vendor.designation}</span>
+              <span className="font-medium text-foreground">{vendor?.designation || 'N/A'}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-text-secondary">Email:</span>
-              <span className="font-medium text-foreground">{vendor.email}</span>
+              <span className="font-medium text-foreground">{vendor?.email || 'N/A'}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-text-secondary">Phone:</span>
-              <span className="font-medium text-foreground">{vendor.phone}</span>
+              <span className="font-medium text-foreground">{vendor?.phone_number || 'N/A'}</span>
             </div>
             <div className="flex justify-between">
               <span className="text-text-secondary">Alternative Phone:</span>
-              <span className="font-medium text-foreground">{vendor.alternativePhone}</span>
+              <span className="font-medium text-foreground">N/A</span>
             </div>
           </div>
         </div>
@@ -180,20 +154,28 @@ const OverviewTab = ({ vendor }) => {
           <Icon name="Activity" size={20} className="mr-2" />
           Recent Activity
         </h3>
-        <div className="space-y-4">
-          {recentActivities.map((activity) => (
-            <div key={activity.id} className="flex items-start space-x-4 p-4 bg-muted rounded-lg">
-              <div className={`w-10 h-10 rounded-full flex items-center justify-center ${getStatusColor(activity.status)} bg-current/10`}>
-                <Icon name={activity.icon} size={18} className={getStatusColor(activity.status)} />
+        {recentActivities.length > 0 ? (
+          <div className="space-y-4">
+            {recentActivities.map((activity) => (
+              <div key={activity.id} className="flex items-start space-x-4 p-4 bg-muted rounded-lg">
+                <div className={`w-10 h-10 rounded-full flex items-center justify-center ${getStatusColor(activity.status)} bg-current/10`}>
+                  <Icon name={activity.icon} size={18} className={getStatusColor(activity.status)} />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <h4 className="font-medium text-foreground">{activity.title}</h4>
+                  <p className="text-sm text-text-secondary mt-1">{activity.description}</p>
+                  <span className="text-xs text-text-secondary">{activity.timestamp}</span>
+                </div>
               </div>
-              <div className="flex-1 min-w-0">
-                <h4 className="font-medium text-foreground">{activity.title}</h4>
-                <p className="text-sm text-text-secondary mt-1">{activity.description}</p>
-                <span className="text-xs text-text-secondary">{activity.timestamp}</span>
-              </div>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        ) : (
+          <div className="text-center py-8">
+            <Icon name="Activity" size={48} className="text-text-secondary mx-auto mb-4" />
+            <p className="text-text-secondary">No recent activity</p>
+            <p className="text-sm text-text-secondary mt-1">Activity will appear here once the vendor starts transacting</p>
+          </div>
+        )}
       </div>
     </div>
   );

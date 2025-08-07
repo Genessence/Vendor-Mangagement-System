@@ -39,7 +39,26 @@ export const validateStep = (step, formData) => {
       if (!formData.supplyPincode) errors.supplyPincode = 'Supply pincode is required';
       break;
 
-    case 3: // Supplier Categorization
+    case 3: // Bank Information
+      if (!formData.bankName) errors.bankName = 'Bank name is required';
+      if (!formData.accountNumber) errors.accountNumber = 'Account number is required';
+      if (!formData.accountType) errors.accountType = 'Account type is required';
+      if (!formData.branchName) errors.branchName = 'Branch name is required';
+      if (!formData.bankAddress) errors.bankAddress = 'Bank address is required';
+      if (!formData.bankProof) errors.bankProof = 'Bank proof document is required';
+      
+      // IFSC code validation only for Indian banks
+      if (isIndia(formData.countryOrigin)) {
+        if (!formData.ifscCode) errors.ifscCode = 'IFSC code is required';
+        else if (!/^[A-Z]{4}0[A-Z0-9]{6}$/.test(formData.ifscCode)) {
+          errors.ifscCode = 'Invalid IFSC code format';
+        }
+      } else {
+        if (!formData.swiftCode) errors.swiftCode = 'Swift code is required';
+      }
+      break;
+
+    case 4: // Supplier Categorization
       if (!formData.supplierType) errors.supplierType = 'Supplier type is required';
       if (!formData.supplierGroup) errors.supplierGroup = 'Supplier group is required';
       
@@ -67,7 +86,7 @@ export const validateStep = (step, formData) => {
       }
       break;
 
-    case 4: // Compliance
+    case 5: // Compliance
       if (!formData.preferredCurrency) errors.preferredCurrency = 'Preferred currency is required';
       if (!formData.taxRegistrationNumber) errors.taxRegistrationNumber = 'Tax registration number is required';
       
@@ -88,22 +107,6 @@ export const validateStep = (step, formData) => {
       
       // GTA Registration is required for both Indian and foreign vendors
       if (!formData.gtaRegistration) errors.gtaRegistration = 'GTA registration status is required';
-      break;
-
-    case 5: // Bank Information
-      if (!formData.bankName) errors.bankName = 'Bank name is required';
-      if (!formData.accountNumber) errors.accountNumber = 'Account number is required';
-      if (!formData.accountType) errors.accountType = 'Account type is required';
-      if (!formData.branchName) errors.branchName = 'Branch name is required';
-      if (!formData.currency) errors.currency = 'Currency is required';
-      
-      // IFSC code validation only for Indian banks
-      if (isIndia(formData.countryOrigin)) {
-        if (!formData.ifscCode) errors.ifscCode = 'IFSC code is required';
-        else if (!/^[A-Z]{4}0[A-Z0-9]{6}$/.test(formData.ifscCode)) {
-          errors.ifscCode = 'Invalid IFSC code format';
-        }
-      }
       break;
 
     case 6: // Agreements

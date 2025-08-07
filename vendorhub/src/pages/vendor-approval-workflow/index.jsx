@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/ui/Header';
-import Sidebar from '../../components/ui/Sidebar';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 import Button from '../../components/ui/Button';
 import Icon from '../../components/AppIcon';
@@ -9,6 +8,7 @@ import ApplicationCard from './components/ApplicationCard';
 import ReviewPanel from './components/ReviewPanel';
 import WorkflowStats from './components/WorkflowStats';
 import FilterPanel from './components/FilterPanel';
+import { API_BASE_URL } from '../../config/api';
 
 const VendorApprovalWorkflow = () => {
   const navigate = useNavigate();
@@ -31,193 +31,54 @@ const VendorApprovalWorkflow = () => {
     rejectedWeek: 0
   });
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Mock data for vendor applications
-  const mockApplications = [
-    {
-      id: 'APP001',
-      companyName: 'TechCorp Solutions Pvt Ltd',
-      contactPerson: 'Rajesh Kumar',
-      email: 'rajesh.kumar@techcorp.com',
-      phone: '+91 98765 43210',
-      country: 'India',
-      category: 'Software',
-      supplierType: 'MSME',
-      businessVertical: 'Amber Enterprises India Limited',
-      status: 'pending_level_1',
-      urgency: 'high',
-      submissionDate: '2025-01-20T10:30:00Z',
-      documentsCompleted: 8,
-      totalDocuments: 10,
-      hasNewDocuments: true,
-      hasComments: true,
-      commentCount: 3,
-      registeredAddress: '123 Tech Park, Sector 62, Noida, UP 201301',
-      supplyAddress: '123 Tech Park, Sector 62, Noida, UP 201301',
-      bankDetails: {
-        bankName: 'HDFC Bank',
-        accountNumber: '50100123456789',
-        accountType: 'Current',
-        ifscCode: 'HDFC0001234',
-        branch: 'Noida Sector 62',
-        currency: 'INR',
-        proofDocument: 'cancelled_cheque.pdf'
-      },
-      documents: [
-        { name: 'PAN Card', type: 'PDF', size: '245 KB' },
-        { name: 'GST Certificate', type: 'PDF', size: '512 KB' },
-        { name: 'MSME Certificate', type: 'PDF', size: '189 KB' },
-        { name: 'Bank Proof', type: 'PDF', size: '324 KB' }
-      ],
-      agreements: [
-        { name: 'Non-Disclosure Agreement', description: 'Confidentiality terms', signed: true },
-        { name: 'Supplier Quality Agreement', description: 'Quality standards', signed: true },
-        { name: '4M Agreement', description: 'Manufacturing terms', signed: false },
-        { name: 'Code of Conduct', description: 'Ethical guidelines', signed: true }
-      ],
-      history: [
-        {
-          action: 'Application Submitted',
-          description: 'Vendor completed registration form',
-          user: 'System',
-          role: 'System',
-          timestamp: '20/01/2025 10:30 AM'
-        },
-        {
-          action: 'Documents Uploaded',
-          description: 'All required documents uploaded',
-          user: 'Rajesh Kumar',
-          role: 'Vendor',
-          timestamp: '20/01/2025 11:15 AM'
-        }
-      ]
-    },
-    {
-      id: 'APP002',
-      companyName: 'Global Manufacturing Inc',
-      contactPerson: 'Sarah Johnson',
-      email: 'sarah.johnson@globalmanuf.com',
-      phone: '+1 555 123 4567',
-      country: 'United States',
-      category: 'Raw Materials',
-      supplierType: 'Large Enterprise',
-      businessVertical: 'Amber Enterprises India Limited',
-      status: 'pending_level_2',
-      urgency: 'medium',
-      submissionDate: '2025-01-18T14:20:00Z',
-      documentsCompleted: 10,
-      totalDocuments: 10,
-      hasNewDocuments: false,
-      hasComments: false,
-      commentCount: 0,
-      registeredAddress: '456 Industrial Ave, Detroit, MI 48201, USA',
-      supplyAddress: '789 Supply Chain Blvd, Chicago, IL 60601, USA',
-      bankDetails: {
-        bankName: 'Chase Bank',
-        accountNumber: 'US123456789012',
-        accountType: 'Business Checking',
-        ifscCode: 'CHASUS33XXX',
-        branch: 'Detroit Main Branch',
-        currency: 'USD',
-        proofDocument: 'bank_letterhead.pdf'
-      },
-      documents: [
-        { name: 'Business License', type: 'PDF', size: '445 KB' },
-        { name: 'Tax Certificate', type: 'PDF', size: '612 KB' },
-        { name: 'Insurance Certificate', type: 'PDF', size: '289 KB' },
-        { name: 'Bank Letterhead', type: 'PDF', size: '524 KB' }
-      ],
-      agreements: [
-        { name: 'Non-Disclosure Agreement', description: 'Confidentiality terms', signed: true },
-        { name: 'Supplier Quality Agreement', description: 'Quality standards', signed: true },
-        { name: '4M Agreement', description: 'Manufacturing terms', signed: true },
-        { name: 'Code of Conduct', description: 'Ethical guidelines', signed: true }
-      ],
-      history: [
-        {
-          action: 'Application Submitted',
-          description: 'Vendor completed registration form',
-          user: 'System',
-          role: 'System',
-          timestamp: '18/01/2025 02:20 PM'
-        },
-        {
-          action: 'Level 1 Approved',
-          description: 'First level approval completed',
-          user: 'Amit Sharma',
-          role: 'Level 1 Approver',
-          timestamp: '19/01/2025 09:45 AM'
-        }
-      ]
-    },
-    {
-      id: 'APP003',
-      companyName: 'Precision Engineering Ltd',
-      contactPerson: 'Michael Chen',
-      email: 'michael.chen@precision.com',
-      phone: '+65 9876 5432',
-      country: 'Singapore',
-      category: 'Equipment',
-      supplierType: 'SME',
-      businessVertical: 'Amber Enterprises India Limited',
-      status: 'pending_level_1',
-      urgency: 'low',
-      submissionDate: '2025-01-22T09:15:00Z',
-      documentsCompleted: 6,
-      totalDocuments: 8,
-      hasNewDocuments: false,
-      hasComments: true,
-      commentCount: 1,
-      registeredAddress: '12 Marina Bay Street, Singapore 018982',
-      supplyAddress: '12 Marina Bay Street, Singapore 018982',
-      bankDetails: {
-        bankName: 'DBS Bank',
-        accountNumber: 'SG987654321098',
-        accountType: 'Corporate Account',
-        ifscCode: 'DBSSSGSGXXX',
-        branch: 'Marina Bay Branch',
-        currency: 'SGD',
-        proofDocument: 'bank_statement.pdf'
-      },
-      documents: [
-        { name: 'Company Registration', type: 'PDF', size: '345 KB' },
-        { name: 'Tax Registration', type: 'PDF', size: '412 KB' },
-        { name: 'Quality Certificates', type: 'PDF', size: '689 KB' }
-      ],
-      agreements: [
-        { name: 'Non-Disclosure Agreement', description: 'Confidentiality terms', signed: true },
-        { name: 'Supplier Quality Agreement', description: 'Quality standards', signed: false },
-        { name: '4M Agreement', description: 'Manufacturing terms', signed: false },
-        { name: 'Code of Conduct', description: 'Ethical guidelines', signed: true }
-      ],
-      history: [
-        {
-          action: 'Application Submitted',
-          description: 'Vendor completed registration form',
-          user: 'System',
-          role: 'System',
-          timestamp: '22/01/2025 09:15 AM'
-        }
-      ]
-    }
-  ];
-
+  // Fetch vendor applications from API
   useEffect(() => {
-    // Simulate API call
-    const loadData = async () => {
-      setLoading(true);
-      
-      // Simulate network delay
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      setApplications(mockApplications);
-      setFilteredApplications(mockApplications);
-      
-      // Calculate stats
-      const pendingLevel1 = mockApplications.filter(app => app.status === 'pending_level_1').length;
-      const pendingLevel2 = mockApplications.filter(app => app.status === 'pending_level_2').length;
-      const approvedToday = 5; // Mock data
-      const rejectedWeek = 2; // Mock data
+    const fetchApplications = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`${API_BASE_URL}/vendors?status=pending`);
+        
+        if (!response.ok) {
+          if (response.status === 401) {
+            setError('Authentication required. Please log in.');
+            return;
+          }
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        setApplications(data);
+        setFilteredApplications(data);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching applications:', err);
+        setError('Failed to load applications. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchApplications();
+  }, []);
+
+  // Calculate stats when applications change
+  useEffect(() => {
+    if (applications.length > 0) {
+      const pendingLevel1 = applications.filter(app => app.status === 'pending').length;
+      const pendingLevel2 = applications.filter(app => app.status === 'pending_level_2').length;
+      const approvedToday = applications.filter(app => {
+        const today = new Date().toDateString();
+        const approvedDate = new Date(app.approved_at || app.created_at).toDateString();
+        return app.status === 'approved' && approvedDate === today;
+      }).length;
+      const rejectedWeek = applications.filter(app => {
+        const weekAgo = new Date();
+        weekAgo.setDate(weekAgo.getDate() - 7);
+        const rejectedDate = new Date(app.updated_at || app.created_at);
+        return app.status === 'rejected' && rejectedDate >= weekAgo;
+      }).length;
       
       setStats({
         pendingLevel1,
@@ -225,12 +86,8 @@ const VendorApprovalWorkflow = () => {
         approvedToday,
         rejectedWeek
       });
-      
-      setLoading(false);
-    };
-
-    loadData();
-  }, []);
+    }
+  }, [applications]);
 
   useEffect(() => {
     // Apply filters
@@ -238,9 +95,9 @@ const VendorApprovalWorkflow = () => {
 
     if (filters.search) {
       filtered = filtered.filter(app =>
-        app.companyName.toLowerCase().includes(filters.search.toLowerCase()) ||
-        app.contactPerson.toLowerCase().includes(filters.search.toLowerCase()) ||
-        app.email.toLowerCase().includes(filters.search.toLowerCase())
+        app.company_name?.toLowerCase().includes(filters.search.toLowerCase()) ||
+        app.contact_person_name?.toLowerCase().includes(filters.search.toLowerCase()) ||
+        app.email?.toLowerCase().includes(filters.search.toLowerCase())
       );
     }
 
@@ -248,34 +105,27 @@ const VendorApprovalWorkflow = () => {
       filtered = filtered.filter(app => app.status === filters.status);
     }
 
-    if (filters.urgency) {
-      filtered = filtered.filter(app => app.urgency === filters.urgency);
-    }
-
     if (filters.category) {
-      filtered = filtered.filter(app => app.category.toLowerCase() === filters.category.toLowerCase());
+      filtered = filtered.filter(app => app.supplier_category?.toLowerCase() === filters.category.toLowerCase());
     }
 
     if (filters.country) {
-      filtered = filtered.filter(app => app.country === filters.country);
+      filtered = filtered.filter(app => app.country_origin === filters.country);
     }
 
     // Apply sorting
     filtered.sort((a, b) => {
       switch (filters.sortBy) {
         case 'submission_date_asc':
-          return new Date(a.submissionDate) - new Date(b.submissionDate);
+          return new Date(a.created_at) - new Date(b.created_at);
         case 'submission_date_desc':
-          return new Date(b.submissionDate) - new Date(a.submissionDate);
-        case 'urgency_desc':
-          const urgencyOrder = { high: 3, medium: 2, low: 1 };
-          return urgencyOrder[b.urgency] - urgencyOrder[a.urgency];
+          return new Date(b.created_at) - new Date(a.created_at);
         case 'company_name_asc':
-          return a.companyName.localeCompare(b.companyName);
+          return a.company_name?.localeCompare(b.company_name || '');
         case 'company_name_desc':
-          return b.companyName.localeCompare(a.companyName);
+          return b.company_name?.localeCompare(a.company_name || '');
         default:
-          return new Date(b.submissionDate) - new Date(a.submissionDate);
+          return new Date(b.created_at) - new Date(a.created_at);
       }
     });
 
@@ -337,39 +187,66 @@ const VendorApprovalWorkflow = () => {
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-background">
+      <div className="min-h-screen bg-gray-50">
         <Header />
         <div className="flex">
-          <Sidebar />
-          <main className="flex-1 lg:ml-60">
-            <div className="p-6">
-              <div className="flex items-center justify-center h-64">
-                <div className="text-center">
-                  <Icon name="Loader2" size={32} className="animate-spin text-primary mx-auto mb-4" />
-                  <p className="text-text-secondary">Loading approval workflow...</p>
-                </div>
+          <div className="flex-1 p-6">
+            <div className="flex items-center justify-center h-96">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto mb-4"></div>
+                <p className="text-gray-600">Loading applications...</p>
               </div>
             </div>
-          </main>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="flex">
+          <div className="flex-1 p-6">
+            <div className="flex items-center justify-center h-96">
+              <div className="text-center">
+                <div className="text-red-600 text-xl mb-4">⚠️</div>
+                <p className="text-gray-600 mb-4">{error}</p>
+                <button 
+                  onClick={() => window.location.reload()} 
+                  className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700"
+                >
+                  Retry
+                </button>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-background">
+    <div className="min-h-screen bg-gray-50">
       <Header />
       <div className="flex">
-        <Sidebar />
-        <main className="flex-1 lg:ml-60">
-          <div className="p-6">
-            <Breadcrumb />
-            
+        <div className="flex-1 p-6">
+          <div className="mb-6">
+            <Breadcrumb 
+              items={[
+                { label: 'Dashboard', path: '/dashboard-overview' },
+                { label: 'Vendor Approval Workflow', path: '/vendor-approval-workflow' }
+              ]} 
+            />
+          </div>
+
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200 p-6">
             {/* Page Header */}
             <div className="flex items-center justify-between mb-8">
               <div>
-                <h1 className="text-3xl font-bold text-foreground mb-2">Vendor Approval Workflow</h1>
-                <p className="text-text-secondary">
+                <h1 className="text-3xl font-bold text-gray-900 mb-2">Vendor Approval Workflow</h1>
+                <p className="text-gray-600">
                   Review and process vendor applications through the approval pipeline
                 </p>
               </div>
@@ -378,14 +255,12 @@ const VendorApprovalWorkflow = () => {
                   variant="outline"
                   onClick={() => navigate('/vendor-master-list')}
                 >
-                  <Icon name="List" size={16} className="mr-2" />
                   View All Vendors
                 </Button>
                 <Button
                   variant="default"
                   onClick={() => navigate('/public-vendor-registration-form')}
                 >
-                  <Icon name="Plus" size={16} className="mr-2" />
                   Invite Vendor
                 </Button>
               </div>
@@ -405,9 +280,9 @@ const VendorApprovalWorkflow = () => {
             <div className="space-y-6">
               {filteredApplications.length === 0 ? (
                 <div className="text-center py-12">
-                  <Icon name="FileX" size={48} className="text-text-secondary mx-auto mb-4" />
-                  <h3 className="text-lg font-medium text-foreground mb-2">No Applications Found</h3>
-                  <p className="text-text-secondary mb-4">
+                  <div className="text-gray-400 text-4xl mb-4">📋</div>
+                  <h3 className="text-lg font-medium text-gray-900 mb-2">No Applications Found</h3>
+                  <p className="text-gray-600 mb-4">
                     {Object.values(filters).some(value => value && value !== '') 
                       ? 'Try adjusting your filters to see more results.' :'No vendor applications are currently pending approval.'
                     }
@@ -421,7 +296,7 @@ const VendorApprovalWorkflow = () => {
               ) : (
                 <>
                   <div className="flex items-center justify-between">
-                    <p className="text-sm text-text-secondary">
+                    <p className="text-sm text-gray-600">
                       Showing {filteredApplications.length} of {applications.length} applications
                     </p>
                   </div>
@@ -440,7 +315,7 @@ const VendorApprovalWorkflow = () => {
               )}
             </div>
           </div>
-        </main>
+        </div>
       </div>
 
       {/* Review Panel Modal */}

@@ -4,6 +4,7 @@ from fastapi.middleware.trustedhost import TrustedHostMiddleware
 from .config import settings
 from .database import engine, Base
 from .api import auth, vendors, approvals, documents
+from .middleware.logging_middleware import LoggingMiddleware, AuditMiddleware
 
 # Create database tables
 Base.metadata.create_all(bind=engine)
@@ -43,6 +44,10 @@ app.add_middleware(
     TrustedHostMiddleware,
     allowed_hosts=settings.allowed_hosts
 )
+
+# Add logging middleware for compliance tracking
+app.add_middleware(LoggingMiddleware)
+app.add_middleware(AuditMiddleware)
 
 # Include routers
 app.include_router(auth.router, prefix="/api/v1")

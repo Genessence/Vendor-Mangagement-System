@@ -43,19 +43,19 @@ const ApplicationCard = ({ application, onViewDetails, onQuickAction }) => {
       <div className="flex items-start justify-between mb-4">
         <div className="flex-1">
           <div className="flex items-center space-x-3 mb-2">
-            <h3 className="text-lg font-semibold text-card-foreground">{application.companyName}</h3>
-            <span className={`px-2 py-1 rounded-full text-xs font-medium border ${getUrgencyColor(application.urgency)}`}>
-              {application.urgency.toUpperCase()}
+            <h3 className="text-lg font-semibold text-card-foreground">{application.company_name}</h3>
+            <span className={`px-2 py-1 rounded-full text-xs font-medium border ${getUrgencyColor('medium')}`}>
+              MEDIUM
             </span>
           </div>
           <div className="flex items-center space-x-4 text-sm text-text-secondary">
             <span className="flex items-center space-x-1">
               <Icon name="Calendar" size={14} />
-              <span>Submitted {formatDate(application.submissionDate)}</span>
+              <span>Submitted {formatDate(application.created_at)}</span>
             </span>
             <span className="flex items-center space-x-1">
               <Icon name="Clock" size={14} />
-              <span>{getDaysAgo(application.submissionDate)} days ago</span>
+              <span>{getDaysAgo(application.created_at)} days ago</span>
             </span>
           </div>
         </div>
@@ -72,14 +72,14 @@ const ApplicationCard = ({ application, onViewDetails, onQuickAction }) => {
           <Icon name="Building2" size={16} className="text-text-secondary" />
           <div>
             <div className="text-xs text-text-secondary">Category</div>
-            <div className="text-sm font-medium text-card-foreground">{application.category}</div>
+            <div className="text-sm font-medium text-card-foreground">{application.supplier_category}</div>
           </div>
         </div>
         <div className="flex items-center space-x-2">
           <Icon name="MapPin" size={16} className="text-text-secondary" />
           <div>
             <div className="text-xs text-text-secondary">Country</div>
-            <div className="text-sm font-medium text-card-foreground">{application.country}</div>
+            <div className="text-sm font-medium text-card-foreground">{application.country_origin}</div>
           </div>
         </div>
         <div className="flex items-center space-x-2">
@@ -97,7 +97,7 @@ const ApplicationCard = ({ application, onViewDetails, onQuickAction }) => {
       <div className="flex items-center space-x-4 mb-4 text-sm text-text-secondary">
         <span className="flex items-center space-x-1">
           <Icon name="User" size={14} />
-          <span>{application.contactPerson}</span>
+          <span>{application.contact_person_name}</span>
         </span>
         <span className="flex items-center space-x-1">
           <Icon name="Mail" size={14} />

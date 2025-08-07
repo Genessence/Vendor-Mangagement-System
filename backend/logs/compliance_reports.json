@@ -1,0 +1,1 @@
+{"timestamp": "2025-08-07 12:02:43", "logger": "compliance", "level": "INFO", "message": Compliance requirements loaded: ['ISO_9001', 'ISO_14001', 'ISO_45001', 'FDA_21_CFR_PART_11', 'GDPR']}

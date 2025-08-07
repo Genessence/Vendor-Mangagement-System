@@ -104,38 +104,38 @@ const VendorTable = ({
               </th>
               <th className="px-4 py-3 text-left">
                 <button
-                  onClick={() => onSort('vendorCode')}
+                  onClick={() => onSort('vendor_code')}
                   className="flex items-center space-x-1 text-sm font-medium text-foreground hover:text-primary transition-micro"
                 >
                   <span>Vendor Code</span>
-                  {getSortIcon('vendorCode')}
+                  {getSortIcon('vendor_code')}
                 </button>
               </th>
               <th className="px-4 py-3 text-left">
                 <button
-                  onClick={() => onSort('companyName')}
+                  onClick={() => onSort('company_name')}
                   className="flex items-center space-x-1 text-sm font-medium text-foreground hover:text-primary transition-micro"
                 >
                   <span>Company Name</span>
-                  {getSortIcon('companyName')}
+                  {getSortIcon('company_name')}
                 </button>
               </th>
               <th className="px-4 py-3 text-left">
                 <button
-                  onClick={() => onSort('category')}
+                  onClick={() => onSort('supplier_category')}
                   className="flex items-center space-x-1 text-sm font-medium text-foreground hover:text-primary transition-micro"
                 >
                   <span>Category</span>
-                  {getSortIcon('category')}
+                  {getSortIcon('supplier_category')}
                 </button>
               </th>
               <th className="px-4 py-3 text-left">
                 <button
-                  onClick={() => onSort('country')}
+                  onClick={() => onSort('country_origin')}
                   className="flex items-center space-x-1 text-sm font-medium text-foreground hover:text-primary transition-micro"
                 >
                   <span>Country</span>
-                  {getSortIcon('country')}
+                  {getSortIcon('country_origin')}
                 </button>
               </th>
               <th className="px-4 py-3 text-left">
@@ -149,11 +149,11 @@ const VendorTable = ({
               </th>
               <th className="px-4 py-3 text-left">
                 <button
-                  onClick={() => onSort('registrationDate')}
+                  onClick={() => onSort('created_at')}
                   className="flex items-center space-x-1 text-sm font-medium text-foreground hover:text-primary transition-micro"
                 >
                   <span>Registration Date</span>
-                  {getSortIcon('registrationDate')}
+                  {getSortIcon('created_at')}
                 </button>
               </th>
               <th className="px-4 py-3 text-left">
@@ -177,7 +177,7 @@ const VendorTable = ({
                   <td className="px-4 py-3">
                     <div className="flex items-center space-x-2">
                       <span className="font-mono text-sm font-medium text-primary">
-                        {vendor.vendorCode}
+                        {vendor.vendor_code}
                       </span>
                       <button
                         onClick={() => toggleRowExpansion(vendor.id)}
@@ -196,18 +196,18 @@ const VendorTable = ({
                         className="font-medium text-foreground hover:text-primary cursor-pointer transition-micro"
                         onClick={() => handleVendorClick(vendor)}
                       >
-                        {vendor.companyName}
+                        {vendor.company_name}
                       </div>
-                      <div className="text-sm text-text-secondary">{vendor.contactPerson}</div>
+                      <div className="text-sm text-text-secondary">{vendor.contact_person_name}</div>
                     </div>
                   </td>
                   <td className="px-4 py-3">
-                    <span className="text-sm text-foreground">{vendor.category}</span>
+                    <span className="text-sm text-foreground">{vendor.supplier_category}</span>
                   </td>
                   <td className="px-4 py-3">
                     <div className="flex items-center space-x-2">
-                      <span className="text-sm text-foreground">{vendor.country}</span>
-                      {vendor.msmeStatus === 'msme' && (
+                      <span className="text-sm text-foreground">{vendor.country_origin}</span>
+                      {vendor.msme_status === 'msme' && (
                         <span className="bg-accent/10 text-accent px-1.5 py-0.5 rounded text-xs font-medium">
                           MSME
                         </span>
@@ -219,7 +219,7 @@ const VendorTable = ({
                   </td>
                   <td className="px-4 py-3">
                     <span className="text-sm text-foreground">
-                      {formatDate(vendor.registrationDate)}
+                      {formatDate(vendor.created_at)}
                     </span>
                   </td>
                   <td className="px-4 py-3">
@@ -264,16 +264,16 @@ const VendorTable = ({
                           <h4 className="font-medium text-foreground mb-2">Contact Information</h4>
                           <div className="space-y-1 text-sm text-text-secondary">
                             <div>Email: {vendor.email}</div>
-                            <div>Phone: {vendor.phone}</div>
-                            <div>Address: {vendor.address}</div>
+                            <div>Phone: {vendor.phone_number}</div>
+                            <div>Address: {vendor.registered_address}</div>
                           </div>
                         </div>
                         <div>
                           <h4 className="font-medium text-foreground mb-2">Business Details</h4>
                           <div className="space-y-1 text-sm text-text-secondary">
-                            <div>Type: {vendor.vendorType}</div>
-                            <div>Turnover: {formatCurrency(vendor.annualTurnover)}</div>
-                            <div>GST: {vendor.gstNumber || 'N/A'}</div>
+                            <div>Type: {vendor.supplier_type}</div>
+                            <div>Turnover: {formatCurrency(vendor.annual_turnover || 0)}</div>
+                            <div>GST: {vendor.gst_number || 'N/A'}</div>
                           </div>
                         </div>
                         <div>

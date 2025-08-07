@@ -3,7 +3,7 @@ import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
 import Select from '../../../components/ui/Select';
 
-const BulkActions = ({ selectedCount, onBulkExport, onBulkStatusUpdate, onImportVendors }) => {
+const BulkActions = ({ selectedCount, onExport, onBulkStatusUpdate, onImportVendors }) => {
   const [showBulkMenu, setShowBulkMenu] = useState(false);
   const [showStatusUpdate, setShowStatusUpdate] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState('');
@@ -21,7 +21,7 @@ const BulkActions = ({ selectedCount, onBulkExport, onBulkStatusUpdate, onImport
   ];
 
   const handleBulkExport = (format) => {
-    onBulkExport(format);
+    onExport(format);
     setShowBulkMenu(false);
   };
 

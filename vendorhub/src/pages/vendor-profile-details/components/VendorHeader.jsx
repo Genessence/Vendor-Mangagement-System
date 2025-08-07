@@ -30,22 +30,22 @@ const VendorHeader = ({ vendor, onEdit, onStatusChange, userRole }) => {
       
       if (format === 'pdf') {
         endpoint = `http://localhost:8000/api/v1/vendors/${vendor.id}/export/pdf`;
-        filename = `vendor_${vendor.vendorCode}_export_${new Date().toISOString().split('T')[0]}.pdf`;
+        filename = `vendor_${vendor.vendor_code}_export_${new Date().toISOString().split('T')[0]}.pdf`;
       } else if (format === 'excel') {
         endpoint = `http://localhost:8000/api/v1/vendors/${vendor.id}/export/excel`;
-        filename = `vendor_${vendor.vendorCode}_export_${new Date().toISOString().split('T')[0]}.xlsx`;
+        filename = `vendor_${vendor.vendor_code}_export_${new Date().toISOString().split('T')[0]}.xlsx`;
       }
 
       // Call backend API to generate file
       const response = await fetch(endpoint, {
         method: 'GET',
         headers: {
-          'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
           'Content-Type': 'application/json',
         },
       });
 
       if (!response.ok) {
+        alert('Export failed: ' + response.status + ' ' + response.statusText);
         throw new Error(`Export failed: ${response.status} ${response.statusText}`);
       }
 
@@ -84,20 +84,19 @@ const VendorHeader = ({ vendor, onEdit, onStatusChange, userRole }) => {
         const exportData = {
           vendorInfo: {
             id: vendor.id,
-            vendorCode: vendor.vendorCode,
-            companyName: vendor.companyName,
-            legalName: vendor.legalName,
+            vendor_code: vendor.vendor_code,
+            company_name: vendor.company_name,
             status: vendor.status,
             email: vendor.email,
-            phone: vendor.phone,
-            alternativePhone: vendor.alternativePhone,
-            city: vendor.city,
-            state: vendor.state,
-            country: vendor.country,
-            postalCode: vendor.postalCode,
-            registrationDate: vendor.registrationDate,
-            category: vendor.category,
-            businessType: vendor.businessType,
+            phone_number: vendor.phone_number,
+            contact_person_name: vendor.contact_person_name,
+            registered_city: vendor.registered_city,
+            registered_state: vendor.registered_state,
+            country_origin: vendor.country_origin,
+            registered_pincode: vendor.registered_pincode,
+            created_at: vendor.created_at,
+            supplier_category: vendor.supplier_category,
+            supplier_type: vendor.supplier_type,
             industry: vendor.industry,
             subIndustry: vendor.subIndustry,
             yearEstablished: vendor.yearEstablished,
@@ -134,7 +133,7 @@ const VendorHeader = ({ vendor, onEdit, onStatusChange, userRole }) => {
         const url = URL.createObjectURL(dataBlob);
         const link = document.createElement('a');
         link.href = url;
-        link.download = `${vendor.vendorCode}_${vendor.companyName.replace(/[^a-zA-Z0-9]/g, '_')}_export_${new Date().toISOString().split('T')[0]}.json`;
+        link.download = `${vendor.vendor_code}_${vendor.company_name.replace(/[^a-zA-Z0-9]/g, '_')}_export_${new Date().toISOString().split('T')[0]}.json`;
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -159,7 +158,7 @@ const VendorHeader = ({ vendor, onEdit, onStatusChange, userRole }) => {
           <div className="flex-1 min-w-0">
             <div className="flex items-center space-x-3 mb-2">
               <h1 className="text-2xl font-semibold text-foreground truncate">
-                {vendor.companyName}
+                {vendor.company_name}
               </h1>
               <span className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(vendor.status)}`}>
                 {vendor.status}
@@ -169,7 +168,7 @@ const VendorHeader = ({ vendor, onEdit, onStatusChange, userRole }) => {
               <div className="flex items-center space-x-2">
                 <Icon name="Hash" size={16} className="text-text-secondary" />
                 <span className="text-text-secondary">Vendor Code:</span>
-                <span className="font-medium text-foreground">{vendor.vendorCode}</span>
+                <span className="font-medium text-foreground">{vendor.vendor_code}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Icon name="Mail" size={16} className="text-text-secondary" />
@@ -179,22 +178,22 @@ const VendorHeader = ({ vendor, onEdit, onStatusChange, userRole }) => {
               <div className="flex items-center space-x-2">
                 <Icon name="Phone" size={16} className="text-text-secondary" />
                 <span className="text-text-secondary">Phone:</span>
-                <span className="font-medium text-foreground">{vendor.phone}</span>
+                <span className="font-medium text-foreground">{vendor.phone_number}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Icon name="MapPin" size={16} className="text-text-secondary" />
                 <span className="text-text-secondary">Location:</span>
-                <span className="font-medium text-foreground">{vendor.city}, {vendor.country}</span>
+                <span className="font-medium text-foreground">{vendor.registered_city}, {vendor.country_origin}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Icon name="Calendar" size={16} className="text-text-secondary" />
                 <span className="text-text-secondary">Registered:</span>
-                <span className="font-medium text-foreground">{vendor.registrationDate}</span>
+                <span className="font-medium text-foreground">{new Date(vendor.created_at).toLocaleDateString()}</span>
               </div>
               <div className="flex items-center space-x-2">
                 <Icon name="Tag" size={16} className="text-text-secondary" />
                 <span className="text-text-secondary">Category:</span>
-                <span className="font-medium text-foreground">{vendor.category}</span>
+                <span className="font-medium text-foreground">{vendor.supplier_category}</span>
               </div>
             </div>
           </div>

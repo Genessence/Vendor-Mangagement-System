@@ -1,8 +1,10 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import Input from '../../../components/ui/Input';
 import Select from '../../../components/ui/Select';
 
 const BankInformationStep = ({ formData, updateFormData, errors }) => {
+  const fileInputRef = useRef(null);
+  
   // Updated account types - removed "Cash Credit Account" for all countries
   const accountTypes = [
     { value: 'savings', label: 'Savings Account' },
@@ -20,6 +22,13 @@ const BankInformationStep = ({ formData, updateFormData, errors }) => {
 
   const handleFileUpload = (field, file) => {
     updateFormData({ [field]: file });
+  };
+
+  const handleRemoveFile = (field) => {
+    updateFormData({ [field]: null });
+    if (fileInputRef.current) {
+      fileInputRef.current.value = '';
+    }
   };
 
   const isIndian = formData.registeredCountry === 'IN';
@@ -147,11 +156,18 @@ const BankInformationStep = ({ formData, updateFormData, errors }) => {
             onChange={(e) => handleFileUpload('bankProof', e.target.files[0])}
             error={errors.bankProof}
             required
+            inputRef={fileInputRef}
           />
-          
           {formData.bankProof && (
-            <div className="mt-2 text-sm text-success">
-              ✓ File uploaded: {formData.bankProof.name}
+            <div className="mt-2 flex items-center space-x-2 text-sm text-success">
+              <span>✓ File uploaded: {formData.bankProof.name}</span>
+              <button
+                type="button"
+                className="ml-2 px-2 py-1 text-xs bg-error text-white rounded hover:bg-error/80"
+                onClick={() => handleRemoveFile('bankProof')}
+              >
+                Remove
+              </button>
             </div>
           )}
         </div>

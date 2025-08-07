@@ -1,5 +1,5 @@
 from typing import List, Optional
-from fastapi import APIRouter, Depends, HTTPException, status, Query
+from fastapi import APIRouter, Depends, HTTPException, status, Query, Request
 from sqlalchemy.orm import Session
 from sqlalchemy import and_, or_
 from ..database import get_db
@@ -13,6 +13,7 @@ from ..schemas.vendor import (
     VendorAgreementCreate, VendorAgreementUpdate, VendorAgreementResponse
 )
 from ..auth import get_current_active_user
+from ..utils.logger import compliance_logger
 import uuid
 from datetime import datetime
 
@@ -56,12 +57,27 @@ async def create_vendor(
 @router.post("/public-registration", response_model=VendorResponse)
 async def create_vendor_public(
     vendor_data: VendorCreate,
+    request: Request,
     db: Session = Depends(get_db)
 ):
     """Create a new vendor through public registration (no authentication required)"""
+    # Get client IP for logging
+    client_ip = request.client.host if request.client else "unknown"
+    
     # Check if vendor with same email already exists
     existing_vendor = db.query(Vendor).filter(Vendor.email == vendor_data.email).first()
     if existing_vendor:
+        # Log duplicate registration attempt
+        compliance_logger.log_security_event(
+            event_type="DUPLICATE_REGISTRATION_ATTEMPT",
+            user_id=None,
+            ip_address=client_ip,
+            details={
+                "email": vendor_data.email,
+                "company_name": vendor_data.company_name,
+                "existing_vendor_id": existing_vendor.id
+            }
+        )
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail="Vendor with this email already exists"
@@ -117,6 +133,14 @@ async def create_vendor_public(
         validation_errors.append("Self Declaration is required")
     
     if validation_errors:
+        # Log compliance validation failure
+        compliance_logger.log_compliance_violation(
+            vendor_id=0,  # Not created yet
+            violation_type="AGREEMENT_VALIDATION_FAILURE",
+            description=f"Missing required agreements: {', '.join(validation_errors)}",
+            severity="MEDIUM",
+            user_id=None
+        )
         raise HTTPException(
             status_code=status.HTTP_400_BAD_REQUEST,
             detail={"message": "Agreement validation failed", "errors": validation_errors}
@@ -149,6 +173,14 @@ async def create_vendor_public(
     db.commit()
     db.refresh(db_vendor)
     
+    # Log successful vendor registration
+    vendor_dict_for_logging = vendor_data.dict()
+    compliance_logger.log_vendor_registration(
+        vendor_data=vendor_dict_for_logging,
+        user_id=None,  # Public registration
+        ip_address=client_ip
+    )
+    
     return db_vendor
 
 
@@ -161,10 +193,9 @@ async def get_vendors(
     vendor_type: Optional[VendorType] = None,
     msme_status: Optional[MSMEStatus] = None,
     category: Optional[str] = None,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_active_user)
+    db: Session = Depends(get_db)
 ):
-    """Get list of vendors with filtering and pagination"""
+    """Get list of vendors with filtering and pagination (public endpoint)"""
     query = db.query(Vendor)
     
     # Apply filters
@@ -198,16 +229,34 @@ async def get_vendors(
 @router.get("/{vendor_id}", response_model=VendorResponse)
 async def get_vendor(
     vendor_id: int,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_active_user)
+    db: Session = Depends(get_db)
 ):
-    """Get a specific vendor by ID"""
+    """Get a specific vendor by ID (public endpoint)"""
     vendor = db.query(Vendor).filter(Vendor.id == vendor_id).first()
     if not vendor:
         raise HTTPException(
             status_code=status.HTTP_404_NOT_FOUND,
             detail="Vendor not found"
         )
+    
+    # Calculate counts for UI badges
+    from ..models.vendor_document import VendorDocument
+    from ..models.vendor_compliance import VendorCompliance
+    from ..models.vendor_agreement import VendorAgreement
+    
+    # Document count
+    document_count = db.query(VendorDocument).filter(VendorDocument.vendor_id == vendor_id).count()
+    
+    # Compliance count (always 1 if vendor has compliance data)
+    compliance_count = db.query(VendorCompliance).filter(VendorCompliance.vendor_id == vendor_id).count()
+    
+    # Agreement count (always 1 if vendor has agreement data)
+    agreement_count = db.query(VendorAgreement).filter(VendorAgreement.vendor_id == vendor_id).count()
+    
+    # Add counts to vendor object
+    vendor.document_count = document_count
+    vendor.compliance_count = compliance_count
+    vendor.agreement_count = agreement_count
     
     return vendor
 

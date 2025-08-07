@@ -95,8 +95,7 @@ async def get_vendor_documents(
     vendor_id: int,
     document_type: Optional[DocumentType] = None,
     status: Optional[DocumentStatus] = None,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_active_user)
+    db: Session = Depends(get_db)
 ):
     """Get all documents for a vendor"""
     vendor = db.query(Vendor).filter(Vendor.id == vendor_id).first()
@@ -200,8 +199,7 @@ async def get_document_types():
 @router.get("/stats/vendor/{vendor_id}")
 async def get_vendor_document_stats(
     vendor_id: int,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_active_user)
+    db: Session = Depends(get_db)
 ):
     """Get document statistics for a vendor"""
     vendor = db.query(Vendor).filter(Vendor.id == vendor_id).first()

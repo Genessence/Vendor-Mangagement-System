@@ -8,7 +8,7 @@ const testData = {
   registration_number: "123456789",
   contact_person_name: "John Doe",
   designation: "Manager",
-  email: "test6@example.com",
+  email: "test7@example.com",
   phone_number: "+91-9876543214",
   website: "https://test.com",
   year_established: 2020,

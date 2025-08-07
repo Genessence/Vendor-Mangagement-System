@@ -67,7 +67,7 @@ const ComplianceStep = ({ formData, updateFormData, errors }) => {
         <Input
           label="Tax Registration Number"
           type="text"
-          placeholder={isIndian ? "Enter GST number" : "Enter tax registration number"}
+          placeholder={isIndian ? "Enter TAN number" : "Enter tax registration number"}
           value={formData.taxRegistrationNumber}
           onChange={(e) => handleInputChange('taxRegistrationNumber', e.target.value)}
           error={errors.taxRegistrationNumber}

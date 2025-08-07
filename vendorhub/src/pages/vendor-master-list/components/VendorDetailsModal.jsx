@@ -56,11 +56,11 @@ const VendorDetailsModal = ({ vendor, isOpen, onClose }) => {
               <div className="space-y-4">
                 <div>
                   <label className="text-sm font-medium text-text-secondary">Company Name</label>
-                  <div className="text-lg font-semibold text-foreground mt-1">{vendor.companyName}</div>
+                  <div className="text-lg font-semibold text-foreground mt-1">{vendor.company_name || 'N/A'}</div>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-text-secondary">Vendor Code</label>
-                  <div className="font-mono text-primary font-medium mt-1">{vendor.vendorCode}</div>
+                  <div className="font-mono text-primary font-medium mt-1">{vendor.vendor_code || 'N/A'}</div>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-text-secondary">Status</label>
@@ -68,23 +68,23 @@ const VendorDetailsModal = ({ vendor, isOpen, onClose }) => {
                 </div>
                 <div>
                   <label className="text-sm font-medium text-text-secondary">Registration Date</label>
-                  <div className="text-foreground mt-1">{formatDate(vendor.registrationDate)}</div>
+                  <div className="text-foreground mt-1">{formatDate(vendor.created_at)}</div>
                 </div>
               </div>
               <div className="space-y-4">
                 <div>
                   <label className="text-sm font-medium text-text-secondary">Category</label>
-                  <div className="text-foreground mt-1">{vendor.category}</div>
+                  <div className="text-foreground mt-1">{vendor.supplier_category || 'N/A'}</div>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-text-secondary">Vendor Type</label>
-                  <div className="text-foreground mt-1 capitalize">{vendor.vendorType.replace('_', ' ')}</div>
+                  <div className="text-foreground mt-1 capitalize">{vendor.supplier_type?.replace('_', ' ') || 'N/A'}</div>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-text-secondary">Country</label>
                   <div className="flex items-center space-x-2 mt-1">
-                    <span className="text-foreground">{vendor.country}</span>
-                    {vendor.msmeStatus === 'msme' && (
+                    <span className="text-foreground">{vendor.country_origin || 'N/A'}</span>
+                    {vendor.msme_status === 'msme' && (
                       <span className="bg-accent/10 text-accent px-2 py-1 rounded text-sm font-medium">
                         MSME
                       </span>
@@ -93,7 +93,7 @@ const VendorDetailsModal = ({ vendor, isOpen, onClose }) => {
                 </div>
                 <div>
                   <label className="text-sm font-medium text-text-secondary">Annual Turnover</label>
-                  <div className="text-foreground font-medium mt-1">{formatCurrency(vendor.annualTurnover)}</div>
+                  <div className="text-foreground font-medium mt-1">{formatCurrency(vendor.annual_turnover || 0)}</div>
                 </div>
               </div>
             </div>
@@ -107,21 +107,21 @@ const VendorDetailsModal = ({ vendor, isOpen, onClose }) => {
               <div className="space-y-4">
                 <div>
                   <label className="text-sm font-medium text-text-secondary">Contact Person</label>
-                  <div className="text-foreground mt-1">{vendor.contactPerson}</div>
+                  <div className="text-foreground mt-1">{vendor.contact_person_name || 'N/A'}</div>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-text-secondary">Email Address</label>
                   <div className="text-foreground mt-1">
-                    <a href={`mailto:${vendor.email}`} className="text-primary hover:underline">
-                      {vendor.email}
+                    <a href={`mailto:${vendor.email || ''}`} className="text-primary hover:underline">
+                      {vendor.email || 'N/A'}
                     </a>
                   </div>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-text-secondary">Phone Number</label>
                   <div className="text-foreground mt-1">
-                    <a href={`tel:${vendor.phone}`} className="text-primary hover:underline">
-                      {vendor.phone}
+                    <a href={`tel:${vendor.phone || ''}`} className="text-primary hover:underline">
+                      {vendor.phone || 'N/A'}
                     </a>
                   </div>
                 </div>
@@ -129,7 +129,7 @@ const VendorDetailsModal = ({ vendor, isOpen, onClose }) => {
               <div className="space-y-4">
                 <div>
                   <label className="text-sm font-medium text-text-secondary">Registered Address</label>
-                  <div className="text-foreground mt-1">{vendor.address}</div>
+                  <div className="text-foreground mt-1">{vendor.address || 'N/A'}</div>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-text-secondary">Website</label>
@@ -155,23 +155,23 @@ const VendorDetailsModal = ({ vendor, isOpen, onClose }) => {
               <div className="space-y-4">
                 <div>
                   <label className="text-sm font-medium text-text-secondary">Business Vertical</label>
-                  <div className="text-foreground mt-1">Amber Enterprises India Limited</div>
+                  <div className="text-foreground mt-1">{vendor.business_vertical || 'N/A'}</div>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-text-secondary">GST Number</label>
-                  <div className="font-mono text-foreground mt-1">{vendor.gstNumber || 'N/A'}</div>
+                  <div className="font-mono text-foreground mt-1">{vendor.gst_number || 'N/A'}</div>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-text-secondary">PAN Number</label>
-                  <div className="font-mono text-foreground mt-1">{vendor.panNumber || 'N/A'}</div>
+                  <div className="font-mono text-foreground mt-1">{vendor.pan_number || 'N/A'}</div>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-text-secondary">MSME Status</label>
                   <div className="mt-1">
                     <span className={`px-2 py-1 rounded text-sm font-medium ${
-                      vendor.msmeStatus === 'msme' ?'bg-accent/10 text-accent' :'bg-muted text-text-secondary'
+                      vendor.msme_status === 'msme' ?'bg-accent/10 text-accent' :'bg-muted text-text-secondary'
                     }`}>
-                      {vendor.msmeStatus === 'msme' ? 'MSME Certified' : 'Non-MSME'}
+                      {vendor.msme_status === 'msme' ? 'MSME Certified' : 'Non-MSME'}
                     </span>
                   </div>
                 </div>
@@ -179,19 +179,19 @@ const VendorDetailsModal = ({ vendor, isOpen, onClose }) => {
               <div className="space-y-4">
                 <div>
                   <label className="text-sm font-medium text-text-secondary">Bank Name</label>
-                  <div className="text-foreground mt-1">{vendor.bankName}</div>
+                  <div className="text-foreground mt-1">{vendor.bank_name || 'N/A'}</div>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-text-secondary">Account Number</label>
-                  <div className="font-mono text-foreground mt-1">****{vendor.accountNumber.slice(-4)}</div>
+                  <div className="font-mono text-foreground mt-1">****{vendor.account_number?.slice(-4) || 'N/A'}</div>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-text-secondary">IFSC Code</label>
-                  <div className="font-mono text-foreground mt-1">{vendor.ifscCode}</div>
+                  <div className="font-mono text-foreground mt-1">{vendor.ifsc_code || 'N/A'}</div>
                 </div>
                 <div>
                   <label className="text-sm font-medium text-text-secondary">Currency</label>
-                  <div className="text-foreground mt-1">{vendor.currency}</div>
+                  <div className="text-foreground mt-1">{vendor.currency || 'N/A'}</div>
                 </div>
               </div>
             </div>
@@ -202,16 +202,16 @@ const VendorDetailsModal = ({ vendor, isOpen, onClose }) => {
         return (
           <div className="space-y-4">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-              {vendor.documents.map((doc, index) => (
+              {vendor.documents?.map((doc, index) => (
                 <div key={index} className="border border-border rounded-lg p-4 hover:bg-muted/50 transition-micro">
                   <div className="flex items-start space-x-3">
                     <div className="w-10 h-10 bg-primary/10 rounded-lg flex items-center justify-center">
                       <Icon name="FileText" size={20} className="text-primary" />
                     </div>
                     <div className="flex-1 min-w-0">
-                      <div className="font-medium text-foreground truncate">{doc}</div>
+                      <div className="font-medium text-foreground truncate">{doc.name || 'N/A'}</div>
                       <div className="text-sm text-text-secondary">PDF Document</div>
-                      <div className="text-xs text-text-secondary mt-1">Uploaded on {formatDate(vendor.registrationDate)}</div>
+                      <div className="text-xs text-text-secondary mt-1">Uploaded on {formatDate(doc.created_at)}</div>
                     </div>
                   </div>
                   <div className="flex items-center space-x-2 mt-3">
@@ -298,9 +298,9 @@ const VendorDetailsModal = ({ vendor, isOpen, onClose }) => {
             {/* Header */}
             <div className="flex items-center justify-between p-6 border-b border-border">
               <div>
-                <h2 className="text-xl font-semibold text-foreground">{vendor.companyName}</h2>
+                <h2 className="text-xl font-semibold text-foreground">{vendor.company_name || 'N/A'}</h2>
                 <div className="text-sm text-text-secondary mt-1">
-                  Vendor Code: <span className="font-mono text-primary">{vendor.vendorCode}</span>
+                  Vendor Code: <span className="font-mono text-primary">{vendor.vendor_code || 'N/A'}</span>
                 </div>
               </div>
               <Button variant="ghost" size="icon" onClick={onClose}>

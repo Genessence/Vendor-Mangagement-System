@@ -1,7 +1,6 @@
 import React, { useState, useEffect, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import Header from '../../components/ui/Header';
-import Sidebar from '../../components/ui/Sidebar';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 
 import Button from '../../components/ui/Button';
@@ -10,6 +9,7 @@ import VendorTable from './components/VendorTable';
 import BulkActions from './components/BulkActions';
 import TablePagination from './components/TablePagination';
 import VendorDetailsModal from './components/VendorDetailsModal';
+import { API_BASE_URL } from '../../config/api';
 
 const VendorMasterList = () => {
   const navigate = useNavigate();
@@ -30,237 +30,68 @@ const VendorMasterList = () => {
   });
   
   const [selectedVendors, setSelectedVendors] = useState([]);
-  const [sortConfig, setSortConfig] = useState({ key: 'registrationDate', direction: 'desc' });
+  const [sortConfig, setSortConfig] = useState({ key: 'created_at', direction: 'desc' });
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(25);
   const [selectedVendor, setSelectedVendor] = useState(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [vendors, setVendors] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState(null);
 
-  // Mock vendor data
-  const mockVendors = [
-    {
-      id: 1,
-      vendorCode: 'VND001',
-      companyName: 'TechCorp Solutions Pvt Ltd',
-      contactPerson: 'Rajesh Kumar',
-      email: 'rajesh.kumar@techcorp.com',
-      phone: '+91 98765 43210',
-      address: 'Plot 123, Sector 18, Gurgaon, Haryana 122015',
-      website: 'https://techcorp.com',
-      category: 'Electronics',
-      vendorType: 'manufacturer',
-      country: 'India',
-      status: 'active',
-      msmeStatus: 'msme',
-      registrationDate: '2024-01-15',
-      approvalStage: 'approved',
-      annualTurnover: 50000000,
-      gstNumber: '07AABCT1234C1Z5',
-      panNumber: 'AABCT1234C',
-      bankName: 'HDFC Bank',
-      accountNumber: '50100123456789',
-      ifscCode: 'HDFC0001234',
-      currency: 'INR',
-      documents: ['GST Certificate', 'PAN Card', 'Bank Statement', 'MSME Certificate']
-    },
-    {
-      id: 2,
-      vendorCode: 'VND002',
-      companyName: 'Global Manufacturing Inc',
-      contactPerson: 'John Smith',
-      email: 'john.smith@globalmanuf.com',
-      phone: '+1 555 123 4567',
-      address: '1234 Industrial Blvd, Detroit, MI 48201, USA',
-      website: 'https://globalmanuf.com',
-      category: 'Automotive',
-      vendorType: 'supplier',
-      country: 'USA',
-      status: 'active',
-      msmeStatus: 'non_msme',
-      registrationDate: '2024-02-20',
-      approvalStage: 'approved',
-      annualTurnover: 250000000,
-      gstNumber: null,
-      panNumber: null,
-      bankName: 'Chase Bank',
-      accountNumber: '12345678901234',
-      ifscCode: 'CHASUS33',
-      currency: 'USD',
-      documents: ['Tax Certificate', 'Bank Letterhead', 'Company Registration']
-    },
-    {
-      id: 3,
-      vendorCode: 'VND003',
-      companyName: 'Textile Innovations Ltd',
-      contactPerson: 'Priya Sharma',
-      email: 'priya.sharma@textileinno.com',
-      phone: '+91 87654 32109',
-      address: '45 Textile Park, Coimbatore, Tamil Nadu 641014',
-      website: 'https://textileinno.com',
-      category: 'Textiles',
-      vendorType: 'manufacturer',
-      country: 'India',
-      status: 'pending',
-      msmeStatus: 'msme',
-      registrationDate: '2024-07-15',
-      approvalStage: 'level_2',
-      annualTurnover: 25000000,
-      gstNumber: '33AABCT5678D1Z9',
-      panNumber: 'AABCT5678D',
-      bankName: 'State Bank of India',
-      accountNumber: '30123456789012',
-      ifscCode: 'SBIN0001234',
-      currency: 'INR',
-      documents: ['GST Certificate', 'PAN Card', 'MSME Certificate', 'Quality Certificate']
-    },
-    {
-      id: 4,
-      vendorCode: 'VND004',
-      companyName: 'Chemical Dynamics GmbH',
-      contactPerson: 'Hans Mueller',
-      email: 'hans.mueller@chemdyn.de',
-      phone: '+49 30 12345678',
-      address: 'Industriestraße 15, 10115 Berlin, Germany',
-      website: 'https://chemdyn.de',
-      category: 'Chemicals',
-      vendorType: 'supplier',
-      country: 'Germany',
-      status: 'active',
-      msmeStatus: 'non_msme',
-      registrationDate: '2024-03-10',
-      approvalStage: 'approved',
-      annualTurnover: 180000000,
-      gstNumber: null,
-      panNumber: null,
-      bankName: 'Deutsche Bank',
-      accountNumber: 'DE89370400440532013000',
-      ifscCode: 'DEUTDEFF',
-      currency: 'EUR',
-      documents: ['VAT Certificate', 'Bank Confirmation', 'ISO Certificate']
-    },
-    {
-      id: 5,
-      vendorCode: 'VND005',
-      companyName: 'Precision Machinery Works',
-      contactPerson: 'Amit Patel',
-      email: 'amit.patel@precisionmach.com',
-      phone: '+91 79 2345 6789',
-      address: '78 Industrial Estate, Ahmedabad, Gujarat 380015',
-      website: 'https://precisionmach.com',
-      category: 'Machinery',
-      vendorType: 'manufacturer',
-      country: 'India',
-      status: 'inactive',
-      msmeStatus: 'non_msme',
-      registrationDate: '2023-11-25',
-      approvalStage: 'approved',
-      annualTurnover: 75000000,
-      gstNumber: '24AABCP9876E1Z2',
-      panNumber: 'AABCP9876E',
-      bankName: 'ICICI Bank',
-      accountNumber: '123456789012345',
-      ifscCode: 'ICIC0001234',
-      currency: 'INR',
-      documents: ['GST Certificate', 'PAN Card', 'Factory License', 'Quality Certificate']
-    },
-    {
-      id: 6,
-      vendorCode: 'VND006',
-      companyName: 'Service Excellence Corp',
-      contactPerson: 'Lisa Wong',
-      email: 'lisa.wong@serviceexcel.com',
-      phone: '+65 6123 4567',
-      address: '123 Business Park, Singapore 138567',
-      website: 'https://serviceexcel.com',
-      category: 'Services',
-      vendorType: 'service_provider',
-      country: 'Singapore',
-      status: 'pending',
-      msmeStatus: 'non_msme',
-      registrationDate: '2024-07-20',
-      approvalStage: 'level_1',
-      annualTurnover: 35000000,
-      gstNumber: null,
-      panNumber: null,
-      bankName: 'DBS Bank',
-      accountNumber: '1234567890',
-      ifscCode: 'DBSSSG0001',
-      currency: 'SGD',
-      documents: ['Business Registration', 'Tax Certificate', 'Service Agreement']
-    },
-    {
-      id: 7,
-      vendorCode: 'VND007',
-      companyName: 'Electronics Hub India',
-      contactPerson: 'Suresh Reddy',
-      email: 'suresh.reddy@electronichub.in',
-      phone: '+91 40 2345 6789',
-      address: '56 Hi-Tech City, Hyderabad, Telangana 500081',
-      website: 'https://electronichub.in',
-      category: 'Electronics',
-      vendorType: 'distributor',
-      country: 'India',
-      status: 'rejected',
-      msmeStatus: 'msme',
-      registrationDate: '2024-06-30',
-      approvalStage: 'rejected',
-      annualTurnover: 15000000,
-      gstNumber: '36AABCE1234F1Z8',
-      panNumber: 'AABCE1234F',
-      bankName: 'Axis Bank',
-      accountNumber: '987654321098765',
-      ifscCode: 'UTIB0001234',
-      currency: 'INR',
-      documents: ['GST Certificate', 'PAN Card', 'MSME Certificate']
-    },
-    {
-      id: 8,
-      vendorCode: 'VND008',
-      companyName: 'Auto Parts International',
-      contactPerson: 'Michael Johnson',
-      email: 'michael.johnson@autoparts.com',
-      phone: '+1 313 555 7890',
-      address: '789 Motor City Drive, Detroit, MI 48226, USA',
-      website: 'https://autoparts.com',
-      category: 'Automotive',
-      vendorType: 'supplier',
-      country: 'USA',
-      status: 'active',
-      msmeStatus: 'non_msme',
-      registrationDate: '2024-04-05',
-      approvalStage: 'approved',
-      annualTurnover: 120000000,
-      gstNumber: null,
-      panNumber: null,
-      bankName: 'Bank of America',
-      accountNumber: '1234567890123456',
-      ifscCode: 'BOFAUS3N',
-      currency: 'USD',
-      documents: ['Tax ID Certificate', 'Bank Statement', 'Quality Certification']
-    }
-  ];
+  // Fetch vendors from API
+  useEffect(() => {
+    const fetchVendors = async () => {
+      try {
+        setLoading(true);
+        const response = await fetch(`${API_BASE_URL}/vendors`);
+        
+        if (!response.ok) {
+          if (response.status === 401) {
+            // Handle authentication error
+            setError('Authentication required. Please log in.');
+            return;
+          }
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        
+        const data = await response.json();
+        setVendors(data);
+        setError(null);
+      } catch (err) {
+        console.error('Error fetching vendors:', err);
+        setError('Failed to load vendors. Please try again.');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchVendors();
+  }, []);
 
   // Filter and sort vendors
   const filteredAndSortedVendors = useMemo(() => {
-    let filtered = mockVendors.filter(vendor => {
+    if (!vendors || vendors.length === 0) return [];
+    
+    let filtered = vendors.filter(vendor => {
       const matchesSearch = !filters.search || 
-        vendor.companyName.toLowerCase().includes(filters.search.toLowerCase()) ||
-        vendor.vendorCode.toLowerCase().includes(filters.search.toLowerCase()) ||
-        vendor.contactPerson.toLowerCase().includes(filters.search.toLowerCase()) ||
-        vendor.email.toLowerCase().includes(filters.search.toLowerCase());
+        vendor.company_name?.toLowerCase().includes(filters.search.toLowerCase()) ||
+        vendor.vendor_code?.toLowerCase().includes(filters.search.toLowerCase()) ||
+        vendor.contact_person_name?.toLowerCase().includes(filters.search.toLowerCase()) ||
+        vendor.email?.toLowerCase().includes(filters.search.toLowerCase());
       
       const matchesStatus = !filters.status || vendor.status === filters.status;
-      const matchesType = !filters.vendorType || vendor.vendorType === filters.vendorType;
-      const matchesCountry = !filters.country || vendor.country.toLowerCase() === filters.country.toLowerCase();
-      const matchesCategory = !filters.category || vendor.category.toLowerCase() === filters.category.toLowerCase();
-      const matchesMsme = !filters.msmeStatus || vendor.msmeStatus === filters.msmeStatus;
-      const matchesCode = !filters.vendorCode || vendor.vendorCode.toLowerCase().includes(filters.vendorCode.toLowerCase());
+      const matchesType = !filters.vendorType || vendor.supplier_type === filters.vendorType;
+      const matchesCountry = !filters.country || vendor.country_origin?.toLowerCase() === filters.country.toLowerCase();
+      const matchesCategory = !filters.category || vendor.supplier_category?.toLowerCase() === filters.category.toLowerCase();
+      const matchesMsme = !filters.msmeStatus || vendor.msme_status === filters.msmeStatus;
+      const matchesCode = !filters.vendorCode || vendor.vendor_code?.toLowerCase().includes(filters.vendorCode.toLowerCase());
       
-      const matchesDateFrom = !filters.dateFrom || new Date(vendor.registrationDate) >= new Date(filters.dateFrom);
-      const matchesDateTo = !filters.dateTo || new Date(vendor.registrationDate) <= new Date(filters.dateTo);
+      const matchesDateFrom = !filters.dateFrom || new Date(vendor.created_at) >= new Date(filters.dateFrom);
+      const matchesDateTo = !filters.dateTo || new Date(vendor.created_at) <= new Date(filters.dateTo);
       
-      const matchesTurnoverMin = !filters.turnoverMin || vendor.annualTurnover >= parseInt(filters.turnoverMin);
-      const matchesTurnoverMax = !filters.turnoverMax || vendor.annualTurnover <= parseInt(filters.turnoverMax);
+      const matchesTurnoverMin = !filters.turnoverMin || (vendor.annual_turnover && vendor.annual_turnover >= parseInt(filters.turnoverMin));
+      const matchesTurnoverMax = !filters.turnoverMax || (vendor.annual_turnover && vendor.annual_turnover <= parseInt(filters.turnoverMax));
 
       return matchesSearch && matchesStatus && matchesType && matchesCountry && 
              matchesCategory && matchesMsme && matchesCode && matchesDateFrom && 
@@ -273,7 +104,7 @@ const VendorMasterList = () => {
         let aValue = a[sortConfig.key];
         let bValue = b[sortConfig.key];
 
-        if (sortConfig.key === 'registrationDate') {
+        if (sortConfig.key === 'created_at') {
           aValue = new Date(aValue);
           bValue = new Date(bValue);
         }
@@ -289,7 +120,7 @@ const VendorMasterList = () => {
     }
 
     return filtered;
-  }, [filters, sortConfig]);
+  }, [vendors, filters, sortConfig]);
 
   // Pagination
   const totalItems = filteredAndSortedVendors.length;
@@ -322,9 +153,9 @@ const VendorMasterList = () => {
 
   const handleVendorSelect = (vendorId, isSelected) => {
     if (isSelected) {
-      setSelectedVendors([...selectedVendors, vendorId]);
+      setSelectedVendors(prev => [...prev, vendorId]);
     } else {
-      setSelectedVendors(selectedVendors.filter(id => id !== vendorId));
+      setSelectedVendors(prev => prev.filter(id => id !== vendorId));
     }
   };
 
@@ -337,9 +168,9 @@ const VendorMasterList = () => {
   };
 
   const handleSort = (key) => {
-    setSortConfig(prevConfig => ({
+    setSortConfig(prev => ({
       key,
-      direction: prevConfig.key === key && prevConfig.direction === 'asc' ? 'desc' : 'asc'
+      direction: prev.key === key && prev.direction === 'asc' ? 'desc' : 'asc'
     }));
   };
 
@@ -349,139 +180,177 @@ const VendorMasterList = () => {
   };
 
   const handleEditVendor = (vendor) => {
-    navigate('/vendor-profile-details', { state: { vendor } });
+    navigate(`/vendor-profile-details/${vendor.id}`);
   };
 
   const handleExportVendor = (vendor) => {
-    // Mock export functionality
-    console.log('Exporting vendor:', vendor.vendorCode);
-    // In real app, this would trigger a download
+    // Export single vendor data
+    const dataStr = JSON.stringify(vendor, null, 2);
+    const dataBlob = new Blob([dataStr], { type: 'application/json' });
+    const url = URL.createObjectURL(dataBlob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `vendor-${vendor.vendor_code}.json`;
+    link.click();
+    URL.revokeObjectURL(url);
   };
 
   const handleBulkExport = (format) => {
-    console.log(`Bulk exporting ${selectedVendors.length} vendors as ${format}`);
-    // Mock bulk export
+    const selectedVendorData = vendors.filter(vendor => selectedVendors.includes(vendor.id));
+    
+    if (format === 'json') {
+      const dataStr = JSON.stringify(selectedVendorData, null, 2);
+      const dataBlob = new Blob([dataStr], { type: 'application/json' });
+      const url = URL.createObjectURL(dataBlob);
+      const link = document.createElement('a');
+      link.href = url;
+      link.download = `vendors-export-${new Date().toISOString().split('T')[0]}.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+    }
   };
 
   const handleBulkStatusUpdate = (status) => {
-    console.log(`Updating ${selectedVendors.length} vendors to status: ${status}`);
-    // Mock bulk status update
-    setSelectedVendors([]);
+    // TODO: Implement bulk status update API call
+    console.log('Bulk status update:', status, selectedVendors);
   };
 
   const handleImportVendors = (file) => {
-    console.log('Importing vendors from file:', file.name);
-    // Mock import functionality
+    // TODO: Implement vendor import functionality
+    console.log('Import vendors from file:', file);
   };
 
   const handlePageChange = (page) => {
     setCurrentPage(page);
-    setSelectedVendors([]);
   };
 
   const handleItemsPerPageChange = (newItemsPerPage) => {
     setItemsPerPage(newItemsPerPage);
     setCurrentPage(1);
-    setSelectedVendors([]);
   };
 
-  // Clear selection when filters change
-  useEffect(() => {
-    setSelectedVendors([]);
-  }, [filters]);
-
-  return (
-    <div className="min-h-screen bg-background">
-      <Header />
-      <div className="flex">
-        <Sidebar />
-        <main className="flex-1 lg:ml-60 p-6">
-          <div className="max-w-7xl mx-auto">
-            {/* Breadcrumb */}
-            <Breadcrumb />
-
-            {/* Page Header */}
-            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between mb-6">
-              <div>
-                <h1 className="text-2xl font-bold text-foreground">Vendor Master List</h1>
-                <p className="text-text-secondary mt-1">
-                  Manage and view all registered vendors with comprehensive filtering and search capabilities
-                </p>
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="flex">
+          <div className="flex-1 p-6">
+            <div className="flex items-center justify-center h-64">
+              <div className="text-center">
+                <div className="animate-spin rounded-full h-12 w-12 border-b-2 border-blue-600 mx-auto"></div>
+                <p className="mt-4 text-gray-600">Loading vendors...</p>
               </div>
-              <div className="flex items-center space-x-3 mt-4 sm:mt-0">
-                <Button
-                  variant="outline"
-                  onClick={() => navigate('/vendor-approval-workflow')}
-                  iconName="Clock"
-                  iconPosition="left"
-                  iconSize={16}
-                >
-                  Pending Approvals
-                </Button>
-                <Button
-                  variant="default"
-                  onClick={() => navigate('/public-vendor-registration-form')}
-                  iconName="Plus"
-                  iconPosition="left"
-                  iconSize={16}
-                >
-                  Add Vendor
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  if (error) {
+    return (
+      <div className="min-h-screen bg-gray-50">
+        <Header />
+        <div className="flex">
+          <div className="flex-1 p-6">
+            <div className="flex items-center justify-center h-64">
+              <div className="text-center">
+                <div className="text-red-600 text-xl mb-4">⚠️</div>
+                <p className="text-gray-600 mb-4">{error}</p>
+                <Button onClick={() => window.location.reload()}>
+                  Retry
                 </Button>
               </div>
             </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
 
-            {/* Filters */}
-            <VendorFilters
-              filters={filters}
-              onFiltersChange={handleFiltersChange}
-              onClearFilters={handleClearFilters}
+  return (
+    <div className="min-h-screen bg-gray-50">
+      <Header />
+      <div className="flex">
+        <div className="flex-1 p-6">
+          <div className="mb-6">
+            <Breadcrumb 
+              items={[
+                { label: 'Dashboard', path: '/dashboard-overview' },
+                { label: 'Vendor Master List', path: '/vendor-master-list' }
+              ]} 
             />
+          </div>
 
-            {/* Bulk Actions */}
-            <BulkActions
-              selectedCount={selectedVendors.length}
-              onBulkExport={handleBulkExport}
-              onBulkStatusUpdate={handleBulkStatusUpdate}
-              onImportVendors={handleImportVendors}
-            />
+          <div className="bg-white rounded-lg shadow-sm border border-gray-200">
+            <div className="p-6 border-b border-gray-200">
+              <div className="flex justify-between items-center mb-4">
+                <div>
+                  <h1 className="text-2xl font-semibold text-gray-900">Vendor Master List</h1>
+                  <p className="text-gray-600 mt-1">
+                    Manage and view all registered vendors ({totalItems} total)
+                  </p>
+                </div>
+                <div className="flex space-x-3">
+                  <Button variant="outline" onClick={() => navigate('/public-vendor-registration-form')}>
+                    Add New Vendor
+                  </Button>
+                  <Button variant="outline" onClick={() => navigate('/vendor-approval-workflow')}>
+                    Approval Workflow
+                  </Button>
+                </div>
+              </div>
 
-            {/* Vendor Table */}
-            <VendorTable
+              <VendorFilters 
+                filters={filters}
+                onFiltersChange={handleFiltersChange}
+                onClearFilters={handleClearFilters}
+              />
+            </div>
+
+            {selectedVendors.length > 0 && (
+              <BulkActions 
+                selectedCount={selectedVendors.length}
+                onExport={handleBulkExport}
+                onStatusUpdate={handleBulkStatusUpdate}
+                onImport={handleImportVendors}
+              />
+            )}
+
+            <VendorTable 
               vendors={paginatedVendors}
               selectedVendors={selectedVendors}
+              sortConfig={sortConfig}
               onVendorSelect={handleVendorSelect}
               onSelectAll={handleSelectAll}
               onSort={handleSort}
-              sortConfig={sortConfig}
               onViewVendor={handleViewVendor}
               onEditVendor={handleEditVendor}
               onExportVendor={handleExportVendor}
             />
 
-            {/* Pagination */}
-            <div className="mt-6">
-              <TablePagination
-                currentPage={currentPage}
-                totalPages={totalPages}
-                totalItems={totalItems}
-                itemsPerPage={itemsPerPage}
-                onPageChange={handlePageChange}
-                onItemsPerPageChange={handleItemsPerPageChange}
-              />
-            </div>
+            <TablePagination 
+              currentPage={currentPage}
+              totalPages={totalPages}
+              totalItems={totalItems}
+              itemsPerPage={itemsPerPage}
+              onPageChange={handlePageChange}
+              onItemsPerPageChange={handleItemsPerPageChange}
+            />
           </div>
-        </main>
+        </div>
       </div>
 
-      {/* Vendor Details Modal */}
-      <VendorDetailsModal
-        vendor={selectedVendor}
-        isOpen={isModalOpen}
-        onClose={() => {
-          setIsModalOpen(false);
-          setSelectedVendor(null);
-        }}
-      />
+      {selectedVendor && (
+        <VendorDetailsModal 
+          vendor={selectedVendor}
+          isOpen={isModalOpen}
+          onClose={() => {
+            setIsModalOpen(false);
+            setSelectedVendor(null);
+          }}
+        />
+      )}
     </div>
   );
 };

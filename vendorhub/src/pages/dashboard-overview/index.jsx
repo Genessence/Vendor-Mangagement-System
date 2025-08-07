@@ -1,6 +1,5 @@
 import React from 'react';
 import Header from '../../components/ui/Header';
-import Sidebar from '../../components/ui/Sidebar';
 import Breadcrumb from '../../components/ui/Breadcrumb';
 import MetricsCard from './components/MetricsCard';
 import VendorDistributionChart from './components/VendorDistributionChart';
@@ -52,7 +51,6 @@ const DashboardOverview = () => {
       <Header />
       
       <div className="flex">
-        <Sidebar />
         
         {/* Main Content */}
         <main className="flex-1 lg:ml-60 p-6">

@@ -160,6 +160,11 @@ class VendorResponse(VendorBase):
     updated_at: Optional[datetime] = None
     approved_at: Optional[datetime] = None
     approved_by: Optional[int] = None
+    
+    # Count fields for UI badges
+    document_count: Optional[int] = 0
+    compliance_count: Optional[int] = 0
+    agreement_count: Optional[int] = 0
 
     class Config:
         from_attributes = True
