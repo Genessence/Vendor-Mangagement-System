@@ -5330,3 +5330,248 @@
   "record_id": 0,
   "ip_address": "127.0.0.1"
 }
+2025-08-07 23:39:09 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:09:09.270664",
+  "user_id": null,
+  "data_type": "vendor",
+  "action": "GET",
+  "record_id": 0,
+  "ip_address": "127.0.0.1"
+}
+2025-08-07 23:51:20 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:21:20.372444",
+  "user_id": null,
+  "data_type": "vendor",
+  "action": "GET",
+  "record_id": 0,
+  "ip_address": "127.0.0.1"
+}
+2025-08-07 23:51:41 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:21:41.042310",
+  "user_id": null,
+  "data_type": "vendor",
+  "action": "GET",
+  "record_id": 0,
+  "ip_address": "127.0.0.1"
+}
+2025-08-07 23:51:44 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:21:44.510367",
+  "user_id": null,
+  "data_type": "approval",
+  "action": "GET",
+  "record_id": 0,
+  "ip_address": "127.0.0.1"
+}
+2025-08-07 23:51:44 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:21:44.534817",
+  "user_id": null,
+  "data_type": "vendor",
+  "action": "GET",
+  "record_id": 0,
+  "ip_address": "127.0.0.1"
+}
+2025-08-07 23:51:44 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:21:44.625911",
+  "user_id": null,
+  "data_type": "approval",
+  "action": "GET",
+  "record_id": 0,
+  "ip_address": "127.0.0.1"
+}
+2025-08-07 23:51:45 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:21:45.577258",
+  "user_id": null,
+  "data_type": "vendor",
+  "action": "GET",
+  "record_id": 0,
+  "ip_address": "127.0.0.1"
+}
+2025-08-07 23:52:07 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:22:07.308890",
+  "user_id": null,
+  "data_type": "vendor",
+  "action": "GET",
+  "record_id": 0,
+  "ip_address": "127.0.0.1"
+}
+2025-08-07 23:52:55 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:22:55.010638",
+  "user_id": null,
+  "data_type": "vendor",
+  "action": "GET",
+  "record_id": 0,
+  "ip_address": "127.0.0.1"
+}
+2025-08-07 23:55:25 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:25:25.412784",
+  "user_id": null,
+  "data_type": "vendor",
+  "action": "GET",
+  "record_id": 0,
+  "ip_address": "127.0.0.1"
+}
+2025-08-07 23:55:41 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:25:41.372172",
+  "user_id": null,
+  "data_type": "vendor",
+  "action": "GET",
+  "record_id": 0,
+  "ip_address": "127.0.0.1"
+}
+2025-08-07 23:55:53 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:25:53.462953",
+  "user_id": null,
+  "data_type": "vendor",
+  "action": "GET",
+  "record_id": 0,
+  "ip_address": "127.0.0.1"
+}
+2025-08-07 23:57:22 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:27:22.470453",
+  "user_id": null,
+  "data_type": "vendor",
+  "action": "GET",
+  "record_id": 0,
+  "ip_address": "127.0.0.1"
+}
+2025-08-07 23:57:31 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:27:31.309222",
+  "user_id": null,
+  "data_type": "vendor",
+  "action": "POST",
+  "record_id": 0,
+  "ip_address": "127.0.0.1"
+}
+2025-08-07 23:57:33 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:27:33.342954",
+  "user_id": null,
+  "data_type": "vendor",
+  "action": "POST",
+  "record_id": 0,
+  "ip_address": "127.0.0.1"
+}
+2025-08-07 23:58:26 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:28:26.722555",
+  "user_id": null,
+  "data_type": "vendor",
+  "action": "GET",
+  "record_id": 0,
+  "ip_address": "127.0.0.1"
+}
+2025-08-07 23:58:30 | audit | INFO | Activity: {
+  "event_type": "BULK_VENDOR_EXPORT",
+  "timestamp": "2025-08-07T18:28:30.267246",
+  "user_id": 1,
+  "vendor_id": null,
+  "details": {
+    "export_format": "json",
+    "vendor_count": 2,
+    "vendor_ids": [
+      1,
+      2
+    ]
+  }
+}
+2025-08-07 23:58:30 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:28:30.269311",
+  "user_id": null,
+  "data_type": "vendor",
+  "action": "POST",
+  "record_id": 0,
+  "ip_address": "127.0.0.1"
+}
+2025-08-07 23:58:32 | audit | INFO | Activity: {
+  "event_type": "BULK_STATUS_UPDATE",
+  "timestamp": "2025-08-07T18:28:32.310910",
+  "user_id": 1,
+  "vendor_id": 1,
+  "details": {
+    "old_status": "approved",
+    "new_status": "approved",
+    "reason": "Test bulk update",
+    "bulk_operation": true
+  }
+}
+2025-08-07 23:58:32 | audit | INFO | Activity: {
+  "event_type": "BULK_STATUS_UPDATE",
+  "timestamp": "2025-08-07T18:28:32.315115",
+  "user_id": 1,
+  "vendor_id": 2,
+  "details": {
+    "old_status": "approved",
+    "new_status": "approved",
+    "reason": "Test bulk update",
+    "bulk_operation": true
+  }
+}
+2025-08-07 23:58:32 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:28:32.331658",
+  "user_id": null,
+  "data_type": "vendor",
+  "action": "POST",
+  "record_id": 0,
+  "ip_address": "127.0.0.1"
+}
+2025-08-07 23:58:47 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:28:47.938527",
+  "user_id": null,
+  "data_type": "vendor",
+  "action": "GET",
+  "record_id": 0,
+  "ip_address": "127.0.0.1"
+}
+2025-08-08 00:00:07 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:30:07.252702",
+  "user_id": null,
+  "data_type": "vendor",
+  "action": "GET",
+  "record_id": 0,
+  "ip_address": "127.0.0.1"
+}
+2025-08-08 00:08:06 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:38:06.759309",
+  "user_id": null,
+  "data_type": "document",
+  "action": "GET",
+  "record_id": 14,
+  "ip_address": "127.0.0.1"
+}
+2025-08-08 00:08:06 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:38:06.760344",
+  "user_id": null,
+  "data_type": "vendor",
+  "action": "GET",
+  "record_id": 14,
+  "ip_address": "127.0.0.1"
+}
+2025-08-08 00:08:06 | audit | INFO | Data Access: {
+  "event_type": "DATA_ACCESS",
+  "timestamp": "2025-08-07T18:38:06.760344",
+  "user_id": null,
+  "data_type": "approval",
+  "action": "GET",
+  "record_id": 14,
+  "ip_address": "127.0.0.1"
+}

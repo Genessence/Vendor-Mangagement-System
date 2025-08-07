@@ -3,3 +3,6 @@
 2025-08-07 14:59:01 | vendor | INFO | New vendor registered: welspun@corporate.com - Welspun Corporate Limited 
 2025-08-07 18:07:02 | vendor | INFO | New vendor registered: jean.dupont@testcompany.fr - Test French Company
 2025-08-07 18:23:51 | vendor | INFO | New vendor registered: lolasen@gmail.com - lola sen 
+2025-08-07 23:58:30 | vendor | INFO | Activity BULK_VENDOR_EXPORT for vendor None by user 1
+2025-08-07 23:58:32 | vendor | INFO | Activity BULK_STATUS_UPDATE for vendor 1 by user 1
+2025-08-07 23:58:32 | vendor | INFO | Activity BULK_STATUS_UPDATE for vendor 2 by user 1

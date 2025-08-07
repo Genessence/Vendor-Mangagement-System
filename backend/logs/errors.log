@@ -1160,3 +1160,19 @@
   "client_ip": "127.0.0.1",
   "user_id": null
 }
+2025-08-07 23:57:31 | error | WARNING | Error response: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/bulk/export",
+  "status_code": 500,
+  "duration_ms": 35.87,
+  "client_ip": "127.0.0.1",
+  "user_id": null
+}
+2025-08-07 23:57:33 | error | WARNING | Error response: {
+  "method": "POST",
+  "url": "http://localhost:8000/api/v1/vendors/bulk/status-update",
+  "status_code": 422,
+  "duration_ms": 4.0,
+  "client_ip": "127.0.0.1",
+  "user_id": null
+}

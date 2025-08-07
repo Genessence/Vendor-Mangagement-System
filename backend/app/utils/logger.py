@@ -238,6 +238,20 @@ class ComplianceLogger:
         
         self.audit_logger.info(f"Data Access: {json.dumps(log_entry, indent=2)}")
 
+    def log_activity(self, activity_type: str, user_id: Optional[int], 
+                    vendor_id: Optional[int], details: Dict[str, Any]):
+        """Log general activity for audit trail"""
+        log_entry = {
+            'event_type': activity_type,
+            'timestamp': datetime.utcnow().isoformat(),
+            'user_id': user_id,
+            'vendor_id': vendor_id,
+            'details': details
+        }
+        
+        self.audit_logger.info(f"Activity: {json.dumps(log_entry, indent=2)}")
+        self.vendor_logger.info(f"Activity {activity_type} for vendor {vendor_id} by user {user_id}")
+
     def _assess_compliance_impact(self, old_status: VendorStatus, new_status: VendorStatus) -> str:
         """Assess the compliance impact of status changes"""
         if new_status == VendorStatus.APPROVED:

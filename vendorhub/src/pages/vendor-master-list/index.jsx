@@ -195,29 +195,180 @@ const VendorMasterList = () => {
     URL.revokeObjectURL(url);
   };
 
-  const handleBulkExport = (format) => {
-    const selectedVendorData = vendors.filter(vendor => selectedVendors.includes(vendor.id));
-    
-    if (format === 'json') {
-      const dataStr = JSON.stringify(selectedVendorData, null, 2);
-      const dataBlob = new Blob([dataStr], { type: 'application/json' });
-      const url = URL.createObjectURL(dataBlob);
-      const link = document.createElement('a');
-      link.href = url;
-      link.download = `vendors-export-${new Date().toISOString().split('T')[0]}.json`;
-      link.click();
-      URL.revokeObjectURL(url);
+  const handleBulkExport = async (format) => {
+    if (selectedVendors.length === 0) {
+      alert('Please select vendors to export');
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/vendors/bulk/export`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          vendor_ids: selectedVendors,
+          format: format
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      if (format === 'json') {
+        const data = await response.json();
+        const dataStr = JSON.stringify(data.data, null, 2);
+        const dataBlob = new Blob([dataStr], { type: 'application/json' });
+        const url = URL.createObjectURL(dataBlob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = `vendors-export-${new Date().toISOString().split('T')[0]}.json`;
+        link.click();
+        URL.revokeObjectURL(url);
+      } else {
+        // For CSV and Excel, download the file directly
+        const blob = await response.blob();
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement('a');
+        link.href = url;
+        link.download = response.headers.get('content-disposition')?.split('filename=')[1] || `vendors-export-${new Date().toISOString().split('T')[0]}.${format}`;
+        link.click();
+        URL.revokeObjectURL(url);
+      }
+
+      alert(`Successfully exported ${selectedVendors.length} vendors as ${format.toUpperCase()}`);
+    } catch (error) {
+      console.error('Export failed:', error);
+      alert(`Failed to export vendors: ${error.message}`);
     }
   };
 
-  const handleBulkStatusUpdate = (status) => {
-    // TODO: Implement bulk status update API call
-    console.log('Bulk status update:', status, selectedVendors);
+  const handleBulkStatusUpdate = async (status) => {
+    if (selectedVendors.length === 0) {
+      alert('Please select vendors to update');
+      return;
+    }
+
+    const reason = prompt('Please provide a reason for the status update (optional):');
+    
+    try {
+      const response = await fetch(`${API_BASE_URL}/vendors/bulk/status-update`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          vendor_ids: selectedVendors,
+          status: status,
+          reason: reason || null
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      
+      // Refresh the vendors list
+      const vendorsResponse = await fetch(`${API_BASE_URL}/vendors`);
+      if (vendorsResponse.ok) {
+        const updatedVendors = await vendorsResponse.json();
+        setVendors(updatedVendors);
+      }
+      
+      // Clear selection
+      setSelectedVendors([]);
+      
+      alert(`Successfully updated ${result.updated_count} vendors. ${result.failed_count} failed.`);
+    } catch (error) {
+      console.error('Status update failed:', error);
+      alert(`Failed to update vendor status: ${error.message}`);
+    }
   };
 
-  const handleImportVendors = (file) => {
-    // TODO: Implement vendor import functionality
-    console.log('Import vendors from file:', file);
+  const handleBulkDelete = async () => {
+    if (selectedVendors.length === 0) {
+      alert('Please select vendors to delete');
+      return;
+    }
+
+    const confirmed = confirm(`Are you sure you want to delete ${selectedVendors.length} selected vendor${selectedVendors.length > 1 ? 's' : ''}? This action cannot be undone.`);
+    if (!confirmed) return;
+
+    const reason = prompt('Please provide a reason for deletion (optional):');
+    
+    try {
+      const response = await fetch(`${API_BASE_URL}/vendors/bulk/delete`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          vendor_ids: selectedVendors,
+          reason: reason || null
+        })
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      
+      // Refresh the vendors list
+      const vendorsResponse = await fetch(`${API_BASE_URL}/vendors`);
+      if (vendorsResponse.ok) {
+        const updatedVendors = await vendorsResponse.json();
+        setVendors(updatedVendors);
+      }
+      
+      // Clear selection
+      setSelectedVendors([]);
+      
+      alert(`Successfully deleted ${result.deleted_count} vendors. ${result.failed_count} failed.`);
+    } catch (error) {
+      console.error('Delete failed:', error);
+      alert(`Failed to delete vendors: ${error.message}`);
+    }
+  };
+
+  const handleImportVendors = async (file) => {
+    if (!file) return;
+
+    const formData = new FormData();
+    formData.append('file', file);
+
+    try {
+      const response = await fetch(`${API_BASE_URL}/vendors/bulk/import`, {
+        method: 'POST',
+        body: formData
+      });
+
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+
+      const result = await response.json();
+      
+      // Refresh the vendors list
+      const vendorsResponse = await fetch(`${API_BASE_URL}/vendors`);
+      if (vendorsResponse.ok) {
+        const updatedVendors = await vendorsResponse.json();
+        setVendors(updatedVendors);
+      }
+      
+      alert(`Successfully imported ${result.imported_count} vendors. ${result.failed_count} failed.`);
+      
+      if (result.failed_rows && result.failed_rows.length > 0) {
+        console.log('Failed rows:', result.failed_rows);
+      }
+    } catch (error) {
+      console.error('Import failed:', error);
+      alert(`Failed to import vendors: ${error.message}`);
+    }
   };
 
   const handlePageChange = (page) => {
@@ -308,14 +459,15 @@ const VendorMasterList = () => {
               />
             </div>
 
-            {selectedVendors.length > 0 && (
-              <BulkActions 
-                selectedCount={selectedVendors.length}
-                onExport={handleBulkExport}
-                onStatusUpdate={handleBulkStatusUpdate}
-                onImport={handleImportVendors}
-              />
-            )}
+                         {selectedVendors.length > 0 && (
+               <BulkActions 
+                 selectedCount={selectedVendors.length}
+                 onExport={handleBulkExport}
+                 onStatusUpdate={handleBulkStatusUpdate}
+                 onImport={handleImportVendors}
+                 onBulkDelete={handleBulkDelete}
+               />
+             )}
 
             <VendorTable 
               vendors={paginatedVendors}

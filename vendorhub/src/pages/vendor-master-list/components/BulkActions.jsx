@@ -3,7 +3,7 @@ import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
 import Select from '../../../components/ui/Select';
 
-const BulkActions = ({ selectedCount, onExport, onBulkStatusUpdate, onImportVendors }) => {
+const BulkActions = ({ selectedCount, onExport, onBulkStatusUpdate, onImportVendors, onBulkDelete }) => {
   const [showBulkMenu, setShowBulkMenu] = useState(false);
   const [showStatusUpdate, setShowStatusUpdate] = useState(false);
   const [selectedStatus, setSelectedStatus] = useState('');
@@ -174,12 +174,7 @@ const BulkActions = ({ selectedCount, onExport, onBulkStatusUpdate, onImportVend
               <Button
                 variant="destructive"
                 size="sm"
-                onClick={() => {
-                  if (confirm(`Are you sure you want to delete ${selectedCount} selected vendor${selectedCount > 1 ? 's' : ''}?`)) {
-                    // Handle bulk delete
-                    console.log('Bulk delete confirmed');
-                  }
-                }}
+                onClick={onBulkDelete}
                 iconName="Trash2"
                 iconPosition="left"
                 iconSize={16}
