@@ -337,6 +337,55 @@ class VendorAgreementResponse(VendorAgreementBase):
         from_attributes = True
 
 
+# Vendor Agreement Detail Schemas
+class VendorAgreementDetailBase(BaseModel):
+    title: str
+    type: str  # Legal, Quality, Operational, Compliance, Declaration
+    status: str = "Pending Signature"  # Signed, Pending Signature, Expired, Under Review
+    signed_date: Optional[datetime] = None
+    signed_by: Optional[str] = None
+    valid_until: Optional[str] = None  # Date string or "Perpetual", "TBD", "Annual Renewal"
+    description: Optional[str] = None
+    version: Optional[str] = None
+    document_size: Optional[str] = None
+    last_modified: Optional[datetime] = None
+    witness_required: bool = False
+    auto_renewal: bool = False
+    agreement_document_path: Optional[str] = None
+    signed_document_path: Optional[str] = None
+
+
+class VendorAgreementDetailCreate(VendorAgreementDetailBase):
+    pass
+
+
+class VendorAgreementDetailUpdate(BaseModel):
+    title: Optional[str] = None
+    type: Optional[str] = None
+    status: Optional[str] = None
+    signed_date: Optional[datetime] = None
+    signed_by: Optional[str] = None
+    valid_until: Optional[str] = None
+    description: Optional[str] = None
+    version: Optional[str] = None
+    document_size: Optional[str] = None
+    last_modified: Optional[datetime] = None
+    witness_required: Optional[bool] = None
+    auto_renewal: Optional[bool] = None
+    agreement_document_path: Optional[str] = None
+    signed_document_path: Optional[str] = None
+
+
+class VendorAgreementDetailResponse(VendorAgreementDetailBase):
+    id: int
+    vendor_id: int
+    created_at: datetime
+    updated_at: Optional[datetime] = None
+
+    class Config:
+        from_attributes = True
+
+
 # Vendor Compliance Certificate Schemas
 class VendorComplianceCertificateBase(BaseModel):
     title: str

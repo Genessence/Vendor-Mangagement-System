@@ -1,12 +1,212 @@
 import React, { useState, useEffect } from 'react';
 import Icon from '../../../components/AppIcon';
 import Button from '../../../components/ui/Button';
+import Input from '../../../components/ui/Input';
+import Select from '../../../components/ui/Select';
 import { API_BASE_URL } from '../../../config/api';
+
+// Add Certificate Modal Component
+const AddCertificateModal = ({ isOpen, onClose, onSubmit, loading }) => {
+  const [formData, setFormData] = useState({
+    title: '',
+    certificate_number: '',
+    status: 'Compliant',
+    issued_date: '',
+    expiry_date: '',
+    issuing_authority: '',
+    description: '',
+    risk_level: 'Low'
+  });
+
+  const handleInputChange = (field, value) => {
+    setFormData(prev => ({
+      ...prev,
+      [field]: value
+    }));
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    onSubmit(formData);
+  };
+
+  const handleClose = () => {
+    setFormData({
+      title: '',
+      certificate_number: '',
+      status: 'Compliant',
+      issued_date: '',
+      expiry_date: '',
+      issuing_authority: '',
+      description: '',
+      risk_level: 'Low'
+    });
+    onClose();
+  };
+
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
+      <div className="bg-surface border border-border rounded-lg shadow-lg max-w-2xl w-full max-h-[90vh] overflow-y-auto">
+        <div className="p-6 border-b border-border">
+          <div className="flex items-center justify-between">
+            <h2 className="text-xl font-semibold text-foreground flex items-center">
+              <Icon name="Plus" size={20} className="mr-2" />
+              Add Compliance Certificate
+            </h2>
+            <button
+              onClick={handleClose}
+              className="text-text-secondary hover:text-foreground transition-colors"
+            >
+              <Icon name="X" size={20} />
+            </button>
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit} className="p-6 space-y-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-2">
+                Certificate Title *
+              </label>
+              <Input
+                type="text"
+                value={formData.title}
+                onChange={(e) => handleInputChange('title', e.target.value)}
+                placeholder="e.g., ISO 9001:2015 Quality Management"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-2">
+                Certificate Number *
+              </label>
+              <Input
+                type="text"
+                value={formData.certificate_number}
+                onChange={(e) => handleInputChange('certificate_number', e.target.value)}
+                placeholder="e.g., ISO-2024-001"
+                required
+              />
+              <p className="text-xs text-text-secondary mt-1">
+                Note: Each certificate number must be unique for this vendor
+              </p>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-2">
+                Status *
+              </label>
+              <Select
+                value={formData.status}
+                onChange={(e) => handleInputChange('status', e.target.value)}
+                required
+              >
+                <option value="Compliant">Compliant</option>
+                <option value="Expiring Soon">Expiring Soon</option>
+                <option value="Non-Compliant">Non-Compliant</option>
+                <option value="Under Review">Under Review</option>
+              </Select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-2">
+                Risk Level *
+              </label>
+              <Select
+                value={formData.risk_level}
+                onChange={(e) => handleInputChange('risk_level', e.target.value)}
+                required
+              >
+                <option value="Low">Low</option>
+                <option value="Medium">Medium</option>
+                <option value="High">High</option>
+              </Select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-2">
+                Issued Date *
+              </label>
+              <Input
+                type="date"
+                value={formData.issued_date}
+                onChange={(e) => handleInputChange('issued_date', e.target.value)}
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-medium text-text-secondary mb-2">
+                Expiry Date *
+              </label>
+              <Input
+                type="date"
+                value={formData.expiry_date}
+                onChange={(e) => handleInputChange('expiry_date', e.target.value)}
+                required
+              />
+            </div>
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-text-secondary mb-2">
+              Issuing Authority *
+            </label>
+            <Input
+              type="text"
+              value={formData.issuing_authority}
+              onChange={(e) => handleInputChange('issuing_authority', e.target.value)}
+              placeholder="e.g., International Organization for Standardization"
+              required
+            />
+          </div>
+
+          <div>
+            <label className="block text-sm font-medium text-text-secondary mb-2">
+              Description
+            </label>
+            <textarea
+              value={formData.description}
+              onChange={(e) => handleInputChange('description', e.target.value)}
+              placeholder="Additional details about the certificate..."
+              className="w-full px-3 py-2 border border-border rounded-md bg-background text-foreground placeholder-text-secondary focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
+              rows={3}
+            />
+          </div>
+
+          <div className="flex justify-end space-x-3 pt-4 border-t border-border">
+            <Button
+              type="button"
+              variant="outline"
+              onClick={handleClose}
+              disabled={loading}
+            >
+              Cancel
+            </Button>
+            <Button
+              type="submit"
+              disabled={loading}
+              iconName={loading ? "Loader" : "Plus"}
+              iconPosition="left"
+            >
+              {loading ? 'Adding...' : 'Add Certificate'}
+            </Button>
+          </div>
+        </form>
+      </div>
+    </div>
+  );
+};
 
 const ComplianceTab = ({ vendor }) => {
   const [complianceCertificates, setComplianceCertificates] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [addingCertificate, setAddingCertificate] = useState(false);
 
   // Fetch compliance certificates from API
   useEffect(() => {
@@ -44,6 +244,53 @@ const ComplianceTab = ({ vendor }) => {
 
     fetchComplianceCertificates();
   }, [vendor?.id]);
+
+  // Add new certificate
+  const handleAddCertificate = async (certificateData) => {
+    if (!vendor?.id) return;
+
+    try {
+      setAddingCertificate(true);
+      
+      const response = await fetch(`${API_BASE_URL}/vendors/${vendor.id}/compliance-certificates`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(certificateData),
+      });
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}));
+        const errorMessage = errorData.detail || `HTTP error! status: ${response.status}`;
+        
+        // Handle specific uniqueness error
+        if (response.status === 400 && errorMessage.includes('already exists')) {
+          alert(`Error: ${errorMessage}. Please use a different certificate number.`);
+        } else {
+          alert(`Failed to add certificate: ${errorMessage}`);
+        }
+        return;
+      }
+
+      const newCertificate = await response.json();
+      
+      // Add the new certificate to the list
+      setComplianceCertificates(prev => [...prev, newCertificate]);
+      
+      // Close modal
+      setShowAddModal(false);
+      
+      // Show success message (you could add a toast notification here)
+      console.log('Certificate added successfully');
+      
+    } catch (err) {
+      console.error('Error adding certificate:', err);
+      alert('Failed to add certificate. Please try again.');
+    } finally {
+      setAddingCertificate(false);
+    }
+  };
 
   const getStatusColor = (status) => {
     switch (status.toLowerCase()) {
@@ -183,12 +430,29 @@ const ComplianceTab = ({ vendor }) => {
             <p className="text-text-secondary mb-4">
               No compliance certificates have been added for this vendor yet.
             </p>
-            <Button variant="outline" iconName="Plus" iconPosition="left">
+            <Button 
+              variant="outline" 
+              iconName="Plus" 
+              iconPosition="left"
+              onClick={() => setShowAddModal(true)}
+            >
               Add Certificate
             </Button>
           </div>
         ) : (
-          complianceCertificates.map((certificate) => (
+          <>
+            <div className="flex justify-between items-center">
+              <h3 className="text-lg font-semibold text-foreground">Compliance Certificates</h3>
+              <Button 
+                variant="default" 
+                iconName="Plus" 
+                iconPosition="left"
+                onClick={() => setShowAddModal(true)}
+              >
+                Add Certificate
+              </Button>
+            </div>
+            {complianceCertificates.map((certificate) => (
             <div key={certificate.id} className="bg-surface border border-border rounded-lg p-6 shadow-subtle">
               <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4">
                 <div className="flex-1">
@@ -282,9 +546,18 @@ const ComplianceTab = ({ vendor }) => {
                 </Button>
               </div>
             </div>
-          ))
+          ))}
+          </>
         )}
       </div>
+
+      {/* Add Certificate Modal */}
+      <AddCertificateModal
+        isOpen={showAddModal}
+        onClose={() => setShowAddModal(false)}
+        onSubmit={handleAddCertificate}
+        loading={addingCertificate}
+      />
 
       {/* Compliance Alerts */}
       {complianceCertificates.length > 0 && (

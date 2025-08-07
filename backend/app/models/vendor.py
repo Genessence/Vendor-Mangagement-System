@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Boolean, DateTime, Enum, Text, ForeignKey, Float, Date
+from sqlalchemy import Column, Integer, String, Boolean, DateTime, Enum, Text, ForeignKey, Float, Date, UniqueConstraint
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 from ..database import Base
@@ -113,6 +113,7 @@ class Vendor(Base):
     bank_info = relationship("VendorBankInfo", back_populates="vendor", uselist=False, cascade="all, delete-orphan")
     compliance = relationship("VendorCompliance", back_populates="vendor", uselist=False, cascade="all, delete-orphan")
     agreements = relationship("VendorAgreement", back_populates="vendor", uselist=False, cascade="all, delete-orphan")
+    agreement_details = relationship("VendorAgreementDetail", back_populates="vendor", cascade="all, delete-orphan")
     compliance_certificates = relationship("VendorComplianceCertificate", back_populates="vendor", cascade="all, delete-orphan")
     documents = relationship("VendorDocument", back_populates="vendor", cascade="all, delete-orphan")
     approvals = relationship("VendorApproval", back_populates="vendor", cascade="all, delete-orphan")
@@ -198,6 +199,37 @@ class VendorAgreement(Base):
     vendor = relationship("Vendor", back_populates="agreements")
 
 
+class VendorAgreementDetail(Base):
+    __tablename__ = "vendor_agreement_details"
+
+    id = Column(Integer, primary_key=True, index=True)
+    vendor_id = Column(Integer, ForeignKey("vendors.id"), nullable=False)
+    
+    # Agreement Information
+    title = Column(String, nullable=False)  # e.g., "Non-Disclosure Agreement (NDA)"
+    type = Column(String, nullable=False)  # Legal, Quality, Operational, Compliance, Declaration
+    status = Column(String, default="Pending Signature")  # Signed, Pending Signature, Expired, Under Review
+    signed_date = Column(Date, nullable=True)
+    signed_by = Column(String, nullable=True)  # e.g., "Rajesh Kumar (CEO)"
+    valid_until = Column(String, nullable=True)  # Date string or "Perpetual", "TBD", "Annual Renewal"
+    description = Column(Text, nullable=True)
+    version = Column(String, nullable=True)  # e.g., "2.1"
+    document_size = Column(String, nullable=True)  # e.g., "234 KB"
+    last_modified = Column(Date, nullable=True)
+    witness_required = Column(Boolean, default=False)
+    auto_renewal = Column(Boolean, default=False)
+    
+    # Document paths
+    agreement_document_path = Column(String, nullable=True)
+    signed_document_path = Column(String, nullable=True)
+    
+    created_at = Column(DateTime(timezone=True), server_default=func.now())
+    updated_at = Column(DateTime(timezone=True), onupdate=func.now())
+    
+    # Relationship
+    vendor = relationship("Vendor", back_populates="agreement_details")
+
+
 class VendorComplianceCertificate(Base):
     __tablename__ = "vendor_compliance_certificates"
 
@@ -222,4 +254,9 @@ class VendorComplianceCertificate(Base):
     updated_at = Column(DateTime(timezone=True), onupdate=func.now())
     
     # Relationship
-    vendor = relationship("Vendor", back_populates="compliance_certificates") 
+    vendor = relationship("Vendor", back_populates="compliance_certificates")
+    
+    # Unique constraint: Each vendor can have only one certificate with a specific certificate_number
+    __table_args__ = (
+        UniqueConstraint('vendor_id', 'certificate_number', name='uq_vendor_certificate_number'),
+    ) 

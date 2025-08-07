@@ -4,13 +4,14 @@ from sqlalchemy.orm import Session
 from sqlalchemy import and_, or_
 from ..database import get_db
 from ..models.user import User
-from ..models.vendor import Vendor, VendorStatus, VendorType, MSMEStatus, VendorAddress, VendorBankInfo, VendorCompliance, VendorAgreement, VendorComplianceCertificate
+from ..models.vendor import Vendor, VendorStatus, VendorType, MSMEStatus, VendorAddress, VendorBankInfo, VendorCompliance, VendorAgreement, VendorAgreementDetail, VendorComplianceCertificate
 from ..schemas.vendor import (
     VendorCreate, VendorUpdate, VendorResponse, VendorListResponse,
     VendorAddressCreate, VendorAddressUpdate, VendorAddressResponse,
     VendorBankInfoCreate, VendorBankInfoUpdate, VendorBankInfoResponse,
     VendorComplianceCreate, VendorComplianceUpdate, VendorComplianceResponse,
     VendorAgreementCreate, VendorAgreementUpdate, VendorAgreementResponse,
+    VendorAgreementDetailCreate, VendorAgreementDetailUpdate, VendorAgreementDetailResponse,
     VendorComplianceCertificateCreate, VendorComplianceCertificateUpdate, VendorComplianceCertificateResponse
 )
 from ..auth import get_current_active_user
@@ -527,8 +528,7 @@ async def get_vendor_agreements(
 async def create_vendor_compliance_certificate(
     vendor_id: int,
     certificate_data: VendorComplianceCertificateCreate,
-    db: Session = Depends(get_db),
-    current_user: User = Depends(get_current_active_user)
+    db: Session = Depends(get_db)
 ):
     """Add a compliance certificate to a vendor"""
     vendor = db.query(Vendor).filter(Vendor.id == vendor_id).first()
@@ -538,12 +538,37 @@ async def create_vendor_compliance_certificate(
             detail="Vendor not found"
         )
     
-    db_certificate = VendorComplianceCertificate(**certificate_data.dict(), vendor_id=vendor_id)
-    db.add(db_certificate)
-    db.commit()
-    db.refresh(db_certificate)
+    # Check if certificate with same number already exists for this vendor
+    existing_certificate = db.query(VendorComplianceCertificate).filter(
+        VendorComplianceCertificate.vendor_id == vendor_id,
+        VendorComplianceCertificate.certificate_number == certificate_data.certificate_number
+    ).first()
     
-    return db_certificate
+    if existing_certificate:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail=f"Certificate with number '{certificate_data.certificate_number}' already exists for this vendor"
+        )
+    
+    try:
+        db_certificate = VendorComplianceCertificate(**certificate_data.dict(), vendor_id=vendor_id)
+        db.add(db_certificate)
+        db.commit()
+        db.refresh(db_certificate)
+        
+        return db_certificate
+    except Exception as e:
+        db.rollback()
+        # Check if it's a unique constraint violation
+        if "uq_vendor_certificate_number" in str(e):
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail=f"Certificate with number '{certificate_data.certificate_number}' already exists for this vendor"
+            )
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to create certificate"
+        )
 
 
 @router.get("/{vendor_id}/compliance-certificates", response_model=List[VendorComplianceCertificateResponse])
@@ -630,6 +655,120 @@ async def delete_vendor_compliance_certificate(
     db.commit()
     
     return {"message": "Compliance certificate deleted successfully"}
+
+
+# Vendor Agreement Detail Endpoints
+@router.post("/{vendor_id}/agreement-details", response_model=VendorAgreementDetailResponse)
+async def create_vendor_agreement_detail(
+    vendor_id: int,
+    agreement_data: VendorAgreementDetailCreate,
+    db: Session = Depends(get_db)
+):
+    """Add a detailed agreement to a vendor"""
+    vendor = db.query(Vendor).filter(Vendor.id == vendor_id).first()
+    if not vendor:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Vendor not found"
+        )
+    
+    db_agreement = VendorAgreementDetail(**agreement_data.dict(), vendor_id=vendor_id)
+    db.add(db_agreement)
+    db.commit()
+    db.refresh(db_agreement)
+    
+    return db_agreement
+
+
+@router.get("/{vendor_id}/agreement-details", response_model=List[VendorAgreementDetailResponse])
+async def get_vendor_agreement_details(
+    vendor_id: int,
+    db: Session = Depends(get_db)
+):
+    """Get all detailed agreements for a vendor"""
+    vendor = db.query(Vendor).filter(Vendor.id == vendor_id).first()
+    if not vendor:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Vendor not found"
+        )
+    
+    agreements = db.query(VendorAgreementDetail).filter(
+        VendorAgreementDetail.vendor_id == vendor_id
+    ).all()
+    
+    return agreements
+
+
+@router.put("/{vendor_id}/agreement-details/{agreement_id}", response_model=VendorAgreementDetailResponse)
+async def update_vendor_agreement_detail(
+    vendor_id: int,
+    agreement_id: int,
+    agreement_data: VendorAgreementDetailUpdate,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_active_user)
+):
+    """Update a detailed agreement for a vendor"""
+    vendor = db.query(Vendor).filter(Vendor.id == vendor_id).first()
+    if not vendor:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Vendor not found"
+        )
+    
+    agreement = db.query(VendorAgreementDetail).filter(
+        VendorAgreementDetail.id == agreement_id,
+        VendorAgreementDetail.vendor_id == vendor_id
+    ).first()
+    
+    if not agreement:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Agreement not found"
+        )
+    
+    # Update only provided fields
+    update_data = agreement_data.dict(exclude_unset=True)
+    for field, value in update_data.items():
+        setattr(agreement, field, value)
+    
+    db.commit()
+    db.refresh(agreement)
+    
+    return agreement
+
+
+@router.delete("/{vendor_id}/agreement-details/{agreement_id}")
+async def delete_vendor_agreement_detail(
+    vendor_id: int,
+    agreement_id: int,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_active_user)
+):
+    """Delete a detailed agreement for a vendor"""
+    vendor = db.query(Vendor).filter(Vendor.id == vendor_id).first()
+    if not vendor:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Vendor not found"
+        )
+    
+    agreement = db.query(VendorAgreementDetail).filter(
+        VendorAgreementDetail.id == agreement_id,
+        VendorAgreementDetail.vendor_id == vendor_id
+    ).first()
+    
+    if not agreement:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Agreement not found"
+        )
+    
+    db.delete(agreement)
+    db.commit()
+    
+    return {"message": "Agreement deleted successfully"}
+
 
 @router.get("/{vendor_id}/export/pdf")
 async def export_vendor_pdf(
