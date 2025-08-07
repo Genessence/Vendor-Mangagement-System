@@ -50,6 +50,22 @@ async def get_vendor_approvals(
     return vendor.approvals
 
 
+@router.get("/vendor/{vendor_id}/public", response_model=List[VendorApprovalResponse])
+async def get_vendor_approvals_public(
+    vendor_id: int,
+    db: Session = Depends(get_db)
+):
+    """Get all approvals for a specific vendor (public endpoint)"""
+    vendor = db.query(Vendor).filter(Vendor.id == vendor_id).first()
+    if not vendor:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Vendor not found"
+        )
+    
+    return vendor.approvals
+
+
 @router.post("/vendor/{vendor_id}", response_model=VendorApprovalResponse)
 async def create_vendor_approval(
     vendor_id: int,

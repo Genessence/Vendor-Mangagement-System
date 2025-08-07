@@ -6955,3 +6955,660 @@
     "status_code": 401
   }
 }
+2025-08-07 19:44:15 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:14:15.543561",
+  "operation": "POST_/api/v1/auth/login",
+  "duration_ms": 352.83,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 19:44:15 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:14:15.639454",
+  "operation": "GET_/api/v1/auth/me",
+  "duration_ms": 25.26,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 19:44:17 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:14:17.539527",
+  "operation": "GET_/api/v1/vendors",
+  "duration_ms": 1.0,
+  "resource_usage": {
+    "status_code": 307
+  }
+}
+2025-08-07 19:44:17 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:14:17.665072",
+  "operation": "GET_/api/v1/vendors/",
+  "duration_ms": 117.54,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 19:44:19 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:14:19.485873",
+  "operation": "GET_/api/v1/vendors/14",
+  "duration_ms": 25.6,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 19:44:21 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:14:21.014596",
+  "operation": "GET_/api/v1/vendors/14/compliance-certificates",
+  "duration_ms": 10.71,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 19:44:21 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:14:21.527999",
+  "operation": "GET_/api/v1/vendors/14/agreement-details",
+  "duration_ms": 9.91,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 19:44:55 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:14:55.085812",
+  "operation": "POST_/api/v1/auth/login",
+  "duration_ms": 231.76,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 19:44:55 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:14:55.160004",
+  "operation": "GET_/api/v1/auth/me",
+  "duration_ms": 6.5,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 19:44:56 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:14:56.613809",
+  "operation": "GET_/api/v1/vendors",
+  "duration_ms": 1.0,
+  "resource_usage": {
+    "status_code": 307
+  }
+}
+2025-08-07 19:44:56 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:14:56.639504",
+  "operation": "GET_/api/v1/vendors/",
+  "duration_ms": 16.15,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 19:44:59 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:14:59.269189",
+  "operation": "GET_/api/v1/vendors/13",
+  "duration_ms": 13.87,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 19:45:02 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:15:02.570115",
+  "operation": "GET_/api/v1/documents/vendor/13",
+  "duration_ms": 12.22,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 19:45:02 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:15:02.624541",
+  "operation": "GET_/api/v1/documents/stats/vendor/13",
+  "duration_ms": 55.48,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 19:45:04 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:15:04.252926",
+  "operation": "GET_/api/v1/vendors/13/compliance-certificates",
+  "duration_ms": 7.62,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 19:45:04 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:15:04.904415",
+  "operation": "GET_/api/v1/vendors/13/agreement-details",
+  "duration_ms": 7.47,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 19:50:32 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:20:32.808192",
+  "operation": "GET_/api/v1/auth/me",
+  "duration_ms": 6.83,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 19:50:32 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:20:32.872433",
+  "operation": "GET_/api/v1/vendors/13",
+  "duration_ms": 30.04,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 19:50:44 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:20:44.917256",
+  "operation": "GET_/api/v1/auth/me",
+  "duration_ms": 4.7,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 19:50:44 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:20:44.970028",
+  "operation": "GET_/api/v1/vendors/13",
+  "duration_ms": 24.6,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 19:51:17 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:21:17.474710",
+  "operation": "GET_/api/v1/vendors/13/agreement-details",
+  "duration_ms": 9.98,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 19:59:55 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:29:55.597834",
+  "operation": "GET_/api/v1/auth/me",
+  "duration_ms": 10.55,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 19:59:55 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:29:55.659969",
+  "operation": "GET_/api/v1/vendors/13",
+  "duration_ms": 25.24,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 19:59:58 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:29:58.378883",
+  "operation": "GET_/api/v1/vendors/13/agreement-details",
+  "duration_ms": 20.62,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:00:03 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:30:03.613245",
+  "operation": "GET_/api/v1/auth/me",
+  "duration_ms": 11.39,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:00:03 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:30:03.684286",
+  "operation": "GET_/api/v1/vendors/13",
+  "duration_ms": 30.82,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:00:06 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:30:06.236342",
+  "operation": "GET_/api/v1/vendors/13/agreement-details",
+  "duration_ms": 8.91,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:00:14 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:30:14.105089",
+  "operation": "GET_/api/v1/auth/me",
+  "duration_ms": 19.28,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:00:14 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:30:14.225609",
+  "operation": "GET_/api/v1/vendors/13",
+  "duration_ms": 37.89,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:00:18 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:30:18.787842",
+  "operation": "GET_/api/v1/vendors/13/agreement-details",
+  "duration_ms": 37.81,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:09:08 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:39:08.290969",
+  "operation": "GET_/api/v1/auth/me",
+  "duration_ms": 9.2,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:09:08 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:39:08.358016",
+  "operation": "GET_/api/v1/vendors/13",
+  "duration_ms": 26.49,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:09:11 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:39:11.281956",
+  "operation": "GET_/api/v1/vendors/13/agreement-details",
+  "duration_ms": 8.26,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:12:30 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:42:30.152755",
+  "operation": "GET_/api/v1/auth/me",
+  "duration_ms": 13.11,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:12:30 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:42:30.241589",
+  "operation": "GET_/api/v1/vendors/13",
+  "duration_ms": 18.43,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:12:32 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:42:32.399880",
+  "operation": "GET_/api/v1/vendors/13/agreement-details",
+  "duration_ms": 15.01,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:16:52 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:46:52.785829",
+  "operation": "GET_/api/v1/auth/me",
+  "duration_ms": 0.0,
+  "resource_usage": {
+    "status_code": 401
+  }
+}
+2025-08-07 20:18:07 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:48:07.236488",
+  "operation": "POST_/api/v1/auth/login",
+  "duration_ms": 451.89,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:18:07 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:48:07.322388",
+  "operation": "GET_/api/v1/auth/me",
+  "duration_ms": 9.4,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:18:09 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:48:09.057142",
+  "operation": "GET_/api/v1/vendors",
+  "duration_ms": 4.02,
+  "resource_usage": {
+    "status_code": 307
+  }
+}
+2025-08-07 20:18:09 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:48:09.162032",
+  "operation": "GET_/api/v1/vendors/",
+  "duration_ms": 28.69,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:18:11 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:48:11.175493",
+  "operation": "GET_/api/v1/vendors/14",
+  "duration_ms": 13.83,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:18:14 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:48:14.128366",
+  "operation": "GET_/api/v1/vendors/14/agreement-details",
+  "duration_ms": 6.79,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:19:10 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:49:10.067993",
+  "operation": "GET_/api/v1/vendors",
+  "duration_ms": 13.88,
+  "resource_usage": {
+    "status_code": 307
+  }
+}
+2025-08-07 20:19:10 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:49:10.116341",
+  "operation": "GET_/api/v1/vendors/",
+  "duration_ms": 36.66,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:19:11 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:49:11.166122",
+  "operation": "GET_/api/v1/vendors",
+  "duration_ms": 0.0,
+  "resource_usage": {
+    "status_code": 307
+  }
+}
+2025-08-07 20:19:11 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:49:11.202512",
+  "operation": "GET_/api/v1/vendors/",
+  "duration_ms": 17.62,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:19:24 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:49:24.911919",
+  "operation": "GET_/api/v1/vendors",
+  "duration_ms": 0.0,
+  "resource_usage": {
+    "status_code": 307
+  }
+}
+2025-08-07 20:19:24 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:49:24.950761",
+  "operation": "GET_/api/v1/vendors/",
+  "duration_ms": 23.21,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:22:21 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:52:21.855342",
+  "operation": "GET_/api/v1/vendors/14",
+  "duration_ms": 16.77,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:22:33 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:52:33.071851",
+  "operation": "GET_/api/v1/vendors",
+  "duration_ms": 0.0,
+  "resource_usage": {
+    "status_code": 307
+  }
+}
+2025-08-07 20:22:33 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T14:52:33.098297",
+  "operation": "GET_/api/v1/vendors/",
+  "duration_ms": 13.28,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:30:14 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T15:00:14.181901",
+  "operation": "GET_/api/v1/auth/me",
+  "duration_ms": 7.07,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:30:14 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T15:00:14.200434",
+  "operation": "GET_/api/v1/vendors",
+  "duration_ms": 0.76,
+  "resource_usage": {
+    "status_code": 307
+  }
+}
+2025-08-07 20:30:14 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T15:00:14.215887",
+  "operation": "GET_/api/v1/vendors/",
+  "duration_ms": 6.47,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:30:41 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T15:00:41.313638",
+  "operation": "GET_/api/v1/auth/me",
+  "duration_ms": 16.79,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:30:41 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T15:00:41.334923",
+  "operation": "GET_/api/v1/vendors",
+  "duration_ms": 1.0,
+  "resource_usage": {
+    "status_code": 307
+  }
+}
+2025-08-07 20:30:41 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T15:00:41.349755",
+  "operation": "GET_/api/v1/vendors/",
+  "duration_ms": 6.49,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:30:43 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T15:00:43.952336",
+  "operation": "GET_/api/v1/auth/me",
+  "duration_ms": 7.58,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:30:43 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T15:00:43.969751",
+  "operation": "GET_/api/v1/vendors",
+  "duration_ms": 1.0,
+  "resource_usage": {
+    "status_code": 307
+  }
+}
+2025-08-07 20:30:43 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T15:00:43.983780",
+  "operation": "GET_/api/v1/vendors/",
+  "duration_ms": 6.22,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:31:11 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T15:01:11.953861",
+  "operation": "GET_/api/v1/auth/me",
+  "duration_ms": 8.85,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:31:11 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T15:01:11.979609",
+  "operation": "GET_/api/v1/vendors",
+  "duration_ms": 1.0,
+  "resource_usage": {
+    "status_code": 307
+  }
+}
+2025-08-07 20:31:11 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T15:01:11.995633",
+  "operation": "GET_/api/v1/vendors/",
+  "duration_ms": 7.16,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:31:17 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T15:01:17.196809",
+  "operation": "GET_/api/v1/auth/me",
+  "duration_ms": 62.46,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:31:17 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T15:01:17.227789",
+  "operation": "GET_/api/v1/vendors",
+  "duration_ms": 1.01,
+  "resource_usage": {
+    "status_code": 307
+  }
+}
+2025-08-07 20:31:17 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T15:01:17.329279",
+  "operation": "GET_/api/v1/vendors/",
+  "duration_ms": 92.45,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:31:41 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T15:01:41.510049",
+  "operation": "GET_/api/v1/auth/me",
+  "duration_ms": 8.68,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:31:41 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T15:01:41.532733",
+  "operation": "GET_/api/v1/vendors",
+  "duration_ms": 1.15,
+  "resource_usage": {
+    "status_code": 307
+  }
+}
+2025-08-07 20:31:41 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T15:01:41.546484",
+  "operation": "GET_/api/v1/vendors/",
+  "duration_ms": 6.75,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:31:51 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T15:01:51.376206",
+  "operation": "GET_/api/v1/auth/me",
+  "duration_ms": 5.17,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
+2025-08-07 20:31:51 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T15:01:51.390513",
+  "operation": "GET_/api/v1/vendors",
+  "duration_ms": 0.0,
+  "resource_usage": {
+    "status_code": 307
+  }
+}
+2025-08-07 20:31:51 | performance | INFO | Performance: {
+  "event_type": "PERFORMANCE_METRIC",
+  "timestamp": "2025-08-07T15:01:51.408832",
+  "operation": "GET_/api/v1/vendors/",
+  "duration_ms": 6.36,
+  "resource_usage": {
+    "status_code": 200
+  }
+}
