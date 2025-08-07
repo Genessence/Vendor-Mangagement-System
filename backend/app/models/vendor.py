@@ -17,7 +17,7 @@ class VendorStatus(str, enum.Enum):
 class VendorType(str, enum.Enum):
     MANUFACTURER = "manufacturer"
     SUPPLIER = "supplier"
-    SERVICE_PROVIDER = "service_proVIDER"
+    SERVICE_PROVIDER = "service_provider"
     DISTRIBUTOR = "distributor"
 
 

@@ -262,12 +262,14 @@ const PublicVendorRegistrationForm = () => {
           currency: formData.currency,
           
           // Supplier categorization
-          supplier_type: formData.supplierType,
+          supplier_type: formData.supplierType === 'service-provider' ? 'service_provider' : formData.supplierType,
           supplier_group: formData.supplierGroup,
-          supplier_category: formData.supplierCategory,
+          supplier_category: formData.supplierCategory === 'rw' ? 'rw-raw-material' : 
+                           formData.supplierCategory === 'pk' ? 'pk-packaging' : 
+                           formData.supplierCategory,
           annual_turnover: parseFloat(formData.annualTurnover),
           products_services: formData.productsServices,
-          msme_status: formData.msmeStatus,
+          msme_status: formData.msmeStatus === 'registered' ? 'msme' : (formData.msmeStatus === 'not-registered' ? 'non_msme' : 'pending'),
           msme_category: formData.msmeCategory,
           msme_number: formData.msmeNumber,
           industry_sector: formData.industrySector,
